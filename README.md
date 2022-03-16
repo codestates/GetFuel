@@ -25,7 +25,7 @@ The fastest way to find the cheapest gas station in your neighborhood! **GetFuel
 <a href="https://github.com/Best-engineer">구관모|Back-end</a>
 <a href="https://github.com/wjdgns950621">김정훈A|Front-end</a>
 <a href="https://github.com/JungHoon0814">김정훈B|Front-end</a>
-<a href="https://github.com/Daekuen">한대근|Front-end</a>
+<a href="https://github.com/Daekuen">한대근|Back-end</a>
 
 ## :eyes: For Project Details
 [Look into WIKI](https://github.com/codestates/GetFuel/wiki)
