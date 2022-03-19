@@ -50,8 +50,7 @@ export async function signin(req, res) {
 };
 
 export async function refresh(req, res) {
-  const refreshToken = req.cookies?.refreshToken;
-  console.log(req.cookies)
+  const refreshToken = req.cookies.refreshToken;
 
   if(!refreshToken) {
     return res.json( { data: null, message: ' refresh token not provided ' } )
@@ -84,7 +83,12 @@ export async function refresh(req, res) {
 }
 
 export async function signout(req, res) {
-
+  const refreshToken = req.cookies.refreshToken;
+  console.log(refreshToken)
+  if(!refreshToken) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+  res.clearCookie('refreshToken', { path: '/' } ).status(200).json({ message: 'Logout' })
 }
 
 export async function deleteAccount(req, res) {
