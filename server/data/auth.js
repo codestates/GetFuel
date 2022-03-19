@@ -22,7 +22,7 @@ export async function createUser(user) {
   return new User(user).save().then((data) => data.id)
 };
 
-export async function updateInfo(id, password) {
+export async function update(id, password) {
   return User.findByIdAndUpdate(id, { password }, { returnOriginal: false } );
 };
 
