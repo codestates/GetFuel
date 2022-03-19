@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import { userVirtualId } from '../database/database';
+import { userVirtualId } from '../database/database.js';
 
 const userSchema = new Mongoose.Schema({
   email: { type: String, required: true },
@@ -29,5 +29,3 @@ export async function updateInfo(id, password) {
 export async function removeUser(id) {
   return User.findByIdAndDelete(id)
 };
-
-
