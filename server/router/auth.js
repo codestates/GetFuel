@@ -6,8 +6,9 @@ const router = express.Router();
 
 router.post('/signup', authController.signup);
 router.post('/signin', authController.signin);
-//router.post('/singout', );
-//router.get('/refresh', );
+router.get('/refresh', );
+router.post('/singout', );
+router.delete('/deleteaccount', );
 
 
 export default router;

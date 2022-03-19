@@ -49,6 +49,10 @@ export async function signin(req, res) {
   res.status(200).json( { accessToken, email } );
 };
 
+export async function refresh(req, res) {
+  
+}
+
 export async function signout(req, res) {
 
 }
