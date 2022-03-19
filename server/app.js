@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import 'express-async-errors';
 import authRouter from './router/auth.js'
 import { connectDB } from './database/database.js';
@@ -15,6 +16,7 @@ app.use(express.urlencoded( { extended: false } ));
 app.use(cors());
 app.use(helmet());
 app.use(morgan('tiny'));
+app.use(cookieParser());
 
 app.use('/auth', authRouter);
 
@@ -26,6 +28,6 @@ app.use((error, req, res, next) => {
 })
 
 connectDB().then(() => {
-  console.log('connet!')
+  console.log('init!')
   app.listen(config.host.port);
 })
