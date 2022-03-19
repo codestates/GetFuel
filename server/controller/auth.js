@@ -92,5 +92,16 @@ export async function signout(req, res) {
 }
 
 export async function deleteAccount(req, res) {
-  
+  const id = req.params.id
+  const user = await usersRepository.findById(id);
+  console.log(req)
+  if(!user) {
+    return res.status(404).json({ message: ' 회원 정보를 찾을 수 없습니다. ' })
+  }
+
+  if(user.id !== req.userId) {
+    return res.sendStatus(403);
+  }
+  await usersRepository.removeUser(id);
+  res.sendStatus(204)
 }
