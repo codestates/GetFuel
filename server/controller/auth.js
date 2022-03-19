@@ -91,6 +91,23 @@ export async function signout(req, res) {
   res.clearCookie('refreshToken', { path: '/' } ).status(200).json({ message: 'Logout' })
 }
 
+export async function updateInfo(req, res) {
+  const { password } = req.body
+  const id = req.params.id
+  const user = await usersRepository.findById(id);
+  if(!user) {
+    return res.status(404).json({ message: ' 회원 정보를 찾을 수 없습니다. ' })
+  }
+
+  if(user.id !== req.userId) {
+    return res.sendStatus(403);
+  }
+
+  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
+  const updated = await usersRepository.update(id, hashed);
+  res.status(200).json(updated);
+}
+
 export async function deleteAccount(req, res) {
   const id = req.params.id
   const user = await usersRepository.findById(id);
