@@ -45,12 +45,42 @@ export async function signin(req, res) {
     { expiresIn: config.jwt.refresh_expiresInSec }
   );
 
-  res.cookie('refreshToken', refreshToken, { httpOnly: true })
+  res.cookie('refreshToken', refreshToken, { httpOnly: true });
   res.status(200).json( { accessToken, email } );
 };
 
 export async function refresh(req, res) {
-  
+  const refreshToken = req.cookies?.refreshToken;
+  console.log(req.cookies)
+
+  if(!refreshToken) {
+    return res.json( { data: null, message: ' refresh token not provided ' } )
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, config.jwt.refresh_secret);
+    const found = await usersRepository.findById(decoded.id);
+    if(!found) {
+      return res.status(403).json({ message: ' Forbidden ' })
+    }
+    const accessToken = jwt.sign(
+      { id: found.id },
+      config.jwt.access_secret,
+      { expiresIn: config.jwt.access_expiresInSec }
+    );
+    res.json( { accessToken, id: found.id , message: ' complete access token issuance ' } )
+  }
+  catch(error) {
+    console.log(error)
+    if(
+      error.name === 'TokenExpiredError'||
+      error.name === 'invalid signature'||
+      error.name === 'jwt malformed'
+      ) {
+      return res.status(401).json({ message: ' Unauthorized '})
+    }
+    next(error);
+  }
 }
 
 export async function signout(req, res) {
