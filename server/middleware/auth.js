@@ -10,8 +10,7 @@ export const isAuth = async (req, res, next) => {
   }
 
   const token = authHeader.split(' ')[1]; //access token
-
-
+  
   jwt.verify(token, config.jwt.access_secret, async(error, decoded) => {
     if(error) {
       return res.status(401).json( { message: 'Authentication Error' } )
@@ -25,5 +24,4 @@ export const isAuth = async (req, res, next) => {
     req.userId = user.id // req에 userId 추가 (custom)
     next();
   })
-
 } 
