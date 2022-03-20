@@ -84,7 +84,6 @@ export async function refresh(req, res) {
 
 export async function signout(req, res) {
   const refreshToken = req.cookies.refreshToken;
-  console.log(refreshToken)
   if(!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
@@ -111,7 +110,6 @@ export async function updateInfo(req, res) {
 export async function deleteAccount(req, res) {
   const id = req.params.id
   const user = await usersRepository.findById(id);
-  console.log(req)
   if(!user) {
     return res.status(404).json({ message: ' 회원 정보를 찾을 수 없습니다. ' })
   }
