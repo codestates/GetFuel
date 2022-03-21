@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import 'express-async-errors';
 import authRouter from './router/auth.js'
+import boardRouter from './router/posts.js'
 import { connectDB } from './database/database.js';
 import { config } from './configuration/config.js';
 
@@ -19,6 +20,7 @@ app.use(morgan('tiny'));
 app.use(cookieParser());
 
 app.use('/auth', authRouter);
+app.use('/posts', boardRouter);
 
 app.use((error, req, res, next) => {
   if(error) {

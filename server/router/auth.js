@@ -43,5 +43,4 @@ router.get('/signout', isAuth, authController.signout);
 router.put('/updateinfo/:id', isAuth, validateUpdateInfo, authController.updateInfo);
 router.delete('/deleteaccount/:id', isAuth, authController.deleteAccount);
 
-
 export default router;
