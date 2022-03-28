@@ -1,28 +1,71 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component } from 'react'
 import './Login.css'
 import GetFuel from '../GetFuel_logo.png'
-import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 import Nav from '../component/nav'
-
-export default function Login(props) {
-    //로그인 정보 상태
+import axios from 'axios'
 
 
-    return(
-        <div>
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+        };
+        this.inputHandler = this.inputHandler.bind(this);
+        this.loginRequestHandler = this.loginRequestHandler.bind(this);
+    }
+
+    inputHandler(e) {
+        this.setState({ [e.target.name]: e.target.value});
+    }
+
+    loginRequestHandler() {
+        const { email, password } = this.state;
+
+        axios
+        .post(
+            'http://localhost:3000/login',
+            { email, password },
+            {headers: {'Content-type': 'application/json'}}
+            ) // 배포완료되면 서버url로 변경
+        .then((res) => {
+            this.props.loginHandler(res.data);
+        }) // 여기서 맵구현페이지로 보내주면 app.js에서 삼항연산자 안써도됨
+        .catch((err) => {
+            return alert('이메일 혹은 비밀번호를 확인하세요.')
+        })
+    
+    }
+
+
+    render() {
+        return(
+            <div>
             <Nav />
             <div>
-                 <img className='logo2' src={GetFuel} />
+                <img className='logo2' src={GetFuel} />
             </div>
             <div className='user'>email</div>   
-            <input className='userInfo' type='text'></input>
+            <input className='userInfo'
+                    type='text'
+                    name='email'
+                    onChange={(e) => this.inputHandler(e)}
+                    value={this.state.email}
+                    />
             <div className='user'>password</div>   
-            <input className='userInfo' type='password'></input>
+            <input className='userInfo'
+                    type='password'
+                    name='password'
+                    onChange={(e) => this.inputHandler(e)}
+                    value={this.state.password}
+                    />
             <div>
-                <button className='button'>Login</button>
+                <button onClick={this.loginRequestHandler} className='button'>Login</button>
             </div>
-        </div>
+            </div>
     )
+    }
 }
 
+export default Login;
