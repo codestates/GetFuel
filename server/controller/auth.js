@@ -18,7 +18,6 @@ export async function signup(req, res) {
     nickname,
     password: hashed,
   })
-
   res.status(201).json({ userId, email });
 };
 
