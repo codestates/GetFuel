@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Map.css'
-import Nav from '../component/nav'
+import Nav from '../Component/Nav'
 
 
 class Map extends Component {

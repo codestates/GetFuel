@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Main.css'
-import Nav from '../component/nav'
+import Nav from '../Component/Nav'
 import image2 from '../image2.png'
 import kakao from '../kakao.png'
 import google from '../google.png'

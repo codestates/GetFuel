@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Login.css'
 import GetFuel from '../GetFuel_logo.png'
-import Nav from '../component/nav'
+import Nav from '../Component/Nav'
 import axios from 'axios'
 
 
