@@ -1,0 +1,34 @@
+.logo {
+  display: flex;
+  height: 15vh;
+  margin: 20px;
+}
+
+.logo2 {
+  height: 40vh;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  padding: 20px;
+}
+
+.user {
+  margin: 10px 10px 0;
+  display: flex;
+}
+
+.userInfo {
+  height: 30px;
+  width: 97%;
+  margin: 2px 10px 10px 10px;
+}
+
+.button {
+  width: 98%;
+  margin: 10px 10px 20px;
+  padding: 8px 12px;
+  background-color: greenyellow;
+  font-size: large;
+}
