@@ -11,21 +11,23 @@ userVirtualId(userSchema);
 const User = Mongoose.model('User', userSchema);
 
 export async function findByEmail(email) {
-  return User.findOne( { email } );
-};
+  return User.findOne({ email });
+}
 
 export async function findById(id) {
-  return User.findById(id)
-};
+  return User.findById(id);
+}
 
 export async function createUser(user) {
-  return new User(user).save().then((data) => data.id)
-};
+  return new User(user).save().then((data) => data.id);
+}
 
 export async function update(id, password) {
-  return User.findByIdAndUpdate(id, { password }, { returnOriginal: false } );
-};
+  return User.findByIdAndUpdate(id, { password }, { returnOriginal: false });
+}
 
 export async function removeUser(id) {
-  return User.findByIdAndDelete(id)
-};
+  return User.findByIdAndDelete(id);
+}
+
+export default User;
