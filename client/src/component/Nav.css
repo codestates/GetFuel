@@ -1,0 +1,11 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  align-items: center;
+}
+
+.navmenu a:hover {
+  background-color: greenyellow;
+  border-radius: 4px;
+}
