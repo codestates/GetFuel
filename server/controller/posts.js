@@ -1,4 +1,3 @@
-import Post from '../data/posts.js';
 import 'express-async-errors';
 import * as postsRepository from '../data/posts.js';
 
@@ -17,7 +16,6 @@ export async function updatePost(req, res) {
   const { text } = req.body;
   const postId = req.params.postid;
   const post = await postsRepository.getById(postId);
-  console.log(post);
   if (!post) {
     return res.Status(404).json({ message: 'Can not find this post' });
   }
@@ -25,7 +23,7 @@ export async function updatePost(req, res) {
     return res.sendStatus(403);
   }
 
-  const updated = await postsRepository.update(text, Id);
+  const updated = await postsRepository.update(text, id);
   res.status(200).json(updated);
 }
 
