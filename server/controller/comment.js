@@ -16,7 +16,6 @@ export async function createComment(req, res) {
     })
     .catch((err) => {
       console.log(err);
-      next(err);
     });
 }
 
@@ -29,7 +28,6 @@ export async function updateComment(req, res) {
     })
     .catch((err) => {
       console.log(err);
-      next(err);
     });
 }
 
@@ -41,6 +39,5 @@ export async function deleteComment(req, res) {
     })
     .catch((err) => {
       console.log(err);
-      next(err);
     });
 }
