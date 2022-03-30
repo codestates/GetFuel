@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Login.css'
+import styles from './Login.module.css'
 import GetFuel from '../GetFuel_logo.png'
 import Nav from '../Component/Nav'
 import axios from 'axios'
@@ -44,24 +44,24 @@ class Login extends Component {
             <div>
             <Nav />
             <div>
-                <img className='logo2' src={GetFuel} />
+                <img className={styles.logo2} src={GetFuel} />
             </div>
-            <div className='user'>email</div>   
-            <input className='userInfo'
+            <div className={styles.user}>email</div>   
+            <input className={styles.userInfo}
                     type='text'
                     name='email'
                     onChange={(e) => this.inputHandler(e)}
                     value={this.state.email}
                     />
-            <div className='user'>password</div>   
-            <input className='userInfo'
+            <div className={styles.user}>password</div>   
+            <input className={styles.userInfo}
                     type='password'
                     name='password'
                     onChange={(e) => this.inputHandler(e)}
                     value={this.state.password}
                     />
             <div>
-                <button onClick={this.loginRequestHandler} className='button'>Login</button>
+                <button onClick={this.loginRequestHandler} className={styles.button}>Login</button>
             </div>
             </div>
     )

@@ -1,8 +1,9 @@
 // import logo from './logo.svg';
-import './App.css';
+import styles from './App.module.css';
 import Login from './Page/Login'
 import Main from './Page/Main'
 import Map from './Page/Map'
+import Review from './Page/Review'
 import { Route } from 'react-router-dom'
 import React, { Component } from 'react';
 
@@ -34,7 +35,7 @@ class App extends Component {
   render() {
     const { isLogin } = this.state;
   return (
-    <div className="App">
+    <div className={styles.App}>
       <Route exact path='/'>
         <Main />
       </Route>
@@ -48,7 +49,9 @@ class App extends Component {
       <Route path='/map'>
         <Map />
       </Route>
-      
+      <Route path='/review'>
+        <Review />
+      </Route>
     </div>
   );
 }

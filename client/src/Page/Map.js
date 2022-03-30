@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Map.css'
+import styles from './Map.module.css'
 import Nav from '../Component/Nav'
 
 
