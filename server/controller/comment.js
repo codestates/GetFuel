@@ -8,8 +8,7 @@ export async function createComment(req, res) {
 
   // Allocate each of them to comment schema
   const newComment = new Comment({ text: text, author: userid });
-  res.status(201).json({ comment: newComment });
-  post
+  newComment
     .save()
     .then((data) => {
       res.json(data);
@@ -17,6 +16,7 @@ export async function createComment(req, res) {
     .catch((err) => {
       console.log(err);
     });
+  return res.status(201).json({ comment: newComment });
 }
 
 export async function updateComment(req, res) {

@@ -21,11 +21,5 @@ router.get('/', postsController.getPosts);
 router.post('/', isAuth, validatePost, postsController.createPost);
 router.put('/:postid', isAuth, validatePost, postsController.updatePost);
 router.delete('/:postid', isAuth, postsController.deletePost);
-<<<<<<< HEAD
 
-=======
-router.post('/:postid/comment', isAuth, postsController.createComment);
-router.put('/:postid/comment', isAuth, postsController.updateComment);
-router.delete('/:postid/comment', isAuth, postsController.deleteComment);
->>>>>>> 97294cb8bc4bcded2ddc441b01149617a3d93e27
 export default router;
