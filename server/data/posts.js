@@ -46,6 +46,13 @@ export async function remove(postId) {
   return Post.findByIdAndDelete(postId);
 }
 
+export async function getComment(postId, commentId) {
+  return Post.find(
+    { _id: postId },
+    { comments: { $elemMatch: { _id: commentId } } }
+  );
+}
+
 export async function makeComment(text, postId, userId) {
   return Post.findByIdAndUpdate(
     postId,
