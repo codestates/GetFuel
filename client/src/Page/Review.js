@@ -20,6 +20,11 @@ function Review () {
         setMsg(e.target.value)
     }
     
+    const handleDeleteReview = (deleteIndex) => {
+        const deleteReview = reviews.filter((idx) => idx !== deleteIndex);
+        setReviews(deleteReview); 
+    }
+
     const reviewsRender = (review, idx) => {
         return (
             <Comment
@@ -29,10 +34,7 @@ function Review () {
         )
     }
 
-    const handleDeleteReview = (deleteIndex) => {
-        const deleteReview = reviews.filter((review, idx) => idx !== deleteIndex);
-        setMsg(deleteReview); 
-    }
+    
 
     return (
         <div>
