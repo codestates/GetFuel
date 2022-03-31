@@ -1,5 +1,4 @@
 // import logo from './logo.svg';
-<<<<<<< HEAD
 import styles from './App.module.css';
 import Login from './Page/Login'
 import Main from './Page/Main'
@@ -7,17 +6,10 @@ import Map from './Page/Map'
 import Review from './Page/Review'
 import { Route } from 'react-router-dom'
 import React, { Component } from 'react';
-=======
-import './App.css';
-import Login from './Page/Login'
-import Main from './Page/Main'
-import { Link, Route, Switch } from 'react-router-dom'
->>>>>>> c9b8d8d1c90ddf63f80f21002627f1f7a0364802
 
 
 
 
-<<<<<<< HEAD
 class App extends Component {
   constructor(props) {
     super(props);
@@ -44,16 +36,10 @@ class App extends Component {
     const { isLogin } = this.state;
   return (
     <div className={styles.App}>
-=======
-function App() {
-  return (
-    <div className="App">
->>>>>>> c9b8d8d1c90ddf63f80f21002627f1f7a0364802
       <Route exact path='/'>
         <Main />
       </Route>
       <Route path='/login'>
-<<<<<<< HEAD
         {isLogin ? (
           <Map />
           ) : (
@@ -70,13 +56,5 @@ function App() {
   );
 }
 }
-=======
-        <Login />
-      </Route>
-      
-    </div>
-  );
-}
->>>>>>> c9b8d8d1c90ddf63f80f21002627f1f7a0364802
 
 export default App;
