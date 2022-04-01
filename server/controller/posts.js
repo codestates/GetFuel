@@ -54,6 +54,7 @@ export async function updateComment(req, res) {
   const { text } = req.body;
   const postId = req.params.postid;
   const commentId = req.query.commentId;
+
   const found = await postsRepository.getComment(postId, commentId);
 
   if (found[0].comments.length === 0) {
