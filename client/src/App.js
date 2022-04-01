@@ -47,10 +47,11 @@ export default function App () {
         <Main />
       </Route>
       <Route path='/login'>
-          <Login 
-            isLogin={isLogin}
-            handleResponseSuccess={handleResponseSuccess}
-          />
+        {isLogin ? (
+          <Map />
+          ) : (
+          <Login />
+        )}
       </Route>
       <Route path='/map'>
         <Map />
