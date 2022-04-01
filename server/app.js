@@ -21,6 +21,7 @@ app.use(cookieParser());
 
 app.use('/auth', authRouter);
 app.use('/posts', boardRouter);
+app.use('/opinet', opinetRouter);
 
 app.use((error, req, res, next) => {
   if (error) {
@@ -33,4 +34,3 @@ connectDB().then(() => {
   console.log('init!');
   app.listen(config.host.port);
 });
-
