@@ -1,9 +1,10 @@
-// import logo from './logo.svg';
 import styles from './App.module.css';
-import Login from './Page/login/Login'
-import Main from './Page/main/Main'
-import Map from './Page/map/Map'
-import Review from './Page/review/Review'
+import Login from './page/login/Login'
+import Main from './page/main/Main';
+import Map from './page/map/Map'
+import MapContainer from './page/MapContainer';
+import Review from './page/review/Review'
+import opinet from './service/opinet';
 import { Route, useHistory } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -43,20 +44,19 @@ export default function App () {
 
   return (
     <div className={styles.App}>
-      <Route exact path='/'>
+      <Route exact path="/">
         <Main />
       </Route>
-      <Route path='/login'>
-        {isLogin ? (
-          <Map />
-          ) : (
-          <Login />
-        )}
+      <Route path="/login">
+        <Login
+          isLogin={isLogin}
+          handleResponseSuccess={handleResponseSuccess}
+        />
       </Route>
-      <Route path='/map'>
-        <Map />
+      <Route path="/map">
+        <MapContainer opinet={opinet} />
       </Route>
-      <Route path='/review'>
+      <Route path="/review">
         <Review />
       </Route>
     </div>

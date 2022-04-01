@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import styles from './Map.module.css';
-import Nav from '../../component/nav/Nav';
+//import styles from './Map.module.css';
+//import Nav from '../../components/nav/Nav';
 
 class Map extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Login.module.css';
-import GetFuel from '../GetFuel_logo.png';
-import Nav from '../../component/nav/Nav';
+import GetFuel from '../../GetFuel_logo.png';
+import Nav from '../../components/nav/Nav';
 import axios from 'axios';
 
 class Login extends Component {
@@ -46,16 +46,16 @@ class Login extends Component {
         <div className={styles.user}>email</div>
         <input
           className={styles.userInfo}
-          type='text'
-          name='email'
+          type="text"
+          name="email"
           onChange={(e) => this.inputHandler(e)}
           value={this.state.email}
         />
         <div className={styles.user}>password</div>
         <input
           className={styles.userInfo}
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           onChange={(e) => this.inputHandler(e)}
           value={this.state.password}
         />

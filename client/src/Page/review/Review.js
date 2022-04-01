@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Review.module.css';
-import Comment from '../component/nav/Nav';
+import Comment from '../../components/comment/Comment';
 
 function Review() {
   const [reviews, setReviews] = useState([]);

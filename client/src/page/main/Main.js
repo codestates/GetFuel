@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Main.module.css'
-import Nav from '../../component/components/nav/Nav'
+import Nav from '../../components/nav/Nav'
 import image1 from '../../image1.png'
 import image2 from '../../image2.png'
 import kakao from '../../kakao.png'
