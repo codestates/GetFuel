@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  height: 5rem;
+  padding: 1em 1em;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
+}
+
+.img {
+  height: 100%;
+  margin-right: 0.5em;
+}
+
+.form {
+  display: flex;
+  flex-basis: 50%;
+}
+
+.input {
+  flex-basis: 100%;
+  font-size: 1.2rem;
+  outline: 0;
+}
+
+.button {
+  background-color: darkgrey;
+  outline: 0;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: rgba(184, 183, 183, 0.692);
+}
+
+.buttonImg {
+  height: 100%;
+  padding: 0.5em 0.2em;
+}

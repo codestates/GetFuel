@@ -3,7 +3,7 @@ dotenv.config();
 
 function required(key, defaultValue = undefined) {
   const value = process.env[key] || defaultValue;
-  if(value == null) {
+  if (value == null) {
     throw new Error(`Key ${key} is undefined`);
   }
   return value;
@@ -11,18 +11,21 @@ function required(key, defaultValue = undefined) {
 
 export const config = {
   db: {
-    host: required('DB_HOST')
+    host: required('DB_HOST'),
   },
   host: {
-    port: parseInt(required('HOST_PORT', 8080))
+    port: parseInt(required('HOST_PORT', 8080)),
   },
   bcrypt: {
-    saltRounds: parseInt(required('BCRYPT_SALT,ROUNDS', 12))
+    saltRounds: parseInt(required('BCRYPT_SALT,ROUNDS', 12)),
   },
-  jwt : {
+  jwt: {
     access_secret: required('JWT_ACCESS_SECRET'),
     refresh_secret: required('JWT_REFRESH_SECRET'),
     access_expiresInSec: required('JWT_ACCESS_EXPIRES'),
     refresh_expiresInSec: required('JWT_REFRESH_EXPIRES'),
-  }
-}
+  },
+  opinet: {
+    code: required('OPINET_API_CODE'),
+  },
+};
