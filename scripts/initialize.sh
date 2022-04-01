@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/Getfuel/server
-npm install npm -g
+cd /home/ubuntu/GetFuel/server
 npm install
 npm install pm2@latest -g
 sudo apt-get update

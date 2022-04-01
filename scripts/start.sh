@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/Getfuel/server
+cd /home/ubuntu/GetFuel/server
 
 export JWT_ACCESS_SECRET=$(aws ssm get-parameters --region us-east-1 --names JWT_ACCESS_SECRET --query Parameters[0].Value | sed 's/"//g')
 export JWT_REFRESH_SECRET=$(aws ssm get-parameters --region us-east-1 --names JWT_REFRESH_SECRET --query Parameters[0].Value | sed 's/"//g')
