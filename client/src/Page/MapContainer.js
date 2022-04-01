@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { coordiEPSTtoKATEC, coordiKATECtoEPSG } from '../utils/coordinate.js';
 import SearchBar from '../components/SearchBar.js';
+import './MapContainer.css';
 const { kakao } = window;
 
 const MapContainer = ({ opinet }) => {
@@ -12,6 +13,9 @@ const MapContainer = ({ opinet }) => {
   ]);
   const [coordiKatec, setcoordiKatec] = useState([]);
   const [stations, setStations] = useState([]);
+  const [markerPositions, setMarkerPositions] = useState([]);
+  const [markers, setMarkers] = useState([]);
+  const [clickedInfo, setClickedInfo] = useState();
 
   useEffect(() => {
     const container = document.getElementById('map');
@@ -84,7 +88,88 @@ const MapContainer = ({ opinet }) => {
     });
     setStations([...coordiConvert]);
   }, [coordiKatec]);
-  console.log(stations);
+
+  useEffect(() => {
+    if (kakaoMap === null) {
+      return;
+    }
+    const copiedStations = [...stations];
+    const markerData = copiedStations.map((station) => {
+      return {
+        id: station.UNI_ID,
+        title: station.OS_NM,
+        latlng: new kakao.maps.LatLng(station.GIS_X_COOR, station.GIS_Y_COOR),
+      };
+    });
+    setMarkerPositions([...markerData]);
+  }, [stations, kakaoMap]);
+
+  useEffect(() => {
+    if (kakaoMap === null) {
+      return;
+    }
+    const imageSrc = 'https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png';
+    const imageSize = new kakao.maps.Size(31, 35);
+    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    //make marker
+    const newMarkers = markerPositions.map((position) => {
+      const marker = new kakao.maps.Marker({
+        map: kakaoMap,
+        position: position.latlng,
+        title: position.title,
+        image: markerImage,
+        clickable: true,
+      });
+      //add click event at clicked marker
+      kakao.maps.event.addListener(marker, 'click', async () => {
+        const clicked = markerPositions.find(
+          (position) => position.title === marker.Gb
+        );
+        const clickedInfo = await opinet.stationInfo(clicked.id);
+
+        const content =
+          '<div class="wrap">' +
+          '  <div class="info">' +
+          '    <div class="title">' +
+          `      ${clickedInfo.OS_NM}` +
+          `      <div id=${clickedInfo.UNI_ID} class="close"></div>` +
+          '    </div>' +
+          '  </div>' +
+          '</div>';
+
+        const overlay = new kakao.maps.CustomOverlay({
+          map: kakaoMap,
+          position: marker.getPosition(),
+          content,
+        });
+        overlay.setMap(kakaoMap);
+        document
+          .querySelector(`#${clickedInfo.UNI_ID}`)
+          .addEventListener('click', function () {
+            overlay.setMap(null);
+          });
+      });
+
+      return marker;
+    });
+
+    setMarkers((markers) => {
+      markers.forEach((el) => el.setMap(null));
+
+      return markers.concat(newMarkers);
+    });
+
+    const positions = markerPositions.map((position) => position.latlng);
+    if (positions.length > 0) {
+      const bounds = positions.reduce(
+        (bounds, latlng) => bounds.extend(latlng),
+        new kakao.maps.LatLngBounds()
+      );
+      kakaoMap.setBounds(bounds);
+    }
+    kakaoMap.setLevel(6);
+  }, [kakaoMap, markerPositions]);
   return (
     <div>
       <SearchBar setSearchValue={setSearchValue} />
