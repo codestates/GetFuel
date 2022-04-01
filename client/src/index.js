@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import Opinet from './service/opinet.js';
+const opinet = new Opinet();
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <App opinet={opinet} />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import 'express-async-errors';
 import authRouter from './router/auth.js';
 import boardRouter from './router/posts.js';
+import opinetRouter from './router/opinet.js';
 import { connectDB } from './database/database.js';
 import { config } from './configuration/config.js';
 
