@@ -1,7 +1,7 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import SearchBar from '../component/SearchBar.js';
-
+import { coordiEPSTtoKATEC, coordiKATECtoEPSG } from '../utils/coordinate.js';
+import SearchBar from '../components/SearchBar.js';
 const { kakao } = window;
 
 const MapContainer = () => {
