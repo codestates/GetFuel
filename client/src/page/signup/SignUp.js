@@ -1,9 +1,12 @@
 import React from 'react';
+import axios from axios;
 import UserInformationForm from '../../components/userinformationform/UserInformationForm';
 import GetFuel from '../../GetFuel.png';
 import styles from './SignUp.module.css'
 
 const SignUp = () => {
+
+
     return (
         <div>
             <div className={styles.GetFuelLogo}>
