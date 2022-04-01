@@ -1,8 +1,6 @@
 import React from 'react'
-import GetFuel from '../../GetFuel.png'
 import styles from './Nav.module.css'
-
-
+import GetFuel from '../GetFuel_logo.png'
 
 
 function Nav () {
@@ -10,8 +8,8 @@ function Nav () {
         <div className={styles.nav}>
                 <img className={styles.logo} src={GetFuel} />
                 <div className={styles.menu}>
-                <a href='signup'><div className={styles.button}>Sign up</div></a>
-                <a href='login'><div className={styles.button}>Login</div></a>
+                <a href='signup'>Sign up</a>
+                <a href='login'>Login</a>
                 </div>
             </div>
     )
