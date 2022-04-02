@@ -58,15 +58,6 @@
   height: 75px;
 }
 
-span {
-  background: #2b2d36;
-  color: white;
-}
-
-.D047 {
-  font-weight: 400;
-}
-
 .carwash {
   color: #fff;
   background-image: linear-gradient(90deg, #15a5ee, #0901ff);
@@ -107,4 +98,5 @@ span {
 
 li span {
   font-weight: 800;
+  background: #2b2d36;
 }

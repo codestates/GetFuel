@@ -139,13 +139,16 @@ const MapContainer = ({ opinet }) => {
       });
       //add click event at clicked marker
       kakao.maps.event.addListener(marker, 'click', async () => {
-        console.log(marker.getPosition().La);
+        // marker 클릭시 중심좌표 이동
         setCenterCoordi([marker.getPosition().Ma, marker.getPosition().La]);
+        // clicked marker의 주유소 이름으로 markerPositions에서 일치하는 정보를 찾고 (주유소 코드 사용하기 위함)
         const clicked = markerPositions.find(
           (position) => position.title === marker.Gb
         );
+        // 주유소 코드로 axios 통신을 통해 해당 주유소 정보 가져옴 -> clikedInfo
         const clickedInfo = await opinet.stationInfo(clicked.id);
         console.log(clickedInfo);
+        // overlay HTML
         let content =
           '<div class="wrap">' +
           '  <div class="info">' +
@@ -166,12 +169,12 @@ const MapContainer = ({ opinet }) => {
             <span> --------- ${
               clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034').PRICE
             }원 </span>
-            <span>(${clickedInfo.OIL_PRICE.find(
+            <span> (${clickedInfo.OIL_PRICE.find(
               (oil) => oil.PRODCD === 'B034'
             ).TRADE_DT.replace(
               /(\d{4})(\d{2})(\d{2})/,
               '$1-$2-$3'
-            )} 기준)</span>
+            )} 기준) </span>
           </li>`;
         }
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027')) {
@@ -188,10 +191,10 @@ const MapContainer = ({ opinet }) => {
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047')) {
           content += `<li className="D047">
           <span> 경유 </span>
-          <span> --------------- ${
+          <span> ---------------- ${
             clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047').PRICE
           }원 </span>
-          <span>(${clickedInfo.OIL_PRICE.find(
+          <span> (${clickedInfo.OIL_PRICE.find(
             (oil) => oil.PRODCD === 'D047'
           ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
         </li>`;
@@ -209,8 +212,7 @@ const MapContainer = ({ opinet }) => {
         if (clickedInfo.LPG_TN === 'Y' || clickedInfo.LPG_TN === 'C') {
           content += '<span class="lpg">🔋 충전소</span>';
         }
-        content += '   </div>' + '    </div>' + '  </div>' + '</div>';
-
+        // make customOverlay
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
           position: marker.getPosition(),
@@ -218,6 +220,7 @@ const MapContainer = ({ opinet }) => {
           zIndex: 3,
         });
         overlay.setMap(kakaoMap);
+        // overlay close에 click event 줌.
         document
           .querySelector(`#${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
@@ -226,13 +229,13 @@ const MapContainer = ({ opinet }) => {
       });
       return marker;
     });
-
+    //
     setMarkers((markers) => {
       markers.forEach((el) => el.setMap(null));
-
-      return markers.concat(newMarkers);
+      //return markers.concat(newMarkers);
+      return newMarkers;
     });
-
+    // 검색시 markers 화면에 나오도록..
     const positions = markerPositions.map((position) => position.latlng);
     if (positions.length > 0) {
       const bounds = positions.reduce(
@@ -246,7 +249,7 @@ const MapContainer = ({ opinet }) => {
   return (
     <div>
       <SearchBar setSearchValue={setSearchValue} />
-      <div id="map" style={{ width: '100%', height: '585px' }}></div>
+      <div id="map" style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };
