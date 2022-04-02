@@ -60,10 +60,51 @@
 
 span {
   background: #2b2d36;
+  color: white;
+}
+
+.D047 {
+  font-weight: 400;
 }
 
 .carwash {
   color: #fff;
+  background-image: linear-gradient(90deg, #15a5ee, #0901ff);
+  font-weight: 700;
+  font-size: 11px;
+  margin-left: 5px;
+  border-radius: 3px;
+}
+
+.maint {
+  color: #fff;
   background-image: linear-gradient(90deg, #ff8901, #db1d5f);
   font-weight: 700;
+  margin-left: 5px;
+  border-radius: 3px;
+}
+
+.cvs {
+  color: #fff;
+  background-image: linear-gradient(90deg, #ec8bc7, #8c0890);
+  font-weight: 700;
+  margin-left: 5px;
+  border-radius: 3px;
+}
+
+.lpg {
+  color: #fff;
+  background-image: linear-gradient(90deg, #7df462, #079a27);
+  font-weight: 700;
+  margin-left: 5px;
+  border-radius: 3px;
+}
+
+.adress,
+.tel {
+  font-weight: 600;
+}
+
+li span {
+  font-weight: 800;
 }

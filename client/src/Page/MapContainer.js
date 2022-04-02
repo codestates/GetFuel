@@ -139,6 +139,8 @@ const MapContainer = ({ opinet }) => {
       });
       //add click event at clicked marker
       kakao.maps.event.addListener(marker, 'click', async () => {
+        console.log(marker.getPosition().La);
+        setCenterCoordi([marker.getPosition().Ma, marker.getPosition().La]);
         const clicked = markerPositions.find(
           (position) => position.title === marker.Gb
         );
@@ -153,14 +155,14 @@ const MapContainer = ({ opinet }) => {
           '    </div>' +
           '    <div class="body">' +
           '      <div className="desc">' +
-          `        <div className="adress">주소 : ${clickedInfo.NEW_ADR}</div>` +
-          `        <div className="tel">연락처 : ${clickedInfo.TEL}</div>` +
+          `        <div className="adress" style="font-weight: 700;">주소 : ${clickedInfo.NEW_ADR}</div>` +
+          `        <div className="tel" style="font-weight: 700;">연락처 : ${clickedInfo.TEL}</div>` +
           '      </div>' +
-          '      <h4> • 유가정보 </h4>' +
+          '      <h3> • 유가정보 </h3>' +
           '      <ul>';
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034')) {
           content += `<li className="B034">
-            <span> <i class="fa-solid fa-car-wash"></i>고급휘발유 </span>
+            <span> 고급휘발유 </span>
             <span> --------- ${
               clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034').PRICE
             }원 </span>
@@ -194,7 +196,20 @@ const MapContainer = ({ opinet }) => {
           ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
         </li>`;
         }
-        content += '      </ul>' + '    </div>' + '  </div>' + '</div>';
+        content += '      </ul>' + '      <div class="tags">';
+        if (clickedInfo.CAR_WASH_YN === 'Y') {
+          content += '<span class="carwash">🚘 세차장</span>';
+        }
+        if (clickedInfo.MAINT_YN === 'Y') {
+          content += '<span class="maint">🔧 경정비</span>';
+        }
+        if (clickedInfo.CVS_YN === 'Y') {
+          content += '<span class="cvs">🏪 편의점</span>';
+        }
+        if (clickedInfo.LPG_TN === 'Y' || clickedInfo.LPG_TN === 'C') {
+          content += '<span class="lpg">🔋 충전소</span>';
+        }
+        content += '   </div>' + '    </div>' + '  </div>' + '</div>';
 
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
@@ -209,7 +224,6 @@ const MapContainer = ({ opinet }) => {
             overlay.setMap(null);
           });
       });
-
       return marker;
     });
 
