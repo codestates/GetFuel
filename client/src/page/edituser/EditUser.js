@@ -1,5 +1,5 @@
 import React from 'react';
-import EditForm from '../../component/edit/EditForm';
+import EditForm from '../../components/edit/EditForm';
 import GetFuel from '../../GetFuel.png';
 import styles from './EditUser.module.css'
 
