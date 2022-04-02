@@ -44,19 +44,19 @@ export default function App ({ opinet }) {
 
   return (
     <div className={styles.App}>
-      <Route exact path="/">
+      <Route exact path='/'>
         <Main />
       </Route>
-      <Route path="/login">
+      <Route path='/login'>
         <Login
           isLogin={isLogin}
           handleResponseSuccess={handleResponseSuccess}
         />
       </Route>
-      <Route path="/map">
+      <Route path='/map'>
         <MapContainer opinet={opinet} />
       </Route>
-      <Route path="/review">
+      <Route path='/review'>
         <Review />
       </Route>
       <Route path="/signup" 
