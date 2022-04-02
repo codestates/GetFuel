@@ -15,9 +15,24 @@ const MapContainer = ({ opinet }) => {
   const [stations, setStations] = useState([]);
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
-  const [clickedInfo, setClickedInfo] = useState();
 
   useEffect(() => {
+    /* geolocation 활용 https 환경에서만 작동.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude; //위도
+        const lng = position.coords.longitude; //경도
+
+        const container = document.getElementById('map');
+        const options = {
+          center: new kakao.maps.LatLng(lng, lat),
+          level: 7,
+        };
+        const map = new kakao.maps.Map(container, options);
+        setKakaoMap(map); //여기까지가 지도 생성
+      });
+    }
+    */
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(centerCoordi[0], centerCoordi[1]),
@@ -108,8 +123,9 @@ const MapContainer = ({ opinet }) => {
     if (kakaoMap === null) {
       return;
     }
-    const imageSrc = 'https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png';
-    const imageSize = new kakao.maps.Size(31, 35);
+    const imageSrc =
+      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+    const imageSize = new kakao.maps.Size(24, 34);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
     //make marker
@@ -127,21 +143,64 @@ const MapContainer = ({ opinet }) => {
           (position) => position.title === marker.Gb
         );
         const clickedInfo = await opinet.stationInfo(clicked.id);
-
-        const content =
+        console.log(clickedInfo);
+        let content =
           '<div class="wrap">' +
           '  <div class="info">' +
           '    <div class="title">' +
           `      ${clickedInfo.OS_NM}` +
-          `      <div id=${clickedInfo.UNI_ID} class="close"></div>` +
+          `      <div id=${clickedInfo.UNI_ID} class="close">✕</div>` +
           '    </div>' +
-          '  </div>' +
-          '</div>';
+          '    <div class="body">' +
+          '      <div className="desc">' +
+          `        <div className="adress">주소 : ${clickedInfo.NEW_ADR}</div>` +
+          `        <div className="tel">연락처 : ${clickedInfo.TEL}</div>` +
+          '      </div>' +
+          '      <h4> • 유가정보 </h4>' +
+          '      <ul>';
+        if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034')) {
+          content += `<li className="B034">
+            <span> <i class="fa-solid fa-car-wash"></i>고급휘발유 </span>
+            <span> --------- ${
+              clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034').PRICE
+            }원 </span>
+            <span>(${clickedInfo.OIL_PRICE.find(
+              (oil) => oil.PRODCD === 'B034'
+            ).TRADE_DT.replace(
+              /(\d{4})(\d{2})(\d{2})/,
+              '$1-$2-$3'
+            )} 기준)</span>
+          </li>`;
+        }
+        if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027')) {
+          content += `<li className="B027">
+          <span> 휘발유 </span>
+          <span> ------------- ${
+            clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027').PRICE
+          }원 </span>
+          <span>(${clickedInfo.OIL_PRICE.find(
+            (oil) => oil.PRODCD === 'B027'
+          ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
+        </li>`;
+        }
+        if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047')) {
+          content += `<li className="D047">
+          <span> 경유 </span>
+          <span> --------------- ${
+            clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047').PRICE
+          }원 </span>
+          <span>(${clickedInfo.OIL_PRICE.find(
+            (oil) => oil.PRODCD === 'D047'
+          ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
+        </li>`;
+        }
+        content += '      </ul>' + '    </div>' + '  </div>' + '</div>';
 
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
           position: marker.getPosition(),
           content,
+          zIndex: 3,
         });
         overlay.setMap(kakaoMap);
         document
