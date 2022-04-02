@@ -1,11 +1,11 @@
 import styles from './App.module.css';
-import Login from './page/login/Login';
+import Login from './page/login/Login'
 import Main from './page/main/Main';
-import MapContainer from './Page/MapContainer';
-import Review from './Page/review/Review';
+import MapContainer from './page/MapContainer';
+import Review from './page/review/Review';
 import SignUp from './page/signup/SignUp';
 import EditUser from './page/edituser/EditUser';
-import { Route, useHistory } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -59,8 +59,12 @@ export default function App ({ opinet }) {
       <Route path='/review'>
         <Review />
       </Route>
-      <Route path='/signup' component={SignUp} />
-      <Route path='/edituser' component={EditUser} />
+      <Route path="/signup" 
+        component={SignUp}
+        />
+      <Route path="/edituser" 
+        component={EditUser}
+        />
     </div>
   );
 }
