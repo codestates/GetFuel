@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './EditForm.module.css';
 
 function EditForm() {
+  // 비밀번호를 서버에 보내줄 코드 
 
     return (
 

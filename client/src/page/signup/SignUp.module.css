@@ -24,7 +24,7 @@
     width: 45%;
     height: 200%;
     box-sizing: border-box;
-    background-color: greenyellow;
+    background-color: #0b409c;
     font-size: large;
 }
 .cancel_button {
@@ -32,7 +32,7 @@
     width: 45%;
     height: 200%;
     box-sizing: border-box;
-    background-color: greenyellow;
+    background-color: #0b409c;
     font-size: large;
 }
 
@@ -41,3 +41,4 @@
     color:purple;
     background-color: white;
 }
+
