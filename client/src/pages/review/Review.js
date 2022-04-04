@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './Review.module.css'
-import Comment from '../../component/comment/Comment'
+import Comment from '../../components/comment/Comment'
 
 
 

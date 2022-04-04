@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import styles from'./Main.module.css'
-import Nav from '../../component/nav/Nav'
+import Nav from '../../components/nav/Nav'
 import image2 from '../../image2.png'
 import kakao from '../../kakao.png'
 import google from '../../google.png'
 import getfuel_experience from '../../getfuel_experience.png'
-import {kakaoAuth} from './kakaoAuth'
+import {kakaoAuth} from '../../pages/main/kakaoAuth'
 
 export default function Main(){
 

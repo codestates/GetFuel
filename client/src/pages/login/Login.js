@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Login.module.css'
 import GetFuel from '../../GetFuel_logo.png'
-import Nav from '../../component/nav/Nav'
+import Nav from '../../components/nav/Nav'
 import axios from 'axios'
 
 // axios.defaults.withCredentials = true;
