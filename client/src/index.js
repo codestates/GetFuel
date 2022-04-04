@@ -5,6 +5,7 @@ import App from './App';
 //import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import Opinet from './service/opinet.js';
+
 const opinet = new Opinet();
 
 ReactDOM.render(

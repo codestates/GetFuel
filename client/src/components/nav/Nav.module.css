@@ -1,16 +1,20 @@
 .nav {
+  height: 100px;
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: #f5f5f5;
   align-items: center;
 }
 
 .logo {
-  width: 120px;
-  margin: 20px;
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 10px;
+  border: 3px double #0d3f9c;
+  border-radius: 50%;
 }
 
 .menu a:hover {
-  background-color: greenyellow;
+  background-color: #0dff9c;
   border-radius: 4px;
 }

@@ -1,10 +1,10 @@
 import styles from './App.module.css';
-import Login from './page/login/Login';
-import Main from './page/main/Main';
-import MapContainer from './page/MapContainer';
-import Review from './page/review/Review';
-import SignUp from './page/signup/SignUp';
-import EditUser from './page/edituser/EditUser';
+import Login from './pages/login/Login.js';
+import Main from './pages/main/Main.js';
+import MapContainer from './pages/MapContainer.js';
+import Review from './pages/review/Review.js';
+import SignUp from './pages/signup/SignUp.js';
+import EditUser from './pages/edituser/EditUser.js';
 import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -40,19 +40,19 @@ export default function App({ opinet }) {
 
   return (
     <div className={styles.App}>
-      <Route exact path='/'>
+      <Route exact path="/">
         <Main />
       </Route>
-      <Route path='/login'>
+      <Route path="/login">
         <Login
           isLogin={isLogin}
           handleResponseSuccess={handleResponseSuccess}
         />
       </Route>
-      <Route path='/map'>
+      <Route path="/map">
         <MapContainer opinet={opinet} />
       </Route>
-      <Route path='/review'>
+      <Route path="/review">
         <Review />
       </Route>
       <Route path='/signup' component={SignUp} />
