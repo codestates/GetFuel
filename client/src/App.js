@@ -1,13 +1,14 @@
 import styles from './App.module.css';
-import Login from './pages/login/Login.js';
-import Main from './pages/main/Main.js';
-import MapContainer from './pages/MapContainer.js';
-import Review from './pages/review/Review.js';
-import SignUp from './pages/signup/SignUp.js';
-import EditUser from './pages/edituser/EditUser.js';
+import Login from './pages/login/Login';
+import Main from './pages/main/Main';
+import MapContainer from './pages/MapContainer';
+import Review from './pages/review/Review';
+import SignUp from './pages/signup/SignUp';
+import EditUser from './pages/edituser/EditUser';
 import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import kakaoLogin from './pages/oauth/kakaoLogin';
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -34,25 +35,22 @@ export default function App({ opinet }) {
     });
   };
 
-  useEffect(() => {
-    isAuthenticated();
-  }, []);
-
   return (
     <div className={styles.App}>
-      <Route exact path="/">
+      <Route exact path='/'>
         <Main />
       </Route>
-      <Route path="/login">
+      <Route path='/login'>
         <Login
           isLogin={isLogin}
           handleResponseSuccess={handleResponseSuccess}
         />
       </Route>
-      <Route path="/map">
+      <Route path='/map'>
         <MapContainer opinet={opinet} />
       </Route>
-      <Route path="/review">
+      <Route path='kakaoLogin' component={kakaoLogin}></Route>
+      <Route path='/review'>
         <Review />
       </Route>
       <Route path='/signup' component={SignUp} />
