@@ -5,7 +5,6 @@ dotenv.config();
 
 export async function getTokens({ code }) {
   const url = 'https://oauth2.googleapis.com/token';
-  console.log('작동?');
   const values = {
     code,
     client_id: process.env.GOOGLE_CLIENT_ID,
@@ -38,7 +37,6 @@ export async function getGoogleUser({ id_token, access_token }) {
         },
       }
     );
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.error(`---------------Failed to fetch user`);

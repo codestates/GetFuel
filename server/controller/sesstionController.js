@@ -10,9 +10,7 @@ export default async function googleOauthHandler(req, res) {
   console.log({ code });
 
   try {
-    const { id_token, access_token } = await getGoogle.getTokens({
-      code,
-    });
+    const { id_token, access_token } = await getGoogle.getTokens({ code });
     console.log({ id_token, access_token });
 
     const googleUser = await getGoogle.getGoogleUser({

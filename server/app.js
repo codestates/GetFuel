@@ -9,6 +9,7 @@ import boardRouter from './router/posts.js';
 import opinetRouter from './router/opinet.js';
 import { connectDB } from './database/database.js';
 import { config } from './configuration/config.js';
+import googleOauthHandler from './controller/sesstionController.js';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/posts', boardRouter);
 app.use('/opinet', opinetRouter);
+app.get('/api/sessions/oauth/google', googleOauthHandler);
 
 app.use((error, req, res, next) => {
   if (error) {
