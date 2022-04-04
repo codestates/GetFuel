@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Login.module.css';
-import GetFuel from '../GetFuel_logo.png';
-import Nav from '../components/nav';
+import GetFuel from '../../GetFuel_logo.png';
+import Nav from '../../components/nav/Nav';
 import axios from 'axios';
 
 class Login extends Component {

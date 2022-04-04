@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Review.module.css';
-import Comment from '../components/nav';
+import Comment from '../../components/comment/Comment';
 
 function Review() {
   const [reviews, setReviews] = useState([]);
@@ -39,7 +39,7 @@ function Review() {
       <div className={styles.commentForm}>
         <textarea
           className={styles.comment}
-          placeholder="게시글 추가.."
+          placeholder='게시글 추가..'
           onChange={handleMsg}
         ></textarea>
         <button className={styles.submit} onClick={handleButtonClick}>

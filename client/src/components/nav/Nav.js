@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Nav.module.css'
-import GetFuel from '../GetFuel_logo.png'
+import GetFuel from '../../GetFuel_logo.png'
 
 
 function Nav () {
