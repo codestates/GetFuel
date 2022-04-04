@@ -1,13 +1,14 @@
 import styles from './App.module.css';
-import Login from './page/login/Login'
-import Main from './page/main/Main';
-import MapContainer from './page/MapContainer';
-import Review from './page/review/Review';
-import SignUp from './page/signup/SignUp';
-import EditUser from './page/edituser/EditUser';
+import Login from './pages/login/Login'
+import Main from './pages/main/Main';
+import MapContainer from './pages/MapContainer';
+import Review from './pages/review/Review';
+import SignUp from './pages/signup/SignUp';
+import EditUser from './pages/edituser/EditUser';
 import { Route, useHistory } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import kakaoLogin from './pages/main/kakaoLogin';
 
 
 
@@ -38,10 +39,6 @@ export default function App ({ opinet }) {
     });
   };
 
-  useEffect(() => {
-    isAuthenticated();
-  }, []);
-
   return (
     <div className={styles.App}>
       <Route exact path='/'>
@@ -56,6 +53,7 @@ export default function App ({ opinet }) {
       <Route path='/map'>
         <MapContainer opinet={opinet} />
       </Route>
+      <Route path='kakaoLogin' component={kakaoLogin}></Route>
       <Route path='/review'>
         <Review />
       </Route>
@@ -68,3 +66,4 @@ export default function App ({ opinet }) {
     </div>
   );
 }
+      

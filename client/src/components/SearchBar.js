@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
-
+import Nav from './nav/Nav.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 const SearchBar = ({ setSearchValue }) => {
   const inputRef = React.useRef();
 
@@ -12,27 +14,27 @@ const SearchBar = ({ setSearchValue }) => {
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>
-        <img
-          className={styles.img}
-          src="../img/getfuel.png"
-          alt="getfuel logo"
-        />
-        <h1 className={styles.title}>GetFuel</h1>
-      </div>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <input
-          className={styles.input}
-          type="search"
-          placeholder="지역명..."
-          ref={inputRef}
-        />
-        <button className={styles.button}>
-          <img src="../img/search.png" alt="search img" />
-        </button>
-      </form>
-    </header>
+    <>
+      <Nav />
+      <header className={styles.header}>
+        <div className={styles.div}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <input
+              className={styles.input}
+              type="search"
+              placeholder="지역을 입력하세요..."
+              ref={inputRef}
+            />
+            <button className={styles.button}>
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className={styles.img}
+              />
+            </button>
+          </form>
+        </div>
+      </header>
+    </>
   );
 };
 
