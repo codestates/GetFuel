@@ -1,10 +1,6 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
-<<<<<<< HEAD
 import Nav from './nav/Nav.js';
-=======
-import Nav from './nav';
->>>>>>> 3a513b67eae4b7bd5cb7154d723198649fa1f508
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 const SearchBar = ({ setSearchValue }) => {
