@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import Login from './pages/login/Login.js';
 import Main from './pages/main/Main.js';
-import MapContainer from './pages/MapContainer.js';
+import MapContainer from '../src/pages/map/MapContainer.js';
 import Review from './pages/review/Review.js';
 import SignUp from './pages/signup/SignUp.js';
 import EditUser from './pages/edituser/EditUser.js';
@@ -55,8 +55,8 @@ export default function App({ opinet }) {
       <Route path="/review">
         <Review />
       </Route>
-      <Route path='/signup' component={SignUp} />
-      <Route path='/edituser' component={EditUser} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/edituser" component={EditUser} />
     </div>
   );
 }

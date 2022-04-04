@@ -1,8 +1,12 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import { coordiEPSTtoKATEC, coordiKATECtoEPSG } from '../utils/coordinate.js';
-import SearchBar from '../components/SearchBar.js';
+import {
+  coordiEPSTtoKATEC,
+  coordiKATECtoEPSG,
+} from '../../utils/coordinate.js';
+import SearchBar from '../../components/searchbar/SearchBar.js';
 import './MapContainer.css';
+import axios from 'axios';
 
 const { kakao } = window;
 
@@ -229,7 +233,9 @@ const MapContainer = ({ opinet }) => {
         if (clickedInfo.LPG_YN === 'Y' || clickedInfo.LPG_YN === 'C') {
           content += '<span class="lpg">🔋 충전소</span>';
         }
+
         // make customOverlay
+
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
           position: marker.getPosition(),
