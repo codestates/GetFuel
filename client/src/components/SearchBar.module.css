@@ -19,7 +19,7 @@
 
 .input {
   width: 90%;
-  border: 3px solid #00b906;
+  border: 3px solid #0d3f9c;
   border-radius: 5px 0 0 5px;
   padding: px;
   height: 30px;
@@ -30,8 +30,8 @@
 .button {
   width: 40px;
   height: 30px;
-  border: 1px solid #00b906;
-  background: #00b906;
+  border: 1px solid #0d3f9c;
+  background: #0d3f9c;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
