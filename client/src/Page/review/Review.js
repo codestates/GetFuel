@@ -1,47 +1,51 @@
 import React, { useState } from "react";
 import styles from './Review.module.css'
-import Comment from '../Component/Comment'
+import Comment from '../../component/comment/Comment'
+
 
 
 function Review () {
     const [ reviews, setReviews ] = useState([]);
-    const [ msg, setMsg ] = useState('');
+    const [ text, setText ] = useState('');
 
+    // 게시글 submit 버튼
     const handleButtonClick = (e) => {
         const review = {
-            comment: msg,
-            createdAt: new Date().toLocaleDateString('ko-KR')
+            post: text,
+            createdAt: new Date().toLocaleDateString('ko-KR'),
         }
         const newReview = [review, ...reviews];
         setReviews(newReview);
     }
 
-    const handleMsg = (e) => {
-        setMsg(e.target.value)
+    // 게시글 내용
+    const handlePostText = (e) => {
+        setText(e.target.value)
     }
-    
+    // 게시글 삭제
     const handleDeleteReview = (deleteIndex) => {
         const deleteReview = reviews.filter((idx) => idx !== deleteIndex);
         setReviews(deleteReview); 
     }
 
+    // 게시글 보여주기
     const reviewsRender = (review, idx) => {
         return (
             <Comment
+            key={idx}
             review={review}
             handleDeleteReview={handleDeleteReview}
-            idx={idx} />
+            />
         )
     }
-
-    
 
     return (
         <div>
             <div className={styles.commentForm}>
                 <textarea className={styles.comment}
                             placeholder="게시글 추가.."
-                            onChange={handleMsg}
+                            onChange={handlePostText}
+                            value={text}
                             ></textarea>
                 <button className={styles.submit}
                         onClick={handleButtonClick}>submit</button>

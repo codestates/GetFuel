@@ -3,10 +3,10 @@ import styles from './Comment.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencil } from "@fortawesome/free-solid-svg-icons"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
-import Reply from "./Reply";
+import Reply from "../reply/Reply";
 
-const Comment = ({ review, handleDeleteReview, idx }) => {
-    const parseDate = new Date().toLocaleDateString('ko-kr')   
+function Comment ({ review, handleDeleteReview, idx }) {
+    const parseDate = new Date().toLocaleDateString('ko-kr')
 
     return(
 
@@ -27,7 +27,7 @@ const Comment = ({ review, handleDeleteReview, idx }) => {
                     </button>
                 </div>                    
             </div>
-            <div className={styles.comment}>{review.comment}</div>
+            <div className={styles.comment}>{review.post}</div>
             <Reply />
         </div>
     </li>
