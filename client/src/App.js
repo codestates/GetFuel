@@ -1,10 +1,10 @@
 import styles from './App.module.css';
-import Login from './page/login/Login.js';
-import Main from './page/main/Main.js';
-import MapContainer from './page/MapContainer.js';
-import Review from './page/review/Review.js';
-import SignUp from './page/signup/SignUp.js';
-import EditUser from './page/edituser/EditUser.js';
+import Login from './pages/login/Login.js';
+import Main from './pages/main/Main.js';
+import MapContainer from './pages/MapContainer.js';
+import Review from './pages/review/Review.js';
+import SignUp from './pages/signup/SignUp.js';
+import EditUser from './pages/edituser/EditUser.js';
 import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
