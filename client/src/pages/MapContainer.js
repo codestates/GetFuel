@@ -34,6 +34,7 @@ const MapContainer = ({ opinet }) => {
     }
   };
 
+
   useEffect(() => {
     /* geolocation 활용 https 환경에서만 작동.
     if (navigator.geolocation) {
