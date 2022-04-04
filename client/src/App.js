@@ -55,8 +55,8 @@ export default function App({ opinet }) {
       <Route path="/review">
         <Review />
       </Route>
-      <Route path="/signup" component={SignUp} />
-      <Route path="/edituser" component={EditUser} />
+      <Route path='/signup' component={SignUp} />
+      <Route path='/edituser' component={EditUser} />
     </div>
   );
 }
