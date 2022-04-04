@@ -60,16 +60,15 @@
 
 .carwash {
   color: #fff;
-  background-image: linear-gradient(90deg, #15a5ee, #0901ff);
+  background-image: linear-gradient(90deg, #54aef8, #3a34ea);
   font-weight: 700;
-  font-size: 11px;
   margin-left: 5px;
   border-radius: 3px;
 }
 
 .maint {
   color: #fff;
-  background-image: linear-gradient(90deg, #ff8901, #db1d5f);
+  background-image: linear-gradient(90deg, #69d75c, #247711);
   font-weight: 700;
   margin-left: 5px;
   border-radius: 3px;
@@ -77,7 +76,7 @@
 
 .cvs {
   color: #fff;
-  background-image: linear-gradient(90deg, #ec8bc7, #8c0890);
+  background-image: linear-gradient(90deg, #f49ad2, #a318a8);
   font-weight: 700;
   margin-left: 5px;
   border-radius: 3px;
@@ -85,7 +84,7 @@
 
 .lpg {
   color: #fff;
-  background-image: linear-gradient(90deg, #7df462, #079a27);
+  background-image: linear-gradient(90deg, #ffb158, #db1d5f);
   font-weight: 700;
   margin-left: 5px;
   border-radius: 3px;

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { coordiEPSTtoKATEC, coordiKATECtoEPSG } from '../utils/coordinate.js';
 import SearchBar from '../components/SearchBar.js';
 import './MapContainer.css';
+
 const { kakao } = window;
 
 const MapContainer = ({ opinet }) => {
@@ -123,9 +124,8 @@ const MapContainer = ({ opinet }) => {
     if (kakaoMap === null) {
       return;
     }
-    const imageSrc =
-      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
-    const imageSize = new kakao.maps.Size(24, 34);
+    const imageSrc = '../../img/station.png';
+    const imageSize = new kakao.maps.Size(38, 38);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
     //make marker
@@ -209,7 +209,7 @@ const MapContainer = ({ opinet }) => {
         if (clickedInfo.CVS_YN === 'Y') {
           content += '<span class="cvs">🏪 편의점</span>';
         }
-        if (clickedInfo.LPG_TN === 'Y' || clickedInfo.LPG_TN === 'C') {
+        if (clickedInfo.LPG_YN === 'Y' || clickedInfo.LPG_YN === 'C') {
           content += '<span class="lpg">🔋 충전소</span>';
         }
         // make customOverlay
