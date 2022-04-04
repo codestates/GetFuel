@@ -17,6 +17,23 @@ const MapContainer = ({ opinet }) => {
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
 
+  const geo = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude; //위도
+        const lng = position.coords.longitude; //경도
+
+        const container = document.getElementById('map');
+        const options = {
+          center: new kakao.maps.LatLng(lng, lat),
+          level: 6,
+        };
+        const map = new kakao.maps.Map(container, options);
+        setKakaoMap(map); //여기까지가 지도 생성
+      });
+    }
+  };
+
   useEffect(() => {
     /* geolocation 활용 https 환경에서만 작동.
     if (navigator.geolocation) {
@@ -37,7 +54,7 @@ const MapContainer = ({ opinet }) => {
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(centerCoordi[0], centerCoordi[1]),
-      level: 7,
+      level: 6,
     };
     const map = new kakao.maps.Map(container, options);
     setKakaoMap(map); //여기까지가 지도 생성
