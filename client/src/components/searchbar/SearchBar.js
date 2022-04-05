@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 import MapNav from '../mapNav/MapNav.js';
 import StationList from '../stationList/stationList.js';
@@ -15,6 +15,8 @@ const SearchBar = ({
   markers,
   opinet,
 }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const inputRef = React.useRef();
 
   const handleSubmit = (event) => {
@@ -22,6 +24,10 @@ const SearchBar = ({
     const value = inputRef.current.value;
     setSearchValue(value);
     inputRef.current.value = '';
+  };
+
+  const handleSidebar = () => {
+    setIsClicked(!isClicked);
   };
 
   const saveOpinetData = (copiedStationsInfo) => {
@@ -74,9 +80,12 @@ const SearchBar = ({
               type="button"
               value={'가격순 보기'}
               className={styles.menu_btn}
+              onClick={handleSidebar}
             />
           </label>
-          <section className={styles.section}>
+          <section
+            className={isClicked ? styles.clickedSection : styles.section}
+          >
             <button className={styles.oil_btn_g} onClick={getPremium}>
               고급휘발유
             </button>

@@ -37,7 +37,7 @@
   font-weight: 700;
   color: #0b409c;
 }
-section {
+.section {
   background-color: #0b409c;
   color: #fff;
   width: 300px;
@@ -45,6 +45,20 @@ section {
   padding-top: 30px;
   position: absolute;
   top: 3.5rem;
+  left: -300px;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.clickedSection {
+  background-color: #0b409c;
+  color: #fff;
+  width: 300px;
+  margin-left: -16px;
+  padding-top: 30px;
+  position: absolute;
+  top: 3.5rem;
+  left: 0px;
   transition: 1s ease;
   z-index: 2;
 }
