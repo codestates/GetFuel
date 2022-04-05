@@ -88,13 +88,13 @@ const SearchBar = ({
             className={isClicked ? styles.clickedSection : styles.section}
           >
             <div className={styles.btn_div}>
-              <button className={styles.oil_btn_g} onClick={getPremium}>
+              <button className={styles.oil_btn} onClick={getPremium}>
                 고급휘발유
               </button>
-              <button className={styles.oil_btn_g} onClick={getGasoline}>
+              <button className={styles.oil_btn} onClick={getGasoline}>
                 휘발유
               </button>
-              <button className={styles.oil_btn_d} onClick={getDiesel}>
+              <button className={styles.oil_btn} onClick={getDiesel}>
                 경 유
               </button>
             </div>
