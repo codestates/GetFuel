@@ -1,10 +1,12 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
+import { Route, useHistory } from 'react-router-dom';
 import {
   coordiEPSTtoKATEC,
   coordiKATECtoEPSG,
 } from '../../utils/coordinate.js';
 import SearchBar from '../../components/searchbar/SearchBar.js';
+import Review from '../review/Review.js';
 import './MapContainer.css';
 import axios from 'axios';
 
@@ -20,6 +22,8 @@ const MapContainer = ({ opinet }) => {
   const [stations, setStations] = useState([]);
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
+
+  const history = useHistory();
 
   const geo = () => {
     if (navigator.geolocation) {
@@ -233,7 +237,10 @@ const MapContainer = ({ opinet }) => {
         if (clickedInfo.LPG_YN === 'Y' || clickedInfo.LPG_YN === 'C') {
           content += '<span class="lpg">🔋 충전소</span>';
         }
-
+        content +=
+          '<div>' +
+          `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
+          '</div>';
         // make customOverlay
 
         const overlay = new kakao.maps.CustomOverlay({
@@ -244,6 +251,17 @@ const MapContainer = ({ opinet }) => {
         });
         overlay.setMap(kakaoMap);
         // overlay close에 click event 줌.
+        document
+          .querySelector(`#btn${clickedInfo.UNI_ID}`)
+          .addEventListener('click', function () {
+            // axios -> 게시물 정보 가져와서 -> state에 저장 -> props review -> review map
+            // clickedStation props reviw page -> UNI_ID -> 통신을 한다....
+
+            //axios를 사용 할 때 url에 코드가 들어가야된다.
+
+            history.push(`/review/${clickedInfo.UNI_ID}`);
+          });
+
         document
           .querySelector(`#${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
@@ -269,10 +287,12 @@ const MapContainer = ({ opinet }) => {
     }
     kakaoMap.setLevel(6);
   }, [kakaoMap, markerPositions]);
+
   return (
     <div>
       <SearchBar setSearchValue={setSearchValue} />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      <Route path="/review/:code" component={Review} />
     </div>
   );
 };
