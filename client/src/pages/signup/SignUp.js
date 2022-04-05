@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Modal from '../../components/modal/SignUpModal';
-import GetFuel from '../../GetFuel1.png';
+import GetFuel from '../../image/GetFuel1.png';
 import styles from './SignUp.module.css';
-
-axios.defaults.withCredentials = true;
+import SignuUpModal from './SignUpModal.js';
 
 export default function SignUp() {
   const [signupInfo, setSignupInfo] = useState({
@@ -14,23 +12,26 @@ export default function SignUp() {
     password: '',
   });
 
-  const [isnicknamem, setIsNickname] = useState('');
+  const [isNickname, setIsNickname] = useState('');
   const [isEmail, setIsEmail] = useState('');
   const [isPassword, setIsPassword] = useState('');
   const [isConfirmPassword, setIsConfirmPassword] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
+
   //const history = useHistory();
   // 정보를 입력하는 함수
   const handleInputValue = (key) => (e) => {
     setSignupInfo({ ...signupInfo, [key]: e.target.value });
   };
 
+  const history = useHistory();
+
   // Signup버튼 클릭시 post
   const handleSignup = () => {
     const { nickname, email, password } = signupInfo;
 
-    if (signupInfo) {
+    if (nickname && email && password) {
       axios
         .post(
           'http://localhost:8080/auth/signup',
@@ -41,28 +42,27 @@ export default function SignUp() {
           }
         )
         .then((res) => {
-          console.log(res.data);
-          handleRespoaseSuccess();
+          console.log(res);
+          history.push('/login');
         })
-        .catch((err) => setErrorMessage('오류 투성이..'));
-    } else {
-      setErrorMessage('모든 항목은 필수입니다.');
-      console.log('확인창');
+        .catch((err) => {
+          const messageFromServer = err;
+          if (messageFromServer.response.data.field === 'password') {
+            setIsPassword(messageFromServer.response.data.message);
+          } else if (messageFromServer.response.data.field === 'email') {
+            setIsEmail(messageFromServer.response.data.message);
+          } else if (messageFromServer.response.data.field === 'nickname') {
+            setIsNickname(messageFromServer.response.data.message);
+          }
+        });
     }
   };
 
   // 모달 온오프..
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isOpenPolicyModal, setIsOpenPolicyModal] = useState(false);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleRespoaseSuccess = () => {
-    openModal();
+  const openPolicyModalHandler = () => {
+    setIsOpenPolicyModal(!isOpenPolicyModal);
   };
 
   return (
@@ -70,8 +70,6 @@ export default function SignUp() {
       <div className={styles.GetFuelLogo}>
         <img className={styles.signup_logo} src={GetFuel} />
       </div>
-
-      {/* <Modal open={modalOpen} close={closeModal}></Modal> */}
 
       <form className={styles.inputform} onSubmit={(e) => e.preventDefault()}>
         <div className={styles.email}>Email</div>
@@ -81,7 +79,7 @@ export default function SignUp() {
           placeholder='이메일을 입력하세요'
           onChange={handleInputValue('email')}
         />
-        <div className={styles.alert}>{errorMessage}</div>
+        <div className={styles.errorword}>{isEmail}</div>
 
         <div className={styles.nickname}>Nickname</div>
         <input
@@ -90,6 +88,7 @@ export default function SignUp() {
           placeholder='사용할 닉네임을 입력하세요'
           onChange={handleInputValue('nickname')}
         />
+        <div className={styles.errorword}>{isNickname}</div>
 
         <div className={styles.password}>Password</div>
         <input
@@ -98,7 +97,7 @@ export default function SignUp() {
           placeholder='비밀번호를 입력하세요'
           onChange={handleInputValue('password')}
         />
-
+        <div className={styles.errorword}>{isPassword}</div>
         <div className={styles.reenterpassword}>Confirmpassword</div>
         <input
           className={styles.userinfo}
@@ -108,15 +107,23 @@ export default function SignUp() {
         />
 
         <div className={styles.button_bundle}>
-          <button onClick={handleSignup} className={styles.signup_button}>
+          <button
+            // onClick={handleSignup}
+            onClick={openPolicyModalHandler}
+            className={styles.signup_button}
+          >
             Sign Up
           </button>
-
-          <a href='/' data-role='button' data-inline='true'>
+          <Link to='/'>
             <button className={styles.cancel_button}>Cancel</button>
-          </a>
+          </Link>
         </div>
       </form>
+      <div>
+        {isOpenPolicyModal ? (
+          <SignuUpModal openPolicyModalHandler={openPolicyModalHandler} />
+        ) : null}
+      </div>
     </div>
   );
 }
