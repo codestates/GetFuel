@@ -8,14 +8,16 @@ import Reply from "../reply/Reply";
 function Comment ({ review, handleDeleteReview, idx }) {
     const parseDate = new Date().toLocaleDateString('ko-kr')
 
+    // const = axios.get(`http://localhost:8080/posts`)
+
     return(
 
     <li className={styles.review}>
         <div className={styles.content}>
             <div className={styles.userInfo}>
                 <div>
-                    <span className={styles.username}>김정훈</span>
-                    <span className={styles.createdAt}>{parseDate}</span>
+                    <div className={styles.username}>김정훈</div>
+                    <div className={styles.createdAt}>{parseDate}</div>
                 </div>
                 <div>
                     <button className={styles.modify}>
