@@ -5,6 +5,13 @@
   align-items: center;
   padding-bottom: 8px;
   border-bottom: 1px solid rgb(185, 185, 185);
+  cursor: pointer;
+}
+
+.station_li:hover {
+  background: #f5f5f5;
+  transition: 1s ease;
+  color: #0b409c;
 }
 
 .station_logo {
@@ -24,6 +31,6 @@
 }
 
 .station_price {
-  display: inline-block;
+  width: 16%;
   text-align: right;
 }

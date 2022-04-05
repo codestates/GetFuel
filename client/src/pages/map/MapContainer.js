@@ -8,7 +8,6 @@ import {
 import SearchBar from '../../components/searchbar/SearchBar.js';
 import Review from '../review/Review.js';
 import './MapContainer.css';
-
 const { kakao } = window;
 
 const MapContainer = ({ opinet }) => {
@@ -284,7 +283,7 @@ const MapContainer = ({ opinet }) => {
       );
       kakaoMap.setBounds(bounds);
     }
-    kakaoMap.setLevel(6);
+    kakaoMap.setLevel(7);
   }, [kakaoMap, markerPositions]);
 
   return (

@@ -37,6 +37,12 @@
   font-weight: 700;
   color: #0b409c;
 }
+
+.btn_div {
+  border-bottom: 2px solid #7d7c7d;
+  margin-top: -10px;
+  padding-bottom: 8px;
+}
 .section {
   background-color: #0b409c;
   color: #fff;

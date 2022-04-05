@@ -69,6 +69,7 @@ const SearchBar = ({
     const copiedStationsInfo = [...stationsInfo];
     saveOpinetData(copiedStationsInfo);
   };
+
   return (
     <>
       <MapNav />
@@ -86,16 +87,18 @@ const SearchBar = ({
           <section
             className={isClicked ? styles.clickedSection : styles.section}
           >
-            <button className={styles.oil_btn_g} onClick={getPremium}>
-              고급휘발유
-            </button>
-            <button className={styles.oil_btn_g} onClick={getGasoline}>
-              휘발유
-            </button>
-            <button className={styles.oil_btn_d} onClick={getDiesel}>
-              경 유
-            </button>
-            <StationList stations={stations} />
+            <div className={styles.btn_div}>
+              <button className={styles.oil_btn_g} onClick={getPremium}>
+                고급휘발유
+              </button>
+              <button className={styles.oil_btn_g} onClick={getGasoline}>
+                휘발유
+              </button>
+              <button className={styles.oil_btn_d} onClick={getDiesel}>
+                경 유
+              </button>
+            </div>
+            <StationList stations={stations} markers={markers} />
           </section>
           <div className={styles.form_div}>
             <form className={styles.form} onSubmit={handleSubmit}>
