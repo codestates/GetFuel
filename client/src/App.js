@@ -8,6 +8,7 @@ import EditUser from './pages/edituser/EditUser.js';
 import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import kakaoLogin from './pages/main/kakaoLogin';
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -34,10 +35,6 @@ export default function App({ opinet }) {
     });
   };
 
-  useEffect(() => {
-    isAuthenticated();
-  }, []);
-
   return (
     <div className={styles.App}>
       <Route exact path="/">
@@ -52,6 +49,7 @@ export default function App({ opinet }) {
       <Route path="/map">
         <MapContainer opinet={opinet} />
       </Route>
+      <Route path="kakaoLogin" component={kakaoLogin}></Route>
       <Route path="/review">
         <Review />
       </Route>
