@@ -8,7 +8,6 @@ import {
 import SearchBar from '../../components/searchbar/SearchBar.js';
 import Review from '../review/Review.js';
 import './MapContainer.css';
-import axios from 'axios';
 
 const { kakao } = window;
 
@@ -287,7 +286,7 @@ const MapContainer = ({ opinet }) => {
     }
     kakaoMap.setLevel(6);
   }, [kakaoMap, markerPositions]);
-  console.log(stations);
+
   return (
     <div>
       <SearchBar
@@ -299,7 +298,9 @@ const MapContainer = ({ opinet }) => {
         opinet={opinet}
       />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
-      <Route path="/review/:code" component={Review} />
+      <Route path="/review/:code">
+        <Review />
+      </Route>
     </div>
   );
 };

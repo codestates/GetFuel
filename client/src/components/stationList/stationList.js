@@ -10,7 +10,7 @@ const StationList = ({ stations }) => {
     <ul styles={styles.price_ul}>
       {stations.map((station) => {
         return (
-          <li className={styles.station_li}>
+          <li className={styles.station_li} key={station.UNI_ID}>
             {station.POLL_DIV_CD === 'SOL' && (
               <img
                 src={SOL}
