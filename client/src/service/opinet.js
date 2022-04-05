@@ -15,6 +15,13 @@ class Opinet {
     return respons.data;
   }
 
+  async aroundStationPremium(x, y) {
+    const respons = await axios.get('http://localhost:8080/opinet/around', {
+      params: { x, y, prodcd: 'B034', radius: 2000 },
+    });
+    return respons.data;
+  }
+
   async stationInfo(id) {
     const respons = await axios.get(
       'http://localhost:8080/opinet/stationinfo',

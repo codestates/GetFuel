@@ -24,12 +24,7 @@ const SearchBar = ({
     inputRef.current.value = '';
   };
 
-  const getGasoline = async () => {
-    const stationsInfo = await opinet.aroundStationGasoline(
-      coordiKatec[0],
-      coordiKatec[1]
-    );
-    const copiedStationsInfo = [...stationsInfo];
+  const saveOpinetData = (copiedStationsInfo) => {
     const coordiConvert = copiedStationsInfo.map((station) => {
       const converted = coordiKATECtoEPSG(
         station.GIS_X_COOR,
@@ -40,6 +35,15 @@ const SearchBar = ({
       return station;
     });
     setStations([...coordiConvert]);
+  };
+
+  const getGasoline = async () => {
+    const stationsInfo = await opinet.aroundStationGasoline(
+      coordiKatec[0],
+      coordiKatec[1]
+    );
+    const copiedStationsInfo = [...stationsInfo];
+    saveOpinetData(copiedStationsInfo);
   };
 
   const getDiesel = async () => {
@@ -48,18 +52,17 @@ const SearchBar = ({
       coordiKatec[1]
     );
     const copiedStationsInfo = [...stationsInfo];
-    const coordiConvert = copiedStationsInfo.map((station) => {
-      const converted = coordiKATECtoEPSG(
-        station.GIS_X_COOR,
-        station.GIS_Y_COOR
-      );
-      station.GIS_X_COOR = converted[1];
-      station.GIS_Y_COOR = converted[0];
-      return station;
-    });
-    setStations([...coordiConvert]);
+    saveOpinetData(copiedStationsInfo);
   };
 
+  const getPremium = async () => {
+    const stationsInfo = await opinet.aroundStationPremium(
+      coordiKatec[0],
+      coordiKatec[1]
+    );
+    const copiedStationsInfo = [...stationsInfo];
+    saveOpinetData(copiedStationsInfo);
+  };
   return (
     <>
       <MapNav />
@@ -74,6 +77,9 @@ const SearchBar = ({
             />
           </label>
           <section className={styles.section}>
+            <button className={styles.oil_btn_g} onClick={getPremium}>
+              고급휘발유
+            </button>
             <button className={styles.oil_btn_g} onClick={getGasoline}>
               휘발유
             </button>
