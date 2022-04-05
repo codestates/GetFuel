@@ -6,8 +6,8 @@ import { config } from '../configuration/config.js';
 const router = express.Router();
 
 router.get('/around', async (req, res) => {
-  const { x, y, radius } = req.query;
-  const url = `https://www.opinet.co.kr/api/aroundAll.do?code=${config.opinet.code}&x=${x}&y=${y}&radius=${radius}&sort=1&prodcd=B027&out=json`;
+  const { x, y, prodcd, radius } = req.query;
+  const url = `https://www.opinet.co.kr/api/aroundAll.do?code=${config.opinet.code}&x=${x}&y=${y}&radius=${radius}&sort=1&prodcd=${prodcd}&out=json`;
   const result = await axios.get(url);
   try {
     if (result) {

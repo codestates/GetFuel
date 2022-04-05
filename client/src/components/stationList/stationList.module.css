@@ -1,0 +1,29 @@
+.station_li {
+  margin: 15px 0 15px -30px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgb(185, 185, 185);
+}
+
+.station_logo {
+  width: 8%;
+  border-radius: 3px;
+}
+.station_title,
+.station_price {
+  font-size: 11px;
+  margin-left: 5px;
+  font-weight: 700;
+}
+
+.station_title {
+  width: 70%;
+  text-align: left;
+}
+
+.station_price {
+  display: inline-block;
+  text-align: right;
+}

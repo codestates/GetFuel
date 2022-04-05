@@ -1,9 +1,16 @@
 import axios from 'axios';
 
 class Opinet {
-  async aroundStation(x, y) {
+  async aroundStationGasoline(x, y) {
     const respons = await axios.get('http://localhost:8080/opinet/around', {
-      params: { x, y, radius: 2000 },
+      params: { x, y, prodcd: 'B027', radius: 2000 },
+    });
+    return respons.data;
+  }
+
+  async aroundStationDiesel(x, y) {
+    const respons = await axios.get('http://localhost:8080/opinet/around', {
+      params: { x, y, prodcd: 'D047', radius: 2000 },
     });
     return respons.data;
   }
