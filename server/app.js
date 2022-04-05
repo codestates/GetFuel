@@ -19,9 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   cors({
-    origin: '*',
+    origin: true,
     credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS'],
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'authorization'],
   })
 );
 app.use(helmet());
