@@ -3,7 +3,7 @@ import qs from 'qs';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export async function getTokens({ code }) {
+export async function getGoogleTokens({ code }) {
   const url = 'https://oauth2.googleapis.com/token';
   const values = {
     code,

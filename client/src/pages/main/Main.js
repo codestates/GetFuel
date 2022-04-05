@@ -5,8 +5,8 @@ import image2 from '../../image2.png';
 import kakao from '../../kakao.png';
 import google from '../../google.png';
 import getfuel_experience from '../../getfuel_experience.png';
-import { kakaoAuth } from '../oauth/kakaoAuth';
-import getGoogleCode from '../oauth/getGoogleCode';
+import getKakaoCode, { kakaoAuth } from '../oauth/kakaoOAuth';
+import getGoogleCode from '../oauth/googleOAuth';
 
 export default function Main() {
   return (
