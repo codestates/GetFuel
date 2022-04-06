@@ -38,10 +38,7 @@ function Review ({accessToken}) {
         })
         .catch((err) => console.log('submit에러', err)) 
     }
-    
-    
-    
-
+ 
     useEffect(()=>{
         setStation(clickedInfo)
     },[clickedInfo])
@@ -65,6 +62,5 @@ function Review ({accessToken}) {
         </div>
     )
 }
-
 
 export default Review;
