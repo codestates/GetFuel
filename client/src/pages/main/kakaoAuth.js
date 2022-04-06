@@ -3,3 +3,4 @@ const REDIRECT_URI = 'http://localhost:8080/api/session/oauth/kakao';
 
 export const kakaoAuth = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const code = new URL(window.location.href).searchParams.get('code');
+
