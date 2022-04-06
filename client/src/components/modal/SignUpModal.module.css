@@ -8,7 +8,7 @@
 }
 
 .modalbox{
-   
+    display: hidden;
     position: fixed;
     transform: translate(6%, -55%);
     background-color: #ffffff;
@@ -16,20 +16,16 @@
     align-items: center;
     border-radius: 20px;
     width: 70%;
-    height: 500px;
+    height: 600px;
     border: 4px solid  #a3c6ff;
     padding: 6%;
-    opacity: 0.9;
+    opacity: 0.5;
 
 }
 
 
-
-
-
 .close{
-    display:none;
-    margin-top: 60%;
+    margin-top: 40%;
     width: 30%;
     height: 600%;
     background-color: greenyellow;
@@ -37,6 +33,6 @@
 }
 
 .text{
-    margin-top: 15%;
+    margin-top: 10%;
     font-size: 40px;
 }

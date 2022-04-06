@@ -1,10 +1,8 @@
 import React from 'react';
 import styles from './SignUpModal.module.css';
 
+
 function SignUpModal (props) {
-
-
-  
     // 회원가입 모달 작성 
     const{ openModal, closeModal } = props;
 
@@ -12,7 +10,7 @@ function SignUpModal (props) {
 
       <div>
           <div className={styles.modalbox}>
-          <div className={ openModal ? 'openModal modal' : null }>
+          <div className={ openModal ? 'openModal modal' : 'modal' }>
               { openModal ? (
                 <section>
                   <header> 
