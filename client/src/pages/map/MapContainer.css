@@ -95,7 +95,9 @@
   font-weight: 600;
 }
 
-li span {
+.oilname,
+.oilprice,
+.updateTime {
   font-weight: 800;
   background: #2b2d36;
 }

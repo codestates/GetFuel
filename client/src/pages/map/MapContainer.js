@@ -1,9 +1,13 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import { coordiEPSTtoKATEC, coordiKATECtoEPSG } from '../utils/coordinate.js';
-import SearchBar from '../components/SearchBar.js';
+import { Route, useHistory } from 'react-router-dom';
+import {
+  coordiEPSTtoKATEC,
+  coordiKATECtoEPSG,
+} from '../../utils/coordinate.js';
+import SearchBar from '../../components/searchbar/SearchBar.js';
+import Review from '../review/Review.js';
 import './MapContainer.css';
-
 const { kakao } = window;
 
 const MapContainer = ({ opinet }) => {
@@ -16,6 +20,8 @@ const MapContainer = ({ opinet }) => {
   const [stations, setStations] = useState([]);
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
+
+  const history = useHistory();
 
   const geo = () => {
     if (navigator.geolocation) {
@@ -33,7 +39,6 @@ const MapContainer = ({ opinet }) => {
       });
     }
   };
-
 
   useEffect(() => {
     /* geolocation 활용 https 환경에서만 작동.
@@ -106,7 +111,7 @@ const MapContainer = ({ opinet }) => {
     if (!coordiKatec.length) {
       return;
     }
-    const stationsInfo = await opinet.aroundStation(
+    const stationsInfo = await opinet.aroundStationGasoline(
       coordiKatec[0],
       coordiKatec[1]
     );
@@ -167,6 +172,7 @@ const MapContainer = ({ opinet }) => {
         const clickedInfo = await opinet.stationInfo(clicked.id);
         console.log(clickedInfo);
         // overlay HTML
+
         let content =
           '<div class="wrap">' +
           '  <div class="info">' +
@@ -183,11 +189,11 @@ const MapContainer = ({ opinet }) => {
           '      <ul>';
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034')) {
           content += `<li className="B034">
-            <span> 고급휘발유 </span>
-            <span> --------- ${
+            <span class="oilname"> 고급휘발유 </span>
+            <span class="oilprice"> --------- ${
               clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034').PRICE
             }원 </span>
-            <span> (${clickedInfo.OIL_PRICE.find(
+            <span  class="updateTime"> (${clickedInfo.OIL_PRICE.find(
               (oil) => oil.PRODCD === 'B034'
             ).TRADE_DT.replace(
               /(\d{4})(\d{2})(\d{2})/,
@@ -197,22 +203,22 @@ const MapContainer = ({ opinet }) => {
         }
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027')) {
           content += `<li className="B027">
-          <span> 휘발유 </span>
-          <span> ------------- ${
+          <span class="oilname"> 휘발유 </span>
+          <span class="oilprice"> ------------- ${
             clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027').PRICE
           }원 </span>
-          <span>(${clickedInfo.OIL_PRICE.find(
+          <span class="updateTime">(${clickedInfo.OIL_PRICE.find(
             (oil) => oil.PRODCD === 'B027'
           ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
         </li>`;
         }
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047')) {
           content += `<li className="D047">
-          <span> 경유 </span>
-          <span> ---------------- ${
+          <span class="oilname"> 경유 </span>
+          <span class="oilprice"> ---------------- ${
             clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047').PRICE
           }원 </span>
-          <span> (${clickedInfo.OIL_PRICE.find(
+          <span class="updateTime"> (${clickedInfo.OIL_PRICE.find(
             (oil) => oil.PRODCD === 'D047'
           ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
         </li>`;
@@ -230,6 +236,10 @@ const MapContainer = ({ opinet }) => {
         if (clickedInfo.LPG_YN === 'Y' || clickedInfo.LPG_YN === 'C') {
           content += '<span class="lpg">🔋 충전소</span>';
         }
+        content +=
+          '<div>' +
+          `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
+          '</div>';
         // make customOverlay
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
@@ -239,6 +249,20 @@ const MapContainer = ({ opinet }) => {
         });
         overlay.setMap(kakaoMap);
         // overlay close에 click event 줌.
+        document
+          .querySelector(`#btn${clickedInfo.UNI_ID}`)
+          .addEventListener('click', function () {
+            // axios -> 게시물 정보 가져와서 -> state에 저장 -> props review -> review map
+            // clickedStation props reviw page -> UNI_ID -> 통신을 한다....
+
+            //axios를 사용 할 때 url에 코드가 들어가야된다.
+
+            history.push({
+              pathname: `/review/${clickedInfo.UNI_ID}`,
+              state: { clickedInfo: clickedInfo },
+            });
+          });
+
         document
           .querySelector(`#${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
@@ -264,10 +288,22 @@ const MapContainer = ({ opinet }) => {
     }
     kakaoMap.setLevel(6);
   }, [kakaoMap, markerPositions]);
+
   return (
     <div>
-      <SearchBar setSearchValue={setSearchValue} />
+      <SearchBar
+        setSearchValue={setSearchValue}
+        coordiKatec={coordiKatec}
+        stations={stations}
+        setStations={setStations}
+        markers={markers}
+        opinet={opinet}
+        kakaoMap={kakaoMap}
+      />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      <Route path="/review/:code">
+        <Review />
+      </Route>
     </div>
   );
 };
