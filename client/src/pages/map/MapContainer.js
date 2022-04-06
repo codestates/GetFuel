@@ -172,6 +172,7 @@ const MapContainer = ({ opinet }) => {
         const clickedInfo = await opinet.stationInfo(clicked.id);
         console.log(clickedInfo);
         // overlay HTML
+
         let content =
           '<div class="wrap">' +
           '  <div class="info">' +
@@ -240,7 +241,6 @@ const MapContainer = ({ opinet }) => {
           `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
           '</div>';
         // make customOverlay
-
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
           position: marker.getPosition(),
@@ -257,7 +257,10 @@ const MapContainer = ({ opinet }) => {
 
             //axios를 사용 할 때 url에 코드가 들어가야된다.
 
-            history.push(`/review/${clickedInfo.UNI_ID}`);
+            history.push({
+              pathname: `/review/${clickedInfo.UNI_ID}`,
+              state: { clickedInfo: clickedInfo },
+            });
           });
 
         document
@@ -283,7 +286,7 @@ const MapContainer = ({ opinet }) => {
       );
       kakaoMap.setBounds(bounds);
     }
-    kakaoMap.setLevel(7);
+    kakaoMap.setLevel(6);
   }, [kakaoMap, markerPositions]);
 
   return (
@@ -295,6 +298,7 @@ const MapContainer = ({ opinet }) => {
         setStations={setStations}
         markers={markers}
         opinet={opinet}
+        kakaoMap={kakaoMap}
       />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
       <Route path="/review/:code">
