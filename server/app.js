@@ -17,7 +17,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   cors({
-<<<<<<< HEAD
     origin: true,
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
@@ -26,13 +25,6 @@ app.use(
 );
 
 
-=======
-    origin: ['http://localhost:3000'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  })
-);
->>>>>>> 70101878ed9e6d4fb99f194a14e7e718865c4f98
 app.use(helmet());
 app.use(morgan('tiny'));
 app.use(cookieParser());
