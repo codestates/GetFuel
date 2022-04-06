@@ -34,8 +34,8 @@ export default function App({ opinet }) {
       <Route path='/map'>
         <MapContainer opinet={opinet} />
       </Route>
-      <Route path='kakaoLogin' component={kakaoLogin}></Route>
-      <Route path='/review'>
+      <Route path="kakaoLogin" component={kakaoLogin}></Route>
+      <Route path="/review">
         <Review />
       </Route>
       <Route path='/signup' component={SignUp} />
