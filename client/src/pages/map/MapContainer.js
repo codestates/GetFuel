@@ -1,6 +1,6 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route, useHistory, Link } from 'react-router-dom';
 import {
   coordiEPSTtoKATEC,
   coordiKATECtoEPSG,
@@ -20,6 +20,7 @@ const MapContainer = ({ opinet }) => {
   const [stations, setStations] = useState([]);
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
+  const [clickInfo, setClickInfo] = useState([]);
 
   const history = useHistory();
 
@@ -170,7 +171,8 @@ const MapContainer = ({ opinet }) => {
         );
         // 주유소 코드로 axios 통신을 통해 해당 주유소 정보 가져옴 -> clikedInfo
         const clickedInfo = await opinet.stationInfo(clicked.id);
-        console.log(clickedInfo);
+        // console.log(clickedInfo);
+        setClickInfo(clickedInfo);
         // overlay HTML
 
         let content =
@@ -252,20 +254,15 @@ const MapContainer = ({ opinet }) => {
         document
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
-            // axios -> 게시물 정보 가져와서 -> state에 저장 -> props review -> review map
-            // clickedStation props reviw page -> UNI_ID -> 통신을 한다....
-
-            //axios를 사용 할 때 url에 코드가 들어가야된다.
-
             history.push({
-              pathname: `/review/${clickedInfo.UNI_ID}`,
-              state: { clickedInfo: clickedInfo },
-            });
+                          pathname:`/review/${clickedInfo.UNI_ID}`,
+                          state:{clickedInfo: clickedInfo}})
           });
 
         document
           .querySelector(`#${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
+            // console.log(clickedInfo)
             overlay.setMap(null);
           });
       });
@@ -301,11 +298,8 @@ const MapContainer = ({ opinet }) => {
         kakaoMap={kakaoMap}
       />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
-      <Route path="/review/:code">
-        <Review />
-      </Route>
     </div>
   );
 };
-
+ 
 export default MapContainer;

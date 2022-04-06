@@ -29,6 +29,8 @@ app.use(helmet());
 app.use(morgan('tiny'));
 app.use(cookieParser());
 
+
+
 app.use('/auth', authRouter);
 app.use('/posts', boardRouter);
 app.use('/opinet', opinetRouter);
