@@ -25,10 +25,10 @@ export async function signup(req, res) {
 
 export async function signin(req, res) {
   const { email, password } = req.body;
-  console.log(password)
-  console.log(email)
+  console.log(password);
+  console.log(email);
   const user = await usersRepository.findByEmail(email);
-  
+
   if (!user) {
     return res
       .status(401)
