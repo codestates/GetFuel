@@ -1,6 +1,6 @@
 import express from 'express';
 import 'express-async-errors';
-import * as authController from '../controller/auth.js'
+import * as authController from '../controller/auth.js';
 import { body } from 'express-validator';
 import { isAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validator.js';
@@ -34,17 +34,18 @@ const validateSignup = [
     .isLength({ min: 2 })
     .withMessage(' The nickname must be at least 2 characters long '),
   validate,
-  ];
+];
 
 router.post('/signup', validateSignup, authController.signup);
 router.post('/signin', validateSignin, authController.signin);
 router.get('/refresh', authController.refresh);
 router.get('/signout', isAuth, authController.signout);
-router.put('/updateinfo/:id', isAuth, validateUpdateInfo, authController.updateInfo);
+router.put(
+  '/updateinfo/:id',
+  isAuth,
+  validateUpdateInfo,
+  authController.updateInfo
+);
 router.delete('/deleteaccount/:id', isAuth, authController.deleteAccount);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 41250f9a6bbce0f8adcbd8279352b5defd2e06b0
 export default router;
