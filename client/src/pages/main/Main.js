@@ -5,8 +5,8 @@ import image2 from '../../image2.png';
 import kakao from '../../kakao.png';
 import google from '../../google.png';
 import getfuel_experience from '../../getfuel_experience.png';
-import getKakaoCode, { kakaoAuth } from '../oauth/kakaoOAuth';
-import getGoogleCode from '../oauth/googleOAuth';
+import { getKakaoCode } from '../oauth/KakaoOAuth';
+import getGoogleCode from '../oauth/GoogleOAuth';
 
 export default function Main() {
   return (
@@ -25,7 +25,7 @@ export default function Main() {
           </a>
         </div>
         <div>
-          <a href={kakaoAuth} className={styles.kakao}>
+          <a href={getKakaoCode} className={styles.kakao}>
             <img src={kakao} />
           </a>
         </div>
