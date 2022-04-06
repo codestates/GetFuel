@@ -12,7 +12,6 @@ export default async function googleOauthHandler(req, res) {
     const { id_token, access_token } = await getGoogle.getGoogleTokens({
       code,
     });
-    console.log({ id_token, access_token });
 
     const googleUser = await getGoogle.getGoogleUser({
       id_token,

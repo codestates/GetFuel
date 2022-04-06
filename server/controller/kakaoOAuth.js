@@ -7,7 +7,6 @@ dotenv.config();
 
 export default async function kakaoOauthHandler(req, res) {
   const url = 'https://kauth.kakao.com/oauth/token';
-  console.log({ code: req.query.code });
   const values = {
     code: req.query.code,
     client_id: process.env.KAKAO_CLIENT_ID,
@@ -15,13 +14,11 @@ export default async function kakaoOauthHandler(req, res) {
     redirect_uri: process.env.KAKAO_OAUTH_REDIRECTURL,
     grant_type: 'authorization_code',
   };
-  //   console.log({ values });
 
   try {
     const header = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const response = await axios.post(url, qs.stringify(values), header);
     const access_token = response.data.access_token;
-    console.log({ access_token });
 
     const getuser = await axios.get('https://kapi.kakao.com/v2/user/me', {
       headers: {
@@ -32,12 +29,6 @@ export default async function kakaoOauthHandler(req, res) {
     const { nickname, profile_image, thumbnail_image } =
       getuser.data.properties;
     const { email } = getuser.data.kakao_account;
-    console.log({
-      email,
-      nickname,
-      profile_image,
-      thumbnail_image,
-    });
 
     const user = await findAndUpdateUser(
       { email: email },
