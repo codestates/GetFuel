@@ -14,6 +14,7 @@ const SearchBar = ({
   setStations,
   markers,
   opinet,
+  kakaoMap,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -28,6 +29,9 @@ const SearchBar = ({
 
   const handleSidebar = () => {
     setIsClicked(!isClicked);
+    {
+      isClicked ? kakaoMap.setLevel(6) : kakaoMap.setLevel(7);
+    }
   };
 
   const saveOpinetData = (copiedStationsInfo) => {
