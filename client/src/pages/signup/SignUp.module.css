@@ -80,3 +80,11 @@
     margin-right: 100%;
     margin-top: 2%;
 }
+
+.formbox{
+    margin-right: 100%;
+    white-space: nowrap;
+    margin-top: 2%;
+    color: red;
+    
+}
