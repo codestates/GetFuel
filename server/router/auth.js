@@ -43,5 +43,8 @@ router.get('/signout', isAuth, authController.signout);
 router.put('/updateinfo/:id', isAuth, validateUpdateInfo, authController.updateInfo);
 router.delete('/deleteaccount/:id', isAuth, authController.deleteAccount);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41250f9a6bbce0f8adcbd8279352b5defd2e06b0
 export default router;
