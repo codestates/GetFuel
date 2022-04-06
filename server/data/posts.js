@@ -14,6 +14,7 @@ const commentSchema = new Mongoose.Schema(
 const postSchema = new Mongoose.Schema(
   {
     text: { type: String, required: true },
+    code: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     comments: [commentSchema],
   },
@@ -23,17 +24,18 @@ const postSchema = new Mongoose.Schema(
 userVirtualId(postSchema);
 const Post = Mongoose.model('Post', postSchema);
 
-export async function getAllPosts() {
-  return Post.find().sort({ createdAt: -1 }).populate('author');
+export async function getByCode(code) {
+  return Post.find({ code }).sort({ createdAt: -1 }).populate('author');
 }
 
 export async function getById(postId) {
   return Post.findById(postId).populate('author');
 }
 
-export async function create(text, userId) {
+export async function create(text, code, userId) {
   return new Post({
     text,
+    code,
     author: userId,
   }).save();
 }
