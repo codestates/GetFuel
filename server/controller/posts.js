@@ -2,13 +2,20 @@ import 'express-async-errors';
 import * as postsRepository from '../data/posts.js';
 
 export async function getPosts(req, res) {
-  const allPosts = await postsRepository.getAllPosts();
-  return res.status(200).json(allPosts);
+  const { code } = req.query;
+  console.log(code);
+  if (code) {
+    const findByCode = await postsRepository.getByCode(code);
+    return res.status(200).json(findByCode);
+  }
+  //const allPosts = await postsRepository.getAllPosts();
+  return res.status(404).json({ message: '게시물을 찾을 수 없습니다.' });
 }
 
 export async function createPost(req, res) {
+  const { code } = req.params;
   const { text } = req.body;
-  const post = await postsRepository.create(text, req.userId);
+  const post = await postsRepository.create(text, code, req.userId);
   res.status(201).json(post);
 }
 

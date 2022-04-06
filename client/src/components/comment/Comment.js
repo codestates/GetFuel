@@ -4,11 +4,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencil } from "@fortawesome/free-solid-svg-icons"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import Reply from "../reply/Reply";
+import axios from "axios";
 
-function Comment ({ review, handleDeleteReview, idx }) {
+function Comment ({station}) {
     const parseDate = new Date().toLocaleDateString('ko-kr')
+    const [code, setCode] = useState([]);
+    const [post, setPost] = useState();
+    const [comment, setComment] = useState();
+    // console.log('잘나오나', station)
 
-    // const = axios.get(`http://localhost:8080/posts`)
+    // 게시물 가져오기, 쿼리로 
+    async function getPosts() {
+        try{
+            const data = await axios.get('http://localhost:8080/posts');
+        } catch(err) {
+            console.log(err)
+        }
+    }
+    // 게시물 삭제
+    async function deletePost() {
+        try{
+            const data = await axios.delete('http://localhost:8080/posts/:postid')
+        } catch(err) {
+            console.log(err)
+        }
+    }
+    // 게시물 등록
 
     return(
 
@@ -23,14 +44,14 @@ function Comment ({ review, handleDeleteReview, idx }) {
                     <button className={styles.modify}>
                     <FontAwesomeIcon icon={faPencil} />
                     </button>
-                    <button className={styles.delete}
-                            onClick={() => handleDeleteReview(idx)}>
+                    <button className={styles.delete}>
                     <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>                    
             </div>
-            <div className={styles.comment}>{review.post}</div>
-            <Reply />
+            <div className={styles.comment}></div>
+            <div> 댓글 보여주는곳 </div>
+            <Reply/>
         </div>
     </li>
     )

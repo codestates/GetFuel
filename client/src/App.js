@@ -1,69 +1,46 @@
 import styles from './App.module.css';
-import Login from './pages/login/Login'
-import Main from './pages/main/Main';
-import MapContainer from './pages/MapContainer';
-import Review from './pages/review/Review';
-import SignUp from './pages/signup/SignUp';
-import EditUser from './pages/edituser/EditUser';
-import { Route, useHistory } from 'react-router-dom'
+import Login from './pages/login/Login.js';
+import Main from './pages/main/Main.js';
+import MapContainer from '../src/pages/map/MapContainer.js';
+import Review from './pages/review/Review.js';
+import SignUp from './pages/signup/SignUp.js';
+import EditUser from './pages/edituser/EditUser.js';
+import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import kakaoLogin from './pages/main/kakaoLogin';
 
-
-
-
-export default function App ({ opinet }) {
+export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
-  const history = useHistory();
+  const [userInfo, setUserInfo] = useState(null);
 
-  const isAuthenticated = () => {
-    axios.get(
-      'http://localhost:8080/auth/refresh'
-    )
-    .then((data) => {
-      // console.log('@@@@@@@@@@', data)
-      setIsLogin(true);
-      // 페이지 이동
-    })
-    .catch((err) => console.log('에러입니다', err));
+  const loginHandler = (data) => {
+    setIsLogin(true)
+    issueAccessToken(data)
   }
+  
+  const issueAccessToken = (data) => {
+    setUserInfo({accessToken: data.accessToken, userId: data.userId})
+  } 
 
-  const handleResponseSuccess = () => {
-    isAuthenticated();
-  };
-  const handleLogout = () => {
-    axios.post('https://localhost:8080/signout%27').then((res) => {
-      setIsLogin(false);
-      history.push('/')
-    });
-  };
 
   return (
     <div className={styles.App}>
-      <Route exact path='/'>
+      <Route exact path="/">
         <Main />
       </Route>
-      <Route path='/login'>
-        <Login
-          isLogin={isLogin}
-          handleResponseSuccess={handleResponseSuccess}
-        />
+      <Route path="/login">
+        <Login loginHandler={loginHandler}/>
       </Route>
-      <Route path='/map'>
+      <Route path="/map">
         <MapContainer opinet={opinet} />
       </Route>
-      <Route path='kakaoLogin' component={kakaoLogin}></Route>
-      <Route path='/review'>
+      <Route path="kakaoLogin" component={kakaoLogin}></Route>
+      <Route path="/review">
         <Review />
       </Route>
-      <Route path="/signup" 
-        component={SignUp}
-        />
-      <Route path="/edituser" 
-        component={EditUser}
-        />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/edituser" component={EditUser} />
     </div>
   );
 }
-      

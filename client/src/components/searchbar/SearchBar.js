@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
-import Nav from './nav/Nav.js';
+import MapNav from '../mapNav/MapNav.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 const SearchBar = ({ setSearchValue }) => {
@@ -15,7 +15,7 @@ const SearchBar = ({ setSearchValue }) => {
 
   return (
     <>
-      <Nav />
+      <MapNav />
       <header className={styles.header}>
         <div className={styles.div}>
           <form className={styles.form} onSubmit={handleSubmit}>

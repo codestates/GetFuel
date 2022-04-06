@@ -1,59 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './Review.module.css'
 import Comment from '../../components/comment/Comment'
 import axios from "axios";
+import { Route } from "react-router-dom";
+import {useLocation} from "react-router"
 
 
-
-function Review () {
-    const [ reviews, setReviews ] = useState([]);
-    const [ text, setText ] = useState('');
-
-    // 게시글 submit 버튼
-    const handleButtonClick = (e) => {
-        const review = {
-            post: text,
-            createdAt: new Date().toLocaleDateString('ko-KR'),
+function Review ({accessToken}) {
+    const [posts, setPosts] = useState([]);
+    const [station, setStation] = useState([]); // Comment에 props로 코드 내려줌 
+    const textareaRef = React.useRef()
+    const location = useLocation();
+    const clickedInfo= location.state.clickedInfo;
+    // 여기 state에 담아서 여기 state를 comment로 내려줌 
+    console.log('여기', accessToken)
+    
+    // 게시물 가져오기
+    const Board = () => {
+        axios
+        .get('http://localhost:8080/posts', { code: clickedInfo.UNI_ID})
+        .then((res) => {
+            console.log('어떤데이터들어오나', res) // submit에러 해결 후 setposts 사용
+        })
+        .catch((err) => console.log('board에러', err))
+    }
+    // 게시물 등록
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const value = textareaRef.current.value
+        if(!value) {
+            alert('리뷰를 작성해 주세요.') // 모달로 바꾸기
+            return;
         }
-        const newReview = [review, ...reviews];
-        setReviews(newReview);
+        console.log(clickedInfo.UNI_ID)
+        axios.post(`http://localhost:8080/posts/${clickedInfo.UNI_ID}`, { text: value }).then(() => {
+            Board();
+        })
+        .catch((err) => console.log('submit에러', err)) 
     }
+    
+    
+    
 
-    // 게시글 내용
-    const handlePostText = (e) => {
-        setText(e.target.value)
-    }
-    // 게시글 삭제
-    const handleDeleteReview = (deleteIndex) => {
-        const deleteReview = reviews.filter((idx) => idx !== deleteIndex);
-        setReviews(deleteReview); 
-    }
-
-    // 게시글 보여주기
-    const reviewsRender = (review, idx) => {
-        return (
-            <Comment
-            key={idx}
-            review={review}
-            handleDeleteReview={handleDeleteReview}
-            />
-        )
-    }
+    useEffect(()=>{
+        setStation(clickedInfo)
+    },[clickedInfo])
 
     return (
         <div>
             <div className={styles.commentForm}>
                 <textarea className={styles.comment}
                             placeholder="게시글 추가.."
-                            onChange={handlePostText}
-                            value={text}
-                            ></textarea>
-                <button className={styles.submit}
-                        onClick={handleButtonClick}>submit</button>
+                            ref={textareaRef}
+                            >
+                </textarea>
+                <button className={styles.submit} onClick={onSubmit}>submit</button>
             </div>
             <div className={styles.line}></div>
             <div className={styles.comments}>
-            {reviews.map(reviewsRender)}
+            <Route>
+            <Comment station={station}/>
+            </Route>
             </div>
         </div>
     )
