@@ -47,7 +47,6 @@ const MapContainer = ({ opinet }) => {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude; //위도
         const lng = position.coords.longitude; //경도
-
         const container = document.getElementById('map');
         const options = {
           center: new kakao.maps.LatLng(lng, lat),
@@ -255,8 +254,9 @@ const MapContainer = ({ opinet }) => {
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
             history.push({
-                          pathname:`/review/${clickedInfo.UNI_ID}`,
-                          state:{clickedInfo: clickedInfo}})
+              pathname: `/review/${clickedInfo.UNI_ID}`,
+              state: { clickedInfo: clickedInfo },
+            });
           });
 
         document
@@ -283,7 +283,7 @@ const MapContainer = ({ opinet }) => {
       );
       kakaoMap.setBounds(bounds);
     }
-    kakaoMap.setLevel(6);
+    kakaoMap.setLevel(7);
   }, [kakaoMap, markerPositions]);
 
   return (
@@ -301,5 +301,5 @@ const MapContainer = ({ opinet }) => {
     </div>
   );
 };
- 
+
 export default MapContainer;

@@ -17,8 +17,8 @@ const validatePost = [
   validate,
 ];
 
-router.get('/', isAuth, postsController.getPosts);
-router.post('/:code', isAuth, validatePost, postsController.createPost);
+router.get('/', postsController.getPosts);
+router.post('/:code', validatePost, postsController.createPost);
 router.put('/:postid', isAuth, validatePost, postsController.updatePost);
 router.delete('/:postid', isAuth, postsController.deletePost);
 router.post('/:postid/comment', isAuth, postsController.createComment);
