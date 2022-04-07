@@ -33,7 +33,7 @@ export default function App({ opinet }) {
         <Login loginHandler={loginHandler}/>
       </Route>
       <Route path="/map">
-        <MapContainer opinet={opinet} />
+        <MapContainer opinet={opinet} userInfo={userInfo}/>
       </Route>
       <Route path="kakaoLogin" component={kakaoLogin}></Route>
       <Route path="/review">

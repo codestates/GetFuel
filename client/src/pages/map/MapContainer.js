@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const { kakao } = window;
 
-const MapContainer = ({ opinet }) => {
+const MapContainer = ({ opinet, userInfo }) => {
   const [searchValue, setSearchValue] = useState('서울시청');
   const [kakaoMap, setKakaoMap] = useState(null);
   const [centerCoordi, setCenterCoordi] = useState([
@@ -257,17 +257,9 @@ const MapContainer = ({ opinet }) => {
         document
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
-            // axios -> 게시물 정보 가져와서 -> state에 저장 -> props review -> review map
-            // clickedStation props reviw page -> UNI_ID -> 통신을 한다....
-
-            //axios를 사용 할 때 url에 코드가 들어가야된다.
-
-            // history.push({
-            //   pathname:`/review/${clickedInfo.UNI_ID}`,
-            //   state: {clickInfo: clickInfo}});
             history.push({
                           pathname:`/review/${clickedInfo.UNI_ID}`,
-                          state:{clickedInfo: clickedInfo}})
+                          state:{clickedInfo: clickedInfo, userInfo: userInfo}})
           });
 
         document
@@ -301,12 +293,6 @@ const MapContainer = ({ opinet }) => {
     <div>
       <SearchBar setSearchValue={setSearchValue} />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
-      {/* <Route path='/review/:code'>
-        <Review clickInfo={clickInfo} /> 
-      </Route> */}
-      {/* <Link to={`/review/${clickInfo.UNI_ID}`} >
-        <Review clickInfo={clickInfo} /> 
-      </Link> */}
     </div>
   );
 };

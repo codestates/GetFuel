@@ -13,23 +13,7 @@ function Comment ({station}) {
     const [comment, setComment] = useState();
     // console.log('잘나오나', station)
 
-    // 게시물 가져오기, 쿼리로 
-    async function getPosts() {
-        try{
-            const data = await axios.get('http://localhost:8080/posts');
-        } catch(err) {
-            console.log(err)
-        }
-    }
-    // 게시물 삭제
-    async function deletePost() {
-        try{
-            const data = await axios.delete('http://localhost:8080/posts/:postid')
-        } catch(err) {
-            console.log(err)
-        }
-    }
-    // 게시물 등록
+    
 
     return(
 
@@ -50,8 +34,8 @@ function Comment ({station}) {
                 </div>                    
             </div>
             <div className={styles.comment}></div>
-            <div> 댓글 보여주는곳 </div>
             <Reply/>
+            <div> 댓글 보여주는곳 </div>
         </div>
     </li>
     )

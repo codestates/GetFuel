@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styles from './Review.module.css'
 import Comment from '../../components/comment/Comment'
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { Route } from "react-router-dom";
 import {useLocation} from "react-router"
 
 
-function Review ({accessToken}) {
+function Review () {
     const [posts, setPosts] = useState([]);
     const [station, setStation] = useState([]); // Comment에 props로 코드 내려줌 
     const textareaRef = React.useRef()
     const location = useLocation();
-    const clickedInfo= location.state.clickedInfo;
-    // 여기 state에 담아서 여기 state를 comment로 내려줌 
-    console.log('여기', accessToken)
+    const clickedInfo = location.state.clickedInfo;
+    const userInfo = location.state.userInfo 
+    
     
     // 게시물 가져오기
     const Board = () => {
         axios
         .get('http://localhost:8080/posts', { code: clickedInfo.UNI_ID})
         .then((res) => {
-            console.log('어떤데이터들어오나', res) // submit에러 해결 후 setposts 사용
+            setPosts(res)
         })
         .catch((err) => console.log('board에러', err))
     }
@@ -32,8 +32,9 @@ function Review ({accessToken}) {
             alert('리뷰를 작성해 주세요.') // 모달로 바꾸기
             return;
         }
-        console.log(clickedInfo.UNI_ID)
-        axios.post(`http://localhost:8080/posts/${clickedInfo.UNI_ID}`, { text: value }).then(() => {
+        axios.post(`http://localhost:8080/posts/${clickedInfo.UNI_ID}`, { text: value },{
+                headers: {'Authorization': `Bearer ${userInfo.accessToken}`}}).then((res) => {
+            console.log(res)
             Board();
         })
         .catch((err) => console.log('submit에러', err)) 
