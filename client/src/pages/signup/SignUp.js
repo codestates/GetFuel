@@ -102,7 +102,7 @@ export default function SignUp() {
     if (nickname && email && password) {
       axios
         .post(
-          'http://localhost:8080/auth/signup',
+          'http://ec2-44-202-55-141.compute-1.amazonaws.com/auth/signup',
           { email, nickname, password },
           {
             headers: { 'Content-Type': 'application/json' },
