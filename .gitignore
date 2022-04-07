@@ -137,3 +137,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# key
+jwtRS256.key
+jwtRS256.key.pub

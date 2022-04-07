@@ -47,7 +47,6 @@ const MapContainer = ({ opinet }) => {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude; //위도
         const lng = position.coords.longitude; //경도
-
         const container = document.getElementById('map');
         const options = {
           center: new kakao.maps.LatLng(lng, lat),

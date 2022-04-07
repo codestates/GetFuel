@@ -6,7 +6,8 @@ import { config } from '../configuration/config.js';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  console.log(email, nickname, password);
+  console.log(req.body);
+
   const found = await usersRepository.findByEmail(email);
   if (found) {
     return res
@@ -25,10 +26,7 @@ export async function signup(req, res) {
 
 export async function signin(req, res) {
   const { email, password } = req.body;
-  console.log(password)
-  console.log(email)
   const user = await usersRepository.findByEmail(email);
-  
   if (!user) {
     return res
       .status(401)
@@ -50,7 +48,7 @@ export async function signin(req, res) {
   });
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
-  res.status(200).json({ accessToken, email, userId: user.id });
+  res.status(200).json({ accessToken, email, userid: user.id });
 }
 
 export async function refresh(req, res) {
@@ -75,7 +73,6 @@ export async function refresh(req, res) {
       message: ' complete access token issuance ',
     });
   } catch (error) {
-    console.log(error);
     if (
       error.name === 'TokenExpiredError' ||
       error.name === 'invalid signature' ||

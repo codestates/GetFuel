@@ -7,7 +7,7 @@
     background-size: cover;
     align-items: center;
     text-align: center;
-    height: 35vh;
+    height: 33vh;
 }
 
 .button_bundle{
@@ -20,7 +20,6 @@
 }
 
 
-
 .button {
     width: 52%;
     height: 80%;
@@ -30,11 +29,12 @@
     font-size: large;
 }
 
-
-.button_bundle button:hover{
-    color:purple;
-    background-color: white;
+.button_bundle button:hover {
+  color: purple;
+  background-color: white;
 }
+
+
 
 .inputform{
     margin-top: 1%;
@@ -77,5 +77,22 @@
     white-space: nowrap;
     margin-top: 2%;
     color: red;
+    animation: warning 0.3s ease;
+    animation-iteration-count: 3;
     
+}
+
+@keyframes warning {
+    0% {
+      transform: translateX(-8px);
+    }
+    25% {
+      transform: translateX(8px);
+    }
+    50% {
+      transform: translateX(-8px);
+    }
+    75% {
+      transform: translateX(8px);
+    }
 }
