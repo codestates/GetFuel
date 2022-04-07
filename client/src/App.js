@@ -10,28 +10,28 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import kakaoLogin from './pages/main/kakaoLogin';
 
-export default function App ({ opinet }) {
+export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
   const loginHandler = (data) => {
-    setIsLogin(true)
-    issueAccessToken(data)
-  }
-  
-  const issueAccessToken = (data) => {
-    setUserInfo({accessToken: data.accessToken, userId: data.userId})
-  } 
+    setIsLogin(true);
+    issueAccessToken(data);
+  };
 
+  const issueAccessToken = (data) => {
+    setUserInfo({ accessToken: data.accessToken, userId: data.userId });
+  };
+  console.log(userInfo);
   return (
     <div className={styles.App}>
-      <Route exact path='/'>
+      <Route exact path="/">
         <Main />
       </Route>
       <Route path="/login">
-        <Login loginHandler={loginHandler}/>
+        <Login loginHandler={loginHandler} />
       </Route>
-      <Route path='/map'>
+      <Route path="/map">
         <MapContainer opinet={opinet} />
       </Route>
       <Route path="kakaoLogin" component={kakaoLogin}></Route>
@@ -43,4 +43,3 @@ export default function App ({ opinet }) {
     </div>
   );
 }
-      
