@@ -23,6 +23,7 @@ export default function App({ opinet }) {
   };
 
   return (
+    <div >
     <div className={styles.App}>
       <Route exact path='/'>
         <Main />
@@ -38,6 +39,8 @@ export default function App({ opinet }) {
       </Route>
       <Route path='/signup' component={SignUp} />
       <Route path='/edituser' component={EditUser} />
+    </div>
+    
     </div>
   );
 }
