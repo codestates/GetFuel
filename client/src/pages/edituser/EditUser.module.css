@@ -3,29 +3,30 @@
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: auto;
+    margin-bottom: 1%;
     background-size: cover;
     align-items: center;
     text-align: center;
-    height: 40vh;
+    height: 35vh;
 }
 
 .button_bundle{
-    margin-left: 5px;
-    height: 30px;
-    padding: 0.3em 5px;
+    margin-top: 2%;
+    width: 90%;
+    height: 8vh;
+    padding: 1%;
     display: block;
-    white-space: normal;
-    position: sticky;;
+    white-space: nowrap;
+    position: relative;
 }
 
 .button {
-    flex: 1;
-    width: 29%;
-    height: 200%;
-    box-sizing: border-box;
-    background-color: greenyellow;
+    width: 25%;
+    height: 90%;
+    box-sizing: content-box;
+    background-color: #0b409c;
     font-size: large;
+    white-space: normal;
 }
 
 .bundle button:hover{

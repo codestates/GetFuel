@@ -1,5 +1,5 @@
 import React from 'react';
-import GetFuel from '../../GetFuel.png';
+import GetFuel from '../../GetFuel1.png';
 import styles from './EditUser.module.css'
 
 const EditUser = () => {

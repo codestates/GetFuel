@@ -6,11 +6,7 @@ import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
 
 export default function SignUp() {
-  const [signupInfo, setSignupInfo] = useState({
-    nickname: '',
-    email: '',
-    password: '',
-  });
+  
 
   // 정보확인
   const [nickname, setNickname] = useState('');
@@ -219,12 +215,12 @@ export default function SignUp() {
         </div>
 
         <div className={styles.button_bundle}>
-          <button onClick={handleSignup} className={styles.signup_button}>
+          <button onClick={handleSignup} className={styles.button}>
             Sign Up
           </button>
 
-          <a href='/' data-role='button' data-inline='true'>
-            <button className={styles.cancel_button}>Cancel</button>
+          <a href='/' data-role='button' data-inline='true' >
+            <button className={styles.button} >Cancel</button>
           </a>
         </div>
       </form>
