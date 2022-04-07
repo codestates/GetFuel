@@ -8,6 +8,11 @@ export JWT_REFRESH_EXPIRES=$(aws ssm get-parameters --region us-east-1 --names J
 export DB_HOST=$(aws ssm get-parameters --region us-east-1 --names DB_HOST --query Parameters[0].Value | sed 's/"//g')
 export HOST_PORT=$(aws ssm get-parameters --region us-east-1 --names HOST_PORT --query Parameters[0].Value | sed 's/"//g')
 export BCRYPT_SALT_ROUNDS=$(aws ssm get-parameters --region us-east-1 --names BCRYPT_SALT_ROUNDS --query Parameters[0].Value | sed 's/"//g')
+export OPINET_API_CODE=$(aws ssm get-parameters --region us-east-1 --names OPINET_API_CODE --query Parameters[0].Value | sed 's/"//g')
+
+
+
+
 
 
 authbind --deep pm2 start app.js
