@@ -102,7 +102,7 @@ export default function SignUp() {
     if (nickname && email && password) {
       axios
         .post(
-          'http://ec2-44-202-55-141.compute-1.amazonaws.com/auth/signup',
+          'http://localhost:8080/auth/signup',
           { email, nickname, password },
           {
             headers: { 'Content-Type': 'application/json' },
@@ -110,21 +110,11 @@ export default function SignUp() {
           }
         )
         .then((res) => {
-          console.log(res.data);
           if (res) {
             SignupModalHandler();
           }
         })
-        .catch((err) => {
-          const messageFromServer = err;
-          if (messageFromServer.response.data.field === 'password') {
-            setIsPassword(messageFromServer.response.data.message);
-          } else if (messageFromServer.response.data.field === 'email') {
-            setIsEmail(messageFromServer.response.data.message);
-          } else if (messageFromServer.response.data.field === 'nickname') {
-            setIsNickname(messageFromServer.response.data.message);
-          }
-        });
+        .catch((err) => console.error(err));
     } else {
       setErrorMessage('모든 항목은 필수입니다.');
     }
@@ -218,8 +208,8 @@ export default function SignUp() {
           </button>
 
           <Link to='/'>
-            <button className={styles.button} >Cancel</button>
-            </Link>
+            <button className={styles.button}>Cancel</button>
+          </Link>
         </div>
       </form>
       <div>

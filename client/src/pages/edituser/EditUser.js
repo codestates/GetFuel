@@ -3,9 +3,12 @@ import GetFuel from '../../GetFuel.png';
 import styles from './EditUser.module.css';
 import axios from 'axios';
 import edituser from './edituser.css';
+import { useLocation } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-export default function EditUser(userInfo) {
-  console.log(userInfo);
+export default function EditUser() {
+  const location = useLocation();
+  const userInfo = location.state.userInfo;
   const [userid, setUserid] = useState('');
   const [accessToken, setAccessToken] = useState('');
   const [updateErrorMessage, setUpdateErrorMessage] = useState('');
@@ -51,20 +54,25 @@ export default function EditUser(userInfo) {
     },
     [password]
   );
-
+  const history = useHistory();
   const handleUpdateUserInfo = () => {
+    const authorization = userInfo.accessToken;
+    const userId = userInfo.userId;
+    // console.log(authorization);
+    // console.log(userId);
+
     axios
-      .put(`http://localhost:8080/updateinfo/${userid}`, {
-        Authorization: `Bearer ${accessToken}`,
-      })
-      .then((res) => {
-        if (res.status === '404') {
-          return setUpdateErrorMessage('잘못된 회원정보 입니다.');
-        } else if (res.status === '403') {
-          return setUpdateErrorMessage('접근 권한이 없습니다.');
-        } else {
-          return setUpdateErrorMessage('');
+      .put(
+        `http://localhost:8080/auth/updateinfo/${userId}`,
+        { password },
+        {
+          headers: { Authorization: `Bearer ${authorization}` },
+          withCredentials: true,
         }
+      )
+      .then((res) => {
+        console.log(res);
+        history.push('/login');
       })
       .catch((err) => {
         console.log(err, 'Failed to Update UserInfo');
@@ -72,18 +80,16 @@ export default function EditUser(userInfo) {
   };
 
   const handleDeleteUserInfo = () => {
+    const authorization = userInfo.accessToken;
+    const userId = userInfo.userId;
     axios
-      .delete(`http://localhost:8080/deleteaccount/${userid}`, {
-        Authorization: `Bearer ${accessToken}`,
+      .delete(`http://localhost:8080/auth/deleteaccount/${userId}`, {
+        headers: { Authorization: `Bearer ${authorization}` },
+        withCredentials: true,
       })
       .then((res) => {
-        if (res.status === '404') {
-          return setDeleteErrorMessage('잘못된 회원정보 입니다.');
-        } else if (res.status === '403') {
-          return setDeleteErrorMessage('접근 권한이 없습니다.');
-        } else {
-          return setDeleteErrorMessage('');
-        }
+        console.log(res);
+        history.push('/');
       })
       .catch((err) => {
         console.log(err, 'Failed to Delete UserInfo');

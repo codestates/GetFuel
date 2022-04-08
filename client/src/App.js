@@ -8,39 +8,40 @@ import EditUser from './pages/edituser/EditUser.js';
 import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import MapNav from './components/mapNav/MapNav';
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-
   const loginHandler = (data) => {
     setIsLogin(true);
     issueAccessToken(data);
   };
 
   const issueAccessToken = (data) => {
-    setUserInfo({ accessToken: data.accessToken, userId: data.userId });
+    setUserInfo({ accessToken: data.accessToken, userId: data.userid });
   };
+  const history = useHistory();
 
   return (
-    <div >
-    <div className={styles.App}>
-      <Route exact path='/'>
-        <Main />
-      </Route>
-      <Route path='/login'>
-        <Login loginHandler={loginHandler} />
-      </Route>
-      <Route path='/map'>
-        <MapContainer opinet={opinet} />
-      </Route>
-      <Route path='/review'>
-        <Review />
-      </Route>
-      <Route path='/signup' component={SignUp} />
-      <Route path='/edituser' component={EditUser} />
-    </div>
-    
+    <div>
+      <div className={styles.App}>
+        <Route exact path='/'>
+          <Main />
+        </Route>
+        <Route path='/login'>
+          <Login loginHandler={loginHandler} />
+        </Route>
+
+        <Route path='/map'>
+          <MapContainer opinet={opinet} userInfo={userInfo} isLogin={isLogin} />
+        </Route>
+        <Route path='/review'>
+          <Review />
+        </Route>
+        <Route path='/signup' component={SignUp} />
+        <Route path='/edituser' component={EditUser} />
+      </div>
     </div>
   );
 }

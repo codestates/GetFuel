@@ -10,7 +10,7 @@ import Review from '../review/Review.js';
 import './MapContainer.css';
 const { kakao } = window;
 
-const MapContainer = ({ opinet }) => {
+const MapContainer = ({ opinet, userInfo, isLogin }) => {
   const [searchValue, setSearchValue] = useState('서울시청');
   const [kakaoMap, setKakaoMap] = useState(null);
   const [centerCoordi, setCenterCoordi] = useState([
@@ -254,8 +254,9 @@ const MapContainer = ({ opinet }) => {
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
             history.push({
-                          pathname:`/review/${clickedInfo.UNI_ID}`,
-                          state:{clickedInfo: clickedInfo}})
+              pathname: `/review/${clickedInfo.UNI_ID}`,
+              state: { clickedInfo: clickedInfo },
+            });
           });
 
         document
@@ -284,7 +285,6 @@ const MapContainer = ({ opinet }) => {
     }
     kakaoMap.setLevel(6);
   }, [kakaoMap, markerPositions]);
-
   return (
     <div>
       <SearchBar
@@ -295,10 +295,12 @@ const MapContainer = ({ opinet }) => {
         markers={markers}
         opinet={opinet}
         kakaoMap={kakaoMap}
+        userInfo={userInfo}
+        isLogin={isLogin}
       />
-      <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      <div id='map' style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };
- 
+
 export default MapContainer;
