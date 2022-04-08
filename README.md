@@ -1,5 +1,5 @@
 # :fuelpump: GetFuel
- ![스크린샷, 2022-03-16 21-46-04](https://user-images.githubusercontent.com/85835389/158592922-3b22e553-b84b-4902-beba-cb18dbd4d46d.png)
+![image](https://user-images.githubusercontent.com/85835389/162539832-ca29db52-e258-47c2-9f71-7cee75fdd4f3.png)
 ### :station: 우리 동네 가장 싼 주유소를 가장 빠르게 찾는 방법! GetFuel
 The fastest way to find the cheapest gas station in your neighborhood! **GetFuel**  
 🖥️ 배포주소: (<a href="https://getfuel.shop">getfuel.shop</a>)
