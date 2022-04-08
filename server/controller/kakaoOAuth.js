@@ -6,15 +6,14 @@ import { findAndUpdateUser } from '../data/auth.js';
 dotenv.config();
 
 export default async function kakaoOauthHandler(req, res) {
-  console.log('카카오 서버 돌아감? ');
   const code = req.query.code;
-  console.log('code', { code });
-
   const url = 'https://kauth.kakao.com/oauth/token';
+  const REST_API_KEY = '690e96bd45128ff563adf6862a6112c2';
+  const REDIRECT_URI = 'http://localhost:8080/api/sessions/oauth/kakao';
   const values = {
     code: code,
-    client_id: process.env.KAKAO_CLIENT_ID,
-    redirect_uri: process.env.KAKAO_OAUTH_REDIRECTURL,
+    client_id: REST_API_KEY,
+    redirect_uri: REDIRECT_URI,
     grant_type: 'authorization_code',
   };
 
