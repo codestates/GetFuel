@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import GetFuel from '../../GetFuel1.png';
 import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
+import Nav from '../../components/nav/Nav';
 
 export default function SignUp() {
   // 정보확인
@@ -128,6 +129,7 @@ export default function SignUp() {
 
   return (
     <div>
+      <Nav />
       <div className={styles.GetFuelLogo}>
         <img className={styles.signup_logo} src={GetFuel} />
       </div>
