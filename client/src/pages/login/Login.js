@@ -3,8 +3,7 @@ import styles from './Login.module.css';
 import GetFuel from '../../GetFuel_logo1.png';
 import Nav from '../../components/nav/Nav';
 import axios from 'axios';
-import { Route, useHistory } from 'react-router-dom';
-import Review from '../review/Review';
+import { useHistory } from 'react-router-dom';
 
 axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
@@ -32,10 +31,12 @@ export default function Login({ loginHandler }) {
           { email, password },
           {
             headers: { 'Content-Type': 'application/json' },
-            withCredentials: true,
           }
         )
         .then((res) => {
+          console.log(res.data);
+          axios.defaults.headers.common['Authorization'] =
+            'Bearer ' + res.data.accessToken;
           history.push('/map'); // 페이지 이동
           loginHandler(res.data);
         })
