@@ -6,7 +6,7 @@ import { config } from '../configuration/config.js';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  console.log(req.body);
+  console.log(email);
 
   const found = await usersRepository.findByEmail(email);
   if (found) {
@@ -98,6 +98,10 @@ export async function signout(req, res) {
 export async function updateInfo(req, res) {
   const { password } = req.body;
   const id = req.params.id;
+  // console.log('컨트롤러에 들어옴? ');
+  // console.log(password);
+  // console.log(id);
+
   const user = await usersRepository.findById(id);
   if (!user) {
     return res.status(404).json({ message: ' 회원 정보를 찾을 수 없습니다. ' });
@@ -114,6 +118,9 @@ export async function updateInfo(req, res) {
 
 export async function deleteAccount(req, res) {
   const id = req.params.id;
+  console.log('컨트롤러 작동중? ');
+  console.log(id);
+
   const user = await usersRepository.findById(id);
   if (!user) {
     return res.status(404).json({ message: ' 회원 정보를 찾을 수 없습니다. ' });

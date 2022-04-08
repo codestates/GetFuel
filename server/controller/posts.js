@@ -35,6 +35,7 @@ export async function updatePost(req, res) {
 }
 
 export async function deletePost(req, res) {
+  console.log('작동하나')
   const postId = req.params.postid;
   const post = await postsRepository.getById(postId);
 
@@ -45,7 +46,7 @@ export async function deletePost(req, res) {
     return res.sendStatus(403);
   }
 
-  await postsRepository.remove(id);
+  await postsRepository.remove(postId);
   res.sendStatus(204);
 }
 

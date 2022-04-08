@@ -15,6 +15,10 @@ const SearchBar = ({
   markers,
   opinet,
   kakaoMap,
+  userInfo,
+  isLogin,
+  logoutHandler,
+  axiosInstance,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -76,13 +80,18 @@ const SearchBar = ({
 
   return (
     <>
-      <MapNav />
+      <MapNav
+        userInfo={userInfo}
+        isLogin={isLogin}
+        logoutHandler={logoutHandler}
+        axiosInstance={axiosInstance}
+      />
       <header className={styles.header}>
         <div className={styles.div}>
           <label className={styles.label}>
             <FontAwesomeIcon icon={faBars} className={styles.menu_img} />
             <input
-              type="button"
+              type='button'
               value={'가격순 보기'}
               className={styles.menu_btn}
               onClick={handleSidebar}
@@ -108,8 +117,8 @@ const SearchBar = ({
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 className={styles.input}
-                type="search"
-                placeholder="지역을 입력하세요..."
+                type='search'
+                placeholder='지역을 입력하세요...'
                 ref={inputRef}
               />
               <button className={styles.button}>

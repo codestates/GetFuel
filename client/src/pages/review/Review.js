@@ -11,7 +11,9 @@ function Review({ accessToken, userInfo, loginFunctions, axiosInstance }) {
   const location = useLocation();
   const clickedInfo = location.state.clickedInfo;
   const postsData = location.state.postsData;
+  const [id, setId] = useState(0) //postId찾기위함
   
+
   useEffect(() => {
     axiosInstance.get('/posts', {
         params: { code: `${clickedInfo.UNI_ID}`}
@@ -42,7 +44,7 @@ function Review({ accessToken, userInfo, loginFunctions, axiosInstance }) {
     const handleDeleteComment = (e) => {
         e.preventDefault();
         if(window.confirm('해당 게시물을 삭제하시겠습니까?')){
-    axiosInstance.delete(`posts/${posts.id}}`, { code: `${clickedInfo.UNI_ID}` })
+    axiosInstance.delete(`posts/${posts[0].id}`, {userId: userInfo.userId})
     .then(() => 
         axiosInstance.get('/posts', {
             params: { code: `${clickedInfo.UNI_ID}` }
@@ -51,10 +53,10 @@ function Review({ accessToken, userInfo, loginFunctions, axiosInstance }) {
         )
     }
 }
-
+//onClick으로 
 
     
-const list = posts.map((v) => (<Comment key={v.id} id={v.id} text={v.text} createdAt={v.createdAt} handleDeleteComment={handleDeleteComment}/>))
+const list = posts.map((v) => (<Comment key={v.id} id={v.nickname} text={v.text} createdAt={v.createdAt} handleDeleteComment={handleDeleteComment}/>))
     return (
         <div>
             <form onSubmit={onSubmit}>

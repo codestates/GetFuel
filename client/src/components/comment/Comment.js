@@ -7,10 +7,10 @@ import Reply from "../reply/Reply";
 import axios from "axios";
 
 function Comment (props) {
-    const parseDate = new Date().toLocaleDateString('ko-kr')
     const [code, setCode] = useState([]);
     const [post, setPost] = useState();
     const [comment, setComment] = useState();
+    const parseDate = new Date(props.createdAt).toLocaleDateString('ko-kr')
     
     
     
@@ -20,8 +20,8 @@ function Comment (props) {
         <div className={styles.content}>
             <div className={styles.userInfo}>
                 <div>
-                    <div className={styles.username}>{props.id}</div>
-                    <div className={styles.createdAt}>{props.createdAt}</div>
+                    <div className={styles.username}>{props.nicname}</div>
+                    <div className={styles.createdAt}>{parseDate}</div>
                 </div>
                 <div>
                     <button className={styles.modify}>
@@ -33,6 +33,7 @@ function Comment (props) {
                 </div>                    
             </div>
             <div className={styles.comment}>{props.text}</div>
+            <div className={styles.line}></div>
             <Reply/>
         </div>
     </li>

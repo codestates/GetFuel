@@ -34,7 +34,7 @@ export default function Login({ loginHandler }) {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          
           axios.defaults.headers.common['Authorization'] =
             'Bearer ' + res.data.accessToken;
           history.push('/map'); // 페이지 이동

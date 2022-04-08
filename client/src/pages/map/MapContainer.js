@@ -10,7 +10,13 @@ import Review from '../review/Review.js';
 import './MapContainer.css';
 const { kakao } = window;
 
-const MapContainer = ({ opinet, userInfo, loginFunctions, axiosInstance }) => {
+const MapContainer = ({
+  opinet,
+  axiosInstance,
+  userInfo,
+  isLogin,
+  logoutHandler,
+}) => {
   const [searchValue, setSearchValue] = useState('서울시청');
   const [kakaoMap, setKakaoMap] = useState(null);
   const [centerCoordi, setCenterCoordi] = useState([
@@ -256,7 +262,7 @@ const MapContainer = ({ opinet, userInfo, loginFunctions, axiosInstance }) => {
               params: { code: `${clickedInfo.UNI_ID}` },
             });
             const postsData = stationPosts.data;
-            console.log(stationPosts.data);
+            
             history.push({
               pathname: `/review/${clickedInfo.UNI_ID}`,
               state: { clickedInfo, postsData },
@@ -287,9 +293,8 @@ const MapContainer = ({ opinet, userInfo, loginFunctions, axiosInstance }) => {
       );
       kakaoMap.setBounds(bounds);
     }
-    kakaoMap.setLevel(6);
+    kakaoMap.setLevel(7);
   }, [kakaoMap, markerPositions]);
-
   return (
     <div>
       <SearchBar
@@ -300,8 +305,12 @@ const MapContainer = ({ opinet, userInfo, loginFunctions, axiosInstance }) => {
         markers={markers}
         opinet={opinet}
         kakaoMap={kakaoMap}
+        userInfo={userInfo}
+        isLogin={isLogin}
+        logoutHandler={logoutHandler}
+        axiosInstance={axiosInstance}
       />
-      <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      <div id='map' style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };

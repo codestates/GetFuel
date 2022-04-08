@@ -1,0 +1,81 @@
+.Delete_ModalContainer {
+  height: 15rem;
+  text-align: center;
+  margin: 120px auto;
+}
+
+.Delete_ModalBackdrop {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+}
+
+.Delete_ModalView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  border: 3px solid #0859f0;
+  height: 300px;
+  width: 265px;
+  border-radius: 10%;
+}
+
+.Delete_title {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.Delete_CloseBubtton:hover {
+  letter-spacing: 2px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #0c0b0b;
+}
+
+.yes_btn {
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 15px 36px;
+  border-radius: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+  margin: 10px auto;
+}
+
+.no_btn {
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 15px 28px;
+  border-radius: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+  margin: 10px auto;
+}
+
+.Delete_title,
+.Delete_content {
+  font-size: 16px;
+  padding: 10px;
+  color: #09378d;
+}
+
+.logo {
+  height: 130px;
+  width: 130px;
+}

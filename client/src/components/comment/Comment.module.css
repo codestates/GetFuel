@@ -1,5 +1,5 @@
 .review {
-  display: table;
+  display: flex;
   list-style: none;
   padding: 0.5rem 0.5rem;
   margin-left: auto;
