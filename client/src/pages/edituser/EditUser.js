@@ -139,8 +139,9 @@ export default function EditUser() {
           <button className={styles.button} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
-
-          <button className={styles.button}>Cancel</button>
+          <Link to='/map'>
+            <button className={styles.button}>Cancel</button>
+          </Link>
           <span
             onClick={() => {
               history.push({

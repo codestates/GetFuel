@@ -26,10 +26,12 @@ export default async function googleOauthHandler(req, res) {
 
     const accessToken = signJwt(
       { ...user.toJSON() },
+      process.env.JWT_ACCESS_SECRET,
       { expiresIn: process.env.ACCESSTOKENEXPIRE }
     );
     const refreshToken = signJwt(
       { ...user.toJSON() },
+      process.env.JWT_REFRESH_SECRET,
       { expiresIn: process.env.REFRESHTOKENEXPIRE }
     );
 
