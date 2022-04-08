@@ -1,7 +1,9 @@
 .review {
-  display: flex;
+  display: table;
   list-style: none;
   padding: 0.5rem 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .content {

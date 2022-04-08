@@ -12,7 +12,8 @@
 }
 
 .replyBtn {
-  background-color: greenyellow;
-  border-width: 1.5px;
+  background-color: #0b409c;
+  color: white;
+  border-width: 1px;
   margin-bottom: 5px;
 }

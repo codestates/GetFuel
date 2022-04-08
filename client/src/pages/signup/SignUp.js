@@ -102,7 +102,7 @@ export default function SignUp() {
     if (nickname && email && password) {
       axios
         .post(
-          'http://localhost:8080/auth/signup',
+          'http://ec2-44-202-55-141.compute-1.amazonaws.com/auth/signup',
           { email, nickname, password },
           {
             headers: { 'Content-Type': 'application/json' },
@@ -213,13 +213,13 @@ export default function SignUp() {
         </div>
 
         <div className={styles.button_bundle}>
-          <button onClick={handleSignup} className={styles.signup_button}>
+          <button onClick={handleSignup} className={styles.button}>
             Sign Up
           </button>
 
-          <a href='/' data-role='button' data-inline='true'>
-            <button className={styles.cancel_button}>Cancel</button>
-          </a>
+          <Link to='/'>
+            <button className={styles.button} >Cancel</button>
+            </Link>
         </div>
       </form>
       <div>

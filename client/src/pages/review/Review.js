@@ -1,39 +1,25 @@
-import React, { useEffect, useState } from "react";
-import styles from './Review.module.css'
-import axios from "axios";
-import {useLocation} from "react-router"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPencil } from "@fortawesome/free-solid-svg-icons"
-import { faTrash } from "@fortawesome/free-solid-svg-icons"
-import Comment from "../../components/comment/Comment";
+import React, { useEffect, useState } from 'react';
+import styles from './Review.module.css';
+import Comment from '../../components/comment/Comment';
+import axios from 'axios';
+import { useLocation } from 'react-router';
 
+function Review({ accessToken, userInfo, loginFunctions, axiosInstance }) {
+  const [posts, setPosts] = useState([]);
+  const [station, setStation] = useState([]); // Comment에 props로 코드 내려줌
+  const textareaRef = React.useRef();
+  const location = useLocation();
+  const clickedInfo = location.state.clickedInfo;
+  const postsData = location.state.postsData;
+  
+  useEffect(() => {
+    axiosInstance.get('/posts', {
+        params: { code: `${clickedInfo.UNI_ID}`}
+    })
+    .then((res) => setPosts(res.data))
+  }, [])
 
-function Review () {
-    const parseDate = new Date().toLocaleDateString('ko-kr')
-    const [posts, setPosts] = useState([]);
-    const [station, setStation] = useState([]); // Comment에 props로 코드 내려줌 
-    const textareaRef = React.useRef()
-    const location = useLocation();
-    const clickedInfo = location.state.clickedInfo;
-    const userInfo = location.state.userInfo 
-    
-    
-    // 게시물 가져오기
-    useEffect(() => {
-        axios.get('http://localhost:8080/posts', {params: { code : clickedInfo.UNI_ID}})
-            .then((res) => { setPosts(res) })
-            .catch((err) => console.log('겟에러', err))
-    },[])
-    console.log(posts)
-    // const Board = () => {
-    //     axios
-    //     .get('http://localhost:8080/posts', { code: clickedInfo.UNI_ID})
-    //     .then((res) => {
-    //         setPosts(res)
-    //     })
-    //     .catch((err) => console.log('board에러', err))
-    // }
-    
+  
     // 게시물 등록
     const onSubmit = (e) => {
         e.preventDefault();
@@ -43,41 +29,46 @@ function Review () {
             return;
         }
         axios.post(`http://localhost:8080/posts/${clickedInfo.UNI_ID}`, { text: value },)
-            .then((res) => {
-            console.log('여기입니다', res)
-            setPosts(res)
+            .then(() => {
+                axiosInstance.get('/posts', {
+                    params: { code: `${clickedInfo.UNI_ID}`}
+                })
+                .then((res) => setPosts(res.data))
         })
         .catch((err) => console.log('submit에러', err)) 
     }
- 
-    // useEffect(()=>{
-    //     setStation(clickedInfo)
-    // },[clickedInfo])
-
-    const commentRender = (text, id) => {
-        if(posts){
-        return (
-            <Comment
-            text={text}
-            id={id}
-            posts={posts}
-            />
+    
+    // 게시물 삭제
+    const handleDeleteComment = (e) => {
+        e.preventDefault();
+        if(window.confirm('해당 게시물을 삭제하시겠습니까?')){
+    axiosInstance.delete(`posts/${posts.id}}`, { code: `${clickedInfo.UNI_ID}` })
+    .then(() => 
+        axiosInstance.get('/posts', {
+            params: { code: `${clickedInfo.UNI_ID}` }
+        })
+        .then((res) => setPosts(res.data))
         )
-        }
     }
+}
 
+
+    
+const list = posts.map((v) => (<Comment key={v.id} id={v.id} text={v.text} createdAt={v.createdAt} handleDeleteComment={handleDeleteComment}/>))
     return (
         <div>
+            <form onSubmit={onSubmit}>
             <div className={styles.board}>
                 <textarea className={styles.post}
                             placeholder="게시글 추가.."
                             ref={textareaRef}
                             >
                 </textarea>
-                <button className={styles.submit} onClick={onSubmit}>submit</button>
+                <button className={styles.submit} >submit</button>
             </div>
+            </form>
             <div className={styles.line}></div>
-            <Comment posts={posts}/>
+            {list}
         </div>
     )
 }

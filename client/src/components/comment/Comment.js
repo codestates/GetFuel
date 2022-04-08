@@ -6,36 +6,34 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import Reply from "../reply/Reply";
 import axios from "axios";
 
-function Comment ({posts}) {
+function Comment (props) {
     const parseDate = new Date().toLocaleDateString('ko-kr')
     const [code, setCode] = useState([]);
     const [post, setPost] = useState();
     const [comment, setComment] = useState();
     
-
     
-
     
-
     return(
-
+    
     <li className={styles.review}>
         <div className={styles.content}>
             <div className={styles.userInfo}>
                 <div>
-                    <div className={styles.username}>{posts.data[0].id}</div>
-                    <div className={styles.createdAt}>{parseDate}</div>
+                    <div className={styles.username}>{props.id}</div>
+                    <div className={styles.createdAt}>{props.createdAt}</div>
                 </div>
                 <div>
                     <button className={styles.modify}>
                     <FontAwesomeIcon icon={faPencil} />
                     </button>
-                    <button className={styles.delete}>
+                    <button className={styles.delete} onClick={props.handleDeleteComment}>
                     <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>                    
             </div>
-            <div className={styles.comment}></div>
+            <div className={styles.comment}>{props.text}</div>
+            <Reply/>
         </div>
     </li>
     )
