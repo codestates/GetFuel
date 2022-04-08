@@ -15,7 +15,10 @@ function DeleteUserModal() {
     const userId = userInfo.userId;
     axios
       .delete(`http://localhost:8080/auth/deleteaccount/${userId}`, {
-        headers: { Authorization: `Bearer ${authorization}` },
+        headers: {
+          Authorization: `Bearer ${authorization}`,
+          'Content-Type': 'application/json',
+        },
         withCredentials: true,
       })
       .then((res) => {

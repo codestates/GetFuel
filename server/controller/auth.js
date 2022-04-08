@@ -46,8 +46,6 @@ export async function signin(req, res) {
   const refreshToken = jwt.sign({ id: user.id }, config.jwt.refresh_secret, {
     expiresIn: config.jwt.refresh_expiresInSec,
   });
-  console.log('acess', accessToken);
-  console.log('refresh', refreshToken);
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
   res.status(200).json({ accessToken, email, userId: user.id });
@@ -100,9 +98,6 @@ export async function signout(req, res) {
 export async function updateInfo(req, res) {
   const { password } = req.body;
   const id = req.params.id;
-  // console.log('컨트롤러에 들어옴? ');
-  // console.log(password);
-  // console.log(id);
 
   const user = await usersRepository.findById(id);
   if (!user) {
@@ -120,8 +115,6 @@ export async function updateInfo(req, res) {
 
 export async function deleteAccount(req, res) {
   const id = req.params.id;
-  console.log('컨트롤러 작동중? ');
-  console.log(id);
 
   const user = await usersRepository.findById(id);
   if (!user) {
