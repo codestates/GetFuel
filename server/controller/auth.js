@@ -100,9 +100,6 @@ export async function signout(req, res) {
 export async function updateInfo(req, res) {
   const { password } = req.body;
   const id = req.params.id;
-  // console.log('컨트롤러에 들어옴? ');
-  // console.log(password);
-  // console.log(id);
 
   const user = await usersRepository.findById(id);
   if (!user) {
@@ -120,8 +117,6 @@ export async function updateInfo(req, res) {
 
 export async function deleteAccount(req, res) {
   const id = req.params.id;
-  console.log('컨트롤러 작동중? ');
-  console.log(id);
 
   const user = await usersRepository.findById(id);
   if (!user) {
