@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './Login.module.css';
-import GetFuel from '../../GetFuel_logo.png';
+import GetFuel from '../../GetFuel_logo1.png';
 import Nav from '../../components/nav/Nav';
 import axios from 'axios';
-import { Route, useHistory } from 'react-router-dom';
-import Review from '../review/Review';
+import { useHistory } from 'react-router-dom';
 
 axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
 export default function Login({ loginHandler }) {
-  const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
-  });
+  const emailRef = useRef();
+  const passwordRef = useRef();
   const [errorMessage, setErrorMessage] = useState('');
-  const handleInputValue = (key) => (e) => {
-    setLoginInfo({ ...loginInfo, [key]: e.target.value });
-  };
+
   const history = useHistory();
 
-  const handleLogin = () => {
-    const { email, password } = loginInfo;
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    emailRef.current.value = '';
+    passwordRef.current.value = '';
+    handleLogin(email, password);
+  };
 
+  const handleLogin = (email, password) => {
     if (email && password) {
       axios
         .post(
@@ -29,10 +31,12 @@ export default function Login({ loginHandler }) {
           { email, password },
           {
             headers: { 'Content-Type': 'application/json' },
-            withCredentials: true,
           }
         )
         .then((res) => {
+          console.log(res.data);
+          axios.defaults.headers.common['Authorization'] =
+            'Bearer ' + res.data.accessToken;
           history.push('/map'); // 페이지 이동
           loginHandler(res.data);
         })
@@ -45,27 +49,19 @@ export default function Login({ loginHandler }) {
   return (
     <div>
       <Nav />
-      <div>
+      <div className={styles.logo_div}>
         <img className={styles.logo2} src={GetFuel} />
       </div>
-      <div className={styles.user}>email</div>
-      <input
-        className={styles.userInfo}
-        type="text"
-        onChange={handleInputValue('email')}
-      />
-      <div className={styles.user}>password</div>
-      <input
-        className={styles.userInfo}
-        type="password"
-        onChange={handleInputValue('password')}
-      />
-      <div className={styles.alert}>{errorMessage}</div>
-      <div>
-        <button className={styles.button} onClick={handleLogin}>
-          Login
-        </button>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.user}>email</div>
+        <input className={styles.userInfo} type="text" ref={emailRef} />
+        <div className={styles.user}>password</div>
+        <input className={styles.userInfo} type="password" ref={passwordRef} />
+        <div className={styles.alert}>{errorMessage}</div>
+        <div>
+          <button className={styles.button}>Login</button>
+        </div>
+      </form>
     </div>
   );
 }
