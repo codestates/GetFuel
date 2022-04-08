@@ -9,6 +9,7 @@ import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAxiosPrivate from './service/axiosLogin';
+import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -78,6 +79,7 @@ export default function App({ opinet }) {
         </Route>
         <Route path='/signup' component={SignUp} />
         <Route path='/edituser' component={EditUser} />
+        <Route path='/deleteuser' component={DeleteUserModal} />
       </div>
     </div>
   );

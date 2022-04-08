@@ -6,7 +6,6 @@ import { Link, useHistory } from 'react-router-dom';
 
 function MapNav({ userInfo, isLogin, logoutHandler, axiosInstance }) {
   const history = useHistory();
-  console.log(userInfo.authorization);
 
   const handleLogout = () => {
     const authorization = userInfo.accessToken;
@@ -45,7 +44,7 @@ function MapNav({ userInfo, isLogin, logoutHandler, axiosInstance }) {
           </span>
           <a>
             {isLogin ? (
-              <span onClick={handleLogout}>Logout</span>
+              <span onClick={handleLogout}>Sign Out</span>
             ) : (
               <spa>Login</spa>
             )}

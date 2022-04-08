@@ -111,7 +111,7 @@ export default function SignUp() {
         )
         .then((res) => {
           if (res) {
-            SignupModalHandler();
+            signUpModalHandler();
           }
         })
         .catch((err) => console.error(err));
@@ -122,7 +122,7 @@ export default function SignUp() {
 
   const [isOpenSignUpModal, setIsOpenSignUpModal] = useState(false);
 
-  const SignupModalHandler = () => {
+  const signUpModalHandler = () => {
     setIsOpenSignUpModal(!isOpenSignUpModal);
   };
 
@@ -214,7 +214,7 @@ export default function SignUp() {
       </form>
       <div>
         {isOpenSignUpModal ? (
-          <SignuUpModal SignupModalHandler={SignupModalHandler} />
+          <SignuUpModal signUpModalHandler={signUpModalHandler} />
         ) : null}
       </div>
     </div>

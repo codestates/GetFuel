@@ -85,7 +85,6 @@ export async function refresh(req, res) {
 }
 
 export async function signout(req, res) {
-  console.log('로그아웃컨트롤러작동?');
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });

@@ -4,13 +4,11 @@ import * as usersRepository from '../data/auth.js';
 
 export const isAuth = async (req, res, next) => {
   const authHeader = req.get('Authorization');
-  console.log(authHeader);
   if (!(authHeader && authHeader.startsWith('Bearer '))) {
     return res.status(401).json({ message: 'Authentication Error' });
   }
 
   const token = authHeader.split(' ')[1]; //access token
-  console.log(authHeader);
   jwt.verify(token, config.jwt.access_secret, async (error, decoded) => {
     if (error?.name === 'TokenExpiredError') {
       return res
