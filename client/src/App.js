@@ -9,6 +9,7 @@ import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAxiosPrivate from './service/axiosLogin';
+import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -42,6 +43,10 @@ export default function App({ opinet }) {
     issueAccessToken(data);
   }
 
+  function logoutHandler() {
+    setIsLogin(false);
+  }
+
   function issueAccessToken(data) {
     setUserInfo({ accessToken: data.accessToken, userId: data.userId });
   }
@@ -50,24 +55,31 @@ export default function App({ opinet }) {
   return (
     <div>
       <div className={styles.App}>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Main />
         </Route>
-        <Route path="/login">
+        <Route path='/login'>
           <Login loginHandler={loginHandler} />
         </Route>
-        <Route path="/map">
-          <MapContainer opinet={opinet} axiosInstance={axiosInstance} />
+        <Route path='/map'>
+          <MapContainer
+            opinet={opinet}
+            axiosInstance={axiosInstance}
+            userInfo={userInfo}
+            isLogin={isLogin}
+            logoutHandler={logoutHandler}
+          />
         </Route>
-        <Route path="/review">
+        <Route path='/review'>
           <Review
             axiosInstance={axiosInstance}
             loginFunctions={loginFunctions}
             userInfo={userInfo}
           />
         </Route>
-        <Route path="/signup" component={SignUp} />
-        <Route path="/edituser" component={EditUser} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/edituser' component={EditUser} />
+        <Route path='/deleteuser' component={DeleteUserModal} />
       </div>
     </div>
   );

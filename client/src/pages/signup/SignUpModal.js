@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './SignUpModal.css';
 
-function SignuUpModal({ SignupModalHandler }) {
+function SignuUpModal({ signUpModalHandler }) {
   return (
     <div className='Signup_ModalContainer'>
       <div className='Signup_ModalBackdrop'>
@@ -12,7 +12,7 @@ function SignuUpModal({ SignupModalHandler }) {
           <Link to='/login'>
             <button
               className='Signup_CloseBubtton w-btn'
-              onClick={SignupModalHandler}
+              onClick={signUpModalHandler}
             >
               닫기
             </button>

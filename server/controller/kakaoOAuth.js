@@ -6,12 +6,14 @@ import { findAndUpdateUser } from '../data/auth.js';
 dotenv.config();
 
 export default async function kakaoOauthHandler(req, res) {
+  const code = req.query.code;
   const url = 'https://kauth.kakao.com/oauth/token';
+  const REST_API_KEY = '690e96bd45128ff563adf6862a6112c2';
+  const REDIRECT_URI = 'http://localhost:8080/api/sessions/oauth/kakao';
   const values = {
-    code: req.query.code,
-    client_id: process.env.KAKAO_CLIENT_ID,
-    client_secret: process.env.KAKAO_CLIENT_SECRET,
-    redirect_uri: process.env.KAKAO_OAUTH_REDIRECTURL,
+    code: code,
+    client_id: REST_API_KEY,
+    redirect_uri: REDIRECT_URI,
     grant_type: 'authorization_code',
   };
 
@@ -19,6 +21,7 @@ export default async function kakaoOauthHandler(req, res) {
     const header = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const response = await axios.post(url, qs.stringify(values), header);
     const access_token = response.data.access_token;
+    console.log('acccesstoekn', { access_token });
 
     const getuser = await axios.get('https://kapi.kakao.com/v2/user/me', {
       headers: {
@@ -29,6 +32,7 @@ export default async function kakaoOauthHandler(req, res) {
     const { nickname, profile_image, thumbnail_image } =
       getuser.data.properties;
     const { email } = getuser.data.kakao_account;
+    console.log({ email });
 
     const user = await findAndUpdateUser(
       { email: email },
@@ -37,29 +41,25 @@ export default async function kakaoOauthHandler(req, res) {
     );
     const accessToken = signJwt(
       { ...user.toJSON() },
+      process.env.JWT_ACCESS_SECRET,
       { expiresIn: process.env.ACCESSTOKENEXPIRE }
     );
     const refreshToken = signJwt(
       { ...user.toJSON() },
+      process.env.JWT_REFRESH_SECRET,
       { expiresIn: process.env.REFRESHTOKENEXPIRE }
     );
 
     res.cookie('accessToken', accessToken, {
-      maxAge: 900000,
       httpOnly: true,
-      domain: process.env.DOMAIN,
-      path: '/',
       sameSite: 'none',
-      secure: false,
+      secure: true,
     });
 
     res.cookie('refreshToken', refreshToken, {
-      maxAge: 3.154e10,
       httpOnly: true,
-      domain: process.env.DOMAIN,
-      path: '/',
       sameSite: 'none',
-      secure: false,
+      secure: true,
     });
 
     res.redirect(process.env.ORIGIN);

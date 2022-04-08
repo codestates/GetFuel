@@ -10,7 +10,13 @@ import Review from '../review/Review.js';
 import './MapContainer.css';
 const { kakao } = window;
 
-const MapContainer = ({ opinet, axiosInstance }) => {
+const MapContainer = ({
+  opinet,
+  axiosInstance,
+  userInfo,
+  isLogin,
+  logoutHandler,
+}) => {
   const [searchValue, setSearchValue] = useState('서울시청');
   const [kakaoMap, setKakaoMap] = useState(null);
   const [centerCoordi, setCenterCoordi] = useState([
@@ -289,7 +295,6 @@ const MapContainer = ({ opinet, axiosInstance }) => {
     }
     kakaoMap.setLevel(7);
   }, [kakaoMap, markerPositions]);
-
   return (
     <div>
       <SearchBar
@@ -300,8 +305,12 @@ const MapContainer = ({ opinet, axiosInstance }) => {
         markers={markers}
         opinet={opinet}
         kakaoMap={kakaoMap}
+        userInfo={userInfo}
+        isLogin={isLogin}
+        logoutHandler={logoutHandler}
+        axiosInstance={axiosInstance}
       />
-      <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      <div id='map' style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };
