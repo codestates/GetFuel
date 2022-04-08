@@ -12,7 +12,7 @@ function Review({ accessToken, userInfo, loginFunctions, axiosInstance }) {
   const location = useLocation();
   const clickedInfo = location.state.clickedInfo;
   const postsData = location.state.postsData;
-  console.log(clickedInfo);
+  //console.log(clickedInfo);
   console.log(postsData);
   // 여기 state에 담아서 여기 state를 comment로 내려줌
 

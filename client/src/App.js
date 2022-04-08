@@ -45,7 +45,8 @@ export default function App({ opinet }) {
   function issueAccessToken(data) {
     setUserInfo({ accessToken: data.accessToken, userId: data.userId });
   }
-  console.log(userInfo);
+
+  //console.log(userInfo);
   return (
     <div>
       <div className={styles.App}>
