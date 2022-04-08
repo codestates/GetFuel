@@ -10,7 +10,7 @@ import Review from '../review/Review.js';
 import './MapContainer.css';
 const { kakao } = window;
 
-const MapContainer = ({ opinet }) => {
+const MapContainer = ({ opinet, userInfo, loginFunctions, axiosInstance }) => {
   const [searchValue, setSearchValue] = useState('서울시청');
   const [kakaoMap, setKakaoMap] = useState(null);
   const [centerCoordi, setCenterCoordi] = useState([
@@ -23,7 +23,6 @@ const MapContainer = ({ opinet }) => {
   const [clickInfo, setClickInfo] = useState([]);
 
   const history = useHistory();
-
   const geo = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -252,10 +251,16 @@ const MapContainer = ({ opinet }) => {
         // overlay close에 click event 줌.
         document
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
-          .addEventListener('click', function () {
+          .addEventListener('click', async function () {
+            const stationPosts = await axiosInstance.get('/posts', {
+              params: { code: `${clickedInfo.UNI_ID}` },
+            });
+            const postsData = stationPosts.data;
+            console.log(stationPosts.data);
             history.push({
-                          pathname:`/review/${clickedInfo.UNI_ID}`,
-                          state:{clickedInfo: clickedInfo}})
+              pathname: `/review/${clickedInfo.UNI_ID}`,
+              state: { clickedInfo, postsData },
+            });
           });
 
         document
@@ -300,5 +305,5 @@ const MapContainer = ({ opinet }) => {
     </div>
   );
 };
- 
+
 export default MapContainer;

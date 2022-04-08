@@ -1,7 +1,6 @@
-.logo {
-  display: flex;
-  height: 15vh;
-  margin: 20px;
+.logo_div {
+  width: 100%;
+  text-align: center;
 }
 
 .logo2 {
