@@ -4,7 +4,7 @@ import Nav from '../../components/nav/Nav';
 import image2 from '../../image2.png';
 import kakao from '../../kakao.png';
 import google from '../../google.png';
-import getfuel_experience from '../../getfuel_experience.png';
+import getfuletutorial from '../../TutorialLogo.png';
 import { getKakaoCode } from '../oauth/KakaoOAuth';
 import getGoogleCode from '../oauth/GoogleOAuth';
 
@@ -17,6 +17,7 @@ export default function Main() {
       </div>
       <div className={styles.title}>나에게 알맞는 주유소를 찾아보세요!</div>
       <div>
+        <div className={styles.button}>
         <div>
           <a href={getGoogleCode()}>
             <button className={styles.google}>
@@ -30,9 +31,10 @@ export default function Main() {
           </a>
         </div>
         <div>
-          <button className={styles.getfuel}>
-            <img className={styles.experience} src={getfuel_experience} />
+          <button className={styles.Tutorial}>
+            <img src={getfuletutorial} />
           </button>
+        </div>
         </div>
         <img className={styles.image2} src={image2} />
       </div>

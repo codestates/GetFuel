@@ -175,7 +175,7 @@ export default function SignUp() {
             </span>
           )}
         </div>
-        <div className={styles.errorword}>{isnickname}</div>
+        
 
         <div className={styles.password}>Password</div>
         <input
@@ -192,7 +192,7 @@ export default function SignUp() {
             </span>
           )}
         </div>
-        <div className={styles.errorword}>{isPassword}</div>
+        
 
         <div className={styles.reenterpassword}>Confirmpassword</div>
         <input

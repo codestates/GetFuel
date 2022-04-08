@@ -40,7 +40,6 @@ export default function App({ opinet }) {
       <Route path='/signup' component={SignUp} />
       <Route path='/edituser' component={EditUser} />
     </div>
-    
     </div>
   );
 }

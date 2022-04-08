@@ -9,9 +9,8 @@ export default async function kakaoOauthHandler(req, res) {
   const url = 'https://kauth.kakao.com/oauth/token';
   const values = {
     code: req.query.code,
-    client_id: process.env.KAKAO_CLIENT_ID,
-    client_secret: process.env.KAKAO_CLIENT_SECRET,
-    redirect_uri: process.env.KAKAO_OAUTH_REDIRECTURL,
+    client_id: '690e96bd45128ff563adf6862a6112c2',
+    redirect_uri:  'http://localhost:8080/api/sessions/oauth/kakao',
     grant_type: 'authorization_code',
   };
 
