@@ -2,12 +2,22 @@ import React from 'react';
 import styles from './MapNav.module.css';
 import GetFuel from '../../newgetfuel.png';
 import EditUser from '../../pages/edituser/EditUser';
-import { coordiEPSTtoKATEC } from '../../utils/coordinate';
 import { Link, useHistory } from 'react-router-dom';
 
-function MapNav({ userInfo, isLogin }) {
-  // console.log(userInfo);
+function MapNav({ userInfo, isLogin, logoutHandler, axiosInstance }) {
   const history = useHistory();
+  console.log(userInfo.authorization);
+
+  const handleLogout = () => {
+    const authorization = userInfo.accessToken;
+    axiosInstance
+      .get('/auth/signout', {
+        headers: { Authorization: `Bearer ${authorization}` },
+        withCredentials: true,
+      })
+      .then(() => logoutHandler(), history.push('/'))
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <div className={styles.nav}>
@@ -33,7 +43,13 @@ function MapNav({ userInfo, isLogin }) {
               )}
             </a>
           </span>
-          <a href='login'>Login</a>
+          <a>
+            {isLogin ? (
+              <span onClick={handleLogout}>Logout</span>
+            ) : (
+              <spa>Login</spa>
+            )}
+          </a>
         </div>
       </div>
     </>

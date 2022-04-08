@@ -17,6 +17,8 @@ const SearchBar = ({
   kakaoMap,
   userInfo,
   isLogin,
+  logoutHandler,
+  axiosInstance,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -78,7 +80,12 @@ const SearchBar = ({
 
   return (
     <>
-      <MapNav userInfo={userInfo} isLogin={isLogin} />
+      <MapNav
+        userInfo={userInfo}
+        isLogin={isLogin}
+        logoutHandler={logoutHandler}
+        axiosInstance={axiosInstance}
+      />
       <header className={styles.header}>
         <div className={styles.div}>
           <label className={styles.label}>

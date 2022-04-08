@@ -48,7 +48,7 @@ export async function signin(req, res) {
   });
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
-  res.status(200).json({ accessToken, email, userid: user.id });
+  res.status(200).json({ accessToken, email, userId: user.id });
 }
 
 export async function refresh(req, res) {
@@ -69,7 +69,7 @@ export async function refresh(req, res) {
     });
     res.json({
       accessToken,
-      id: found.id,
+      userId: found.id,
       message: ' complete access token issuance ',
     });
   } catch (error) {
@@ -85,6 +85,7 @@ export async function refresh(req, res) {
 }
 
 export async function signout(req, res) {
+  console.log('로그아웃컨트롤러작동?');
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });

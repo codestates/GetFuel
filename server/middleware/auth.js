@@ -4,23 +4,22 @@ import * as usersRepository from '../data/auth.js';
 
 export const isAuth = async (req, res, next) => {
   const authHeader = req.get('Authorization');
-  console.error('미들웨어에 들어옴?', { authHeader });
+  console.log(authHeader);
   if (!(authHeader && authHeader.startsWith('Bearer '))) {
     return res.status(401).json({ message: 'Authentication Error' });
   }
 
   const token = authHeader.split(' ')[1]; //access token
-  console.log({ token });
-
+  console.log(authHeader);
   jwt.verify(token, config.jwt.access_secret, async (error, decoded) => {
-    console.log({ error });
-    // if (error.name === 'TokenExpiredError') {
-    //   return res
-    //     .status(419)
-    //     .json({ code: 419, message: '토큰이 만료되었습니다.' });
-    // }
+    if (error?.name === 'TokenExpiredError') {
+      return res
+        .status(419)
+        .json({ code: 419, message: '토큰이 만료되었습니다.' });
+    }
 
     if (error) {
+      console.log(error);
       return res
         .status(401)
         .json({ code: 401, message: 'Authentication Error' });

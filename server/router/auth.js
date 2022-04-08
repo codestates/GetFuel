@@ -39,7 +39,7 @@ const validateSignup = [
 router.post('/signup', validateSignup, authController.signup);
 router.post('/signin', validateSignin, authController.signin);
 router.get('/refresh', authController.refresh);
-router.get('/signout', isAuth, authController.signout);
+router.post('/signout', isAuth, authController.signout);
 router.put(
   '/updateinfo/:id',
   isAuth,
