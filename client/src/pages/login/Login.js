@@ -51,13 +51,13 @@ export default function Login({ loginHandler }) {
       <div className={styles.user}>email</div>
       <input
         className={styles.userInfo}
-        type='text'
+        type="text"
         onChange={handleInputValue('email')}
       />
       <div className={styles.user}>password</div>
       <input
         className={styles.userInfo}
-        type='password'
+        type="password"
         onChange={handleInputValue('password')}
       />
       <div className={styles.alert}>{errorMessage}</div>
