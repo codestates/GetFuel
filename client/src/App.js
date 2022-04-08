@@ -70,5 +70,7 @@ export default function App({ opinet }) {
         <Route path="/edituser" component={EditUser} />
       </div>
     </div>
+    
+    </div>
   );
 }
