@@ -9,6 +9,8 @@ import boardRouter from './router/posts.js';
 import opinetRouter from './router/opinet.js';
 import { connectDB } from './database/database.js';
 import { config } from './configuration/config.js';
+import googleOauthHandler from './controller/googleOAuth.js';
+import kakaoOauthHandler from './controller/kakaoOAuth.js';
 
 const app = express();
 
@@ -19,19 +21,18 @@ app.use(
   cors({
     origin: ['http://localhost:3000'],
     credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS']
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   })
 );
-// app.use(cors());
 app.use(helmet());
 app.use(morgan('tiny'));
 app.use(cookieParser());
 
-
-
 app.use('/auth', authRouter);
 app.use('/posts', boardRouter);
 app.use('/opinet', opinetRouter);
+app.get('/api/sessions/oauth/google', googleOauthHandler);
+app.get('/api/sessions/oauth/kakao', kakaoOauthHandler);
 
 app.use((error, req, res, next) => {
   if (error) {

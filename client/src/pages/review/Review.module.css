@@ -1,8 +1,8 @@
-.commentForm {
+.board {
   display: flex;
 }
 
-.comment {
+.post {
   width: 80%;
   height: 100px;
   display: flex;
@@ -27,7 +27,7 @@
   border: 1px solid black;
 }
 
-.comments {
+.posts {
   flex: 1 0 80vh;
   border: 0.5px solid gray;
   overflow-y: scroll;

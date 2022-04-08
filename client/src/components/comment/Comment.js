@@ -6,12 +6,14 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import Reply from "../reply/Reply";
 import axios from "axios";
 
-function Comment ({station}) {
+function Comment ({posts}) {
     const parseDate = new Date().toLocaleDateString('ko-kr')
     const [code, setCode] = useState([]);
     const [post, setPost] = useState();
     const [comment, setComment] = useState();
-    // console.log('잘나오나', station)
+    
+
+    
 
     
 
@@ -21,7 +23,7 @@ function Comment ({station}) {
         <div className={styles.content}>
             <div className={styles.userInfo}>
                 <div>
-                    <div className={styles.username}>김정훈</div>
+                    <div className={styles.username}>{posts.data[0].id}</div>
                     <div className={styles.createdAt}>{parseDate}</div>
                 </div>
                 <div>
@@ -34,8 +36,6 @@ function Comment ({station}) {
                 </div>                    
             </div>
             <div className={styles.comment}></div>
-            <Reply/>
-            <div> 댓글 보여주는곳 </div>
         </div>
     </li>
     )

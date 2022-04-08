@@ -8,8 +8,6 @@ import {
 import SearchBar from '../../components/searchbar/SearchBar.js';
 import Review from '../review/Review.js';
 import './MapContainer.css';
-import axios from 'axios';
-
 const { kakao } = window;
 
 const MapContainer = ({ opinet, userInfo }) => {
@@ -43,14 +41,12 @@ const MapContainer = ({ opinet, userInfo }) => {
     }
   };
 
-
   useEffect(() => {
     /* geolocation 활용 https 환경에서만 작동.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude; //위도
         const lng = position.coords.longitude; //경도
-
         const container = document.getElementById('map');
         const options = {
           center: new kakao.maps.LatLng(lng, lat),
@@ -115,7 +111,7 @@ const MapContainer = ({ opinet, userInfo }) => {
     if (!coordiKatec.length) {
       return;
     }
-    const stationsInfo = await opinet.aroundStation(
+    const stationsInfo = await opinet.aroundStationGasoline(
       coordiKatec[0],
       coordiKatec[1]
     );
@@ -177,6 +173,7 @@ const MapContainer = ({ opinet, userInfo }) => {
         // console.log(clickedInfo);
         setClickInfo(clickedInfo);
         // overlay HTML
+
         let content =
           '<div class="wrap">' +
           '  <div class="info">' +
@@ -193,11 +190,11 @@ const MapContainer = ({ opinet, userInfo }) => {
           '      <ul>';
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034')) {
           content += `<li className="B034">
-            <span> 고급휘발유 </span>
-            <span> --------- ${
+            <span class="oilname"> 고급휘발유 </span>
+            <span class="oilprice"> --------- ${
               clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B034').PRICE
             }원 </span>
-            <span> (${clickedInfo.OIL_PRICE.find(
+            <span  class="updateTime"> (${clickedInfo.OIL_PRICE.find(
               (oil) => oil.PRODCD === 'B034'
             ).TRADE_DT.replace(
               /(\d{4})(\d{2})(\d{2})/,
@@ -207,22 +204,22 @@ const MapContainer = ({ opinet, userInfo }) => {
         }
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027')) {
           content += `<li className="B027">
-          <span> 휘발유 </span>
-          <span> ------------- ${
+          <span class="oilname"> 휘발유 </span>
+          <span class="oilprice"> ------------- ${
             clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'B027').PRICE
           }원 </span>
-          <span>(${clickedInfo.OIL_PRICE.find(
+          <span class="updateTime">(${clickedInfo.OIL_PRICE.find(
             (oil) => oil.PRODCD === 'B027'
           ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
         </li>`;
         }
         if (clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047')) {
           content += `<li className="D047">
-          <span> 경유 </span>
-          <span> ---------------- ${
+          <span class="oilname"> 경유 </span>
+          <span class="oilprice"> ---------------- ${
             clickedInfo.OIL_PRICE.find((oil) => oil.PRODCD === 'D047').PRICE
           }원 </span>
-          <span> (${clickedInfo.OIL_PRICE.find(
+          <span class="updateTime"> (${clickedInfo.OIL_PRICE.find(
             (oil) => oil.PRODCD === 'D047'
           ).TRADE_DT.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')} 기준)</span>
         </li>`;
@@ -245,7 +242,6 @@ const MapContainer = ({ opinet, userInfo }) => {
           `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
           '</div>';
         // make customOverlay
-
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
           position: marker.getPosition(),
@@ -291,10 +287,18 @@ const MapContainer = ({ opinet, userInfo }) => {
 
   return (
     <div>
-      <SearchBar setSearchValue={setSearchValue} />
+      <SearchBar
+        setSearchValue={setSearchValue}
+        coordiKatec={coordiKatec}
+        stations={stations}
+        setStations={setStations}
+        markers={markers}
+        opinet={opinet}
+        kakaoMap={kakaoMap}
+      />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };
-//라우트 사이에 리뷰넣어서 props내림 
+ 
 export default MapContainer;
