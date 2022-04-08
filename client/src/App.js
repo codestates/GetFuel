@@ -21,26 +21,25 @@ export default function App({ opinet }) {
   const issueAccessToken = (data) => {
     setUserInfo({ accessToken: data.accessToken, userId: data.userId });
   };
-
+  console.log(userInfo);
   return (
-    <div >
-    <div className={styles.App}>
-      <Route exact path='/'>
-        <Main />
-      </Route>
-      <Route path='/login'>
-        <Login loginHandler={loginHandler} />
-      </Route>
-      <Route path='/map'>
-        <MapContainer opinet={opinet} />
-      </Route>
-      <Route path='/review'>
-        <Review />
-      </Route>
-      <Route path='/signup' component={SignUp} />
-      <Route path='/edituser' component={EditUser} />
-    </div>
-    
+    <div>
+      <div className={styles.App}>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route path="/login">
+          <Login loginHandler={loginHandler} />
+        </Route>
+        <Route path="/map">
+          <MapContainer opinet={opinet} />
+        </Route>
+        <Route path="/review">
+          <Review />
+        </Route>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/edituser" component={EditUser} />
+      </div>
     </div>
   );
 }

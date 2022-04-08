@@ -48,7 +48,7 @@ export async function signin(req, res) {
   });
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
-  res.status(200).json({ accessToken, email, userid: user.id });
+  res.status(200).json({ accessToken, email, userId: user.id });
 }
 
 export async function refresh(req, res) {
