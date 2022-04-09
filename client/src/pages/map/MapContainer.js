@@ -7,6 +7,7 @@ import {
 } from '../../utils/coordinate.js';
 import SearchBar from '../../components/searchbar/SearchBar.js';
 import './MapContainer.css';
+import markerImg from '../../img/station1.png';
 const { kakao } = window;
 
 const MapContainer = ({
@@ -143,7 +144,7 @@ const MapContainer = ({
     if (kakaoMap === null) {
       return;
     }
-    const imageSrc = '../../img/station.png';
+    const imageSrc = markerImg;
     const imageSize = new kakao.maps.Size(38, 38);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 

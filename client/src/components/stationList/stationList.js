@@ -5,8 +5,8 @@ import HDO from '../../img/HDO.jpg';
 import GSC from '../../img/GSC.jpeg';
 import SKE from '../../img/SKE.jpg';
 import ETC from '../../img/ETC.png';
-import markerImageOver from '../../img/station1.png';
-import markerImageLeave from '../../img/station.png';
+import markerImageOver from '../../img/station.png';
+import markerImageLeave from '../../img/station1.png';
 const { kakao } = window;
 
 const StationList = ({ stations, markers }) => {
