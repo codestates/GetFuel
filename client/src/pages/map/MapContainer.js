@@ -6,7 +6,6 @@ import {
   coordiKATECtoEPSG,
 } from '../../utils/coordinate.js';
 import SearchBar from '../../components/searchbar/SearchBar.js';
-import Review from '../review/Review.js';
 import './MapContainer.css';
 const { kakao } = window;
 
@@ -15,6 +14,7 @@ const MapContainer = ({
   axiosInstance,
   userInfo,
   isLogin,
+  setIsLogin,
   logoutHandler,
 }) => {
   const [searchValue, setSearchValue] = useState('서울시청');
@@ -29,39 +29,8 @@ const MapContainer = ({
   const [clickInfo, setClickInfo] = useState([]);
 
   const history = useHistory();
-  const geo = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude; //위도
-        const lng = position.coords.longitude; //경도
-
-        const container = document.getElementById('map');
-        const options = {
-          center: new kakao.maps.LatLng(lng, lat),
-          level: 6,
-        };
-        const map = new kakao.maps.Map(container, options);
-        setKakaoMap(map); //여기까지가 지도 생성
-      });
-    }
-  };
-
+  console.log(isLogin);
   useEffect(() => {
-    /* geolocation 활용 https 환경에서만 작동.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude; //위도
-        const lng = position.coords.longitude; //경도
-        const container = document.getElementById('map');
-        const options = {
-          center: new kakao.maps.LatLng(lng, lat),
-          level: 7,
-        };
-        const map = new kakao.maps.Map(container, options);
-        setKakaoMap(map); //여기까지가 지도 생성
-      });
-    }
-    */
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(centerCoordi[0], centerCoordi[1]),
@@ -69,6 +38,28 @@ const MapContainer = ({
     };
     const map = new kakao.maps.Map(container, options);
     setKakaoMap(map); //여기까지가 지도 생성
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude; //위도
+        const lng = position.coords.longitude; //경도
+
+        const locPosition = new kakao.maps.LatLng(lat, lng);
+
+        displayMarker(locPosition);
+      });
+    } else {
+      const locPosition = new kakao.maps.LatLng([
+        37.56683690482874, 126.9786564967784,
+      ]);
+
+      displayMarker(locPosition);
+    }
+
+    function displayMarker(locPosition) {
+      new kakao.maps.Marker({ map, position: locPosition });
+      map.setCenter(locPosition);
+    }
   }, []);
 
   useEffect(() => {
@@ -307,10 +298,11 @@ const MapContainer = ({
         kakaoMap={kakaoMap}
         userInfo={userInfo}
         isLogin={isLogin}
+        setIsLogin={setIsLogin}
         logoutHandler={logoutHandler}
         axiosInstance={axiosInstance}
       />
-      <div id='map' style={{ width: '100%', height: '750px' }}></div>
+      <div id="map" style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };

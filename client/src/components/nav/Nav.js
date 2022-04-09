@@ -7,8 +7,8 @@ function Nav() {
     <div className={styles.nav}>
       <img className={styles.logo} src={GetFuel} />
       <div className={styles.menu}>
-        <a href='signup'>Sign Up</a>
-        <a href='login'>Login</a>
+        <a href="signup">Sign Up</a>
+        <a href="login">Login</a>
       </div>
     </div>
   );
