@@ -55,7 +55,7 @@ const MapContainer = ({
         const lng = position.coords.longitude; //경도
 
         const locPosition = new kakao.maps.LatLng(lat, lng);
-
+        console.log(locPosition);
         displayMarker(locPosition);
       });
     } else {
@@ -71,6 +71,8 @@ const MapContainer = ({
       const imageSize = new kakao.maps.Size(38, 38);
       const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
+
+      setCenterCoordi([locPosition.Ma, locPosition.La]);
       map.setCenter(locPosition);
     }
   }, []);
