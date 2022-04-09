@@ -6,8 +6,9 @@ import {
   coordiKATECtoEPSG,
 } from '../../utils/coordinate.js';
 import SearchBar from '../../components/searchbar/SearchBar.js';
-import Review from '../review/Review.js';
 import './MapContainer.css';
+import markerImg from '../../img/station1.png';
+import geolacationImg from '../../img/geoImg.png';
 const { kakao } = window;
 
 const MapContainer = ({
@@ -15,6 +16,7 @@ const MapContainer = ({
   axiosInstance,
   userInfo,
   isLogin,
+  setIsLogin,
   logoutHandler,
 }) => {
   const [searchValue, setSearchValue] = useState('서울시청');
@@ -29,39 +31,16 @@ const MapContainer = ({
   const [clickInfo, setClickInfo] = useState([]);
 
   const history = useHistory();
-  const geo = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude; //위도
-        const lng = position.coords.longitude; //경도
 
-        const container = document.getElementById('map');
-        const options = {
-          center: new kakao.maps.LatLng(lng, lat),
-          level: 6,
-        };
-        const map = new kakao.maps.Map(container, options);
-        setKakaoMap(map); //여기까지가 지도 생성
-      });
-    }
-  };
+  // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
+  function updateCoordi() {
+    let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
+    setCenterCoordi([latlng.Ma, latlng.La]);
+    const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
+    setcoordiKatec([...converted]);
+  }
 
   useEffect(() => {
-    /* geolocation 활용 https 환경에서만 작동.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude; //위도
-        const lng = position.coords.longitude; //경도
-        const container = document.getElementById('map');
-        const options = {
-          center: new kakao.maps.LatLng(lng, lat),
-          level: 7,
-        };
-        const map = new kakao.maps.Map(container, options);
-        setKakaoMap(map); //여기까지가 지도 생성
-      });
-    }
-    */
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(centerCoordi[0], centerCoordi[1]),
@@ -69,6 +48,33 @@ const MapContainer = ({
     };
     const map = new kakao.maps.Map(container, options);
     setKakaoMap(map); //여기까지가 지도 생성
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude; //위도
+        const lng = position.coords.longitude; //경도
+
+        const locPosition = new kakao.maps.LatLng(lat, lng);
+        console.log(locPosition);
+        displayMarker(locPosition);
+      });
+    } else {
+      const locPosition = new kakao.maps.LatLng([
+        37.56683690482874, 126.9786564967784,
+      ]);
+
+      displayMarker(locPosition);
+    }
+
+    function displayMarker(locPosition) {
+      const imageSrc = geolacationImg;
+      const imageSize = new kakao.maps.Size(38, 38);
+      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+      new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
+
+      setCenterCoordi([locPosition.Ma, locPosition.La]);
+      map.setCenter(locPosition);
+    }
   }, []);
 
   useEffect(() => {
@@ -87,13 +93,6 @@ const MapContainer = ({
         });
         kakaoMap.setBounds(bounds);
       }
-    }
-    // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
-    function updateCoordi() {
-      let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
-      setCenterCoordi([latlng.Ma, latlng.La]);
-      const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
-      setcoordiKatec([...converted]);
     }
 
     kakao.maps.event.addListener(
@@ -152,7 +151,7 @@ const MapContainer = ({
     if (kakaoMap === null) {
       return;
     }
-    const imageSrc = '../../img/station.png';
+    const imageSrc = markerImg;
     const imageSize = new kakao.maps.Size(38, 38);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -307,10 +306,11 @@ const MapContainer = ({
         kakaoMap={kakaoMap}
         userInfo={userInfo}
         isLogin={isLogin}
+        setIsLogin={setIsLogin}
         logoutHandler={logoutHandler}
         axiosInstance={axiosInstance}
       />
-      <div id='map' style={{ width: '100%', height: '750px' }}></div>
+      <div id="map" style={{ width: '100%', height: '750px' }}></div>
     </div>
   );
 };

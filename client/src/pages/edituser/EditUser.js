@@ -7,10 +7,7 @@ import { useHistory, Link } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
 
-export default function EditUser() {
-  const location = useLocation();
-  const userInfo = location.state.userInfo;
-
+export default function EditUser({ userInfo }) {
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
@@ -90,27 +87,27 @@ export default function EditUser() {
           <div className={styles.email}>email</div>
           <input
             className={styles.userinfo}
-            type='text'
-            placeholder='이메일을 입력하세요'
+            type="text"
+            placeholder="이메일을 입력하세요"
             disabled
           />
 
           <div className={styles.nickname}>nickname</div>
           <input
             className={styles.userinfo}
-            type='text'
-            placeholder='사용할 닉네임을입력하세요'
+            type="text"
+            placeholder="사용할 닉네임을입력하세요"
             disabled
           />
 
           <div className={styles.password}>password</div>
           <input
             className={styles.userinfo}
-            type='password'
-            placeholder='비밀번호를 입력하세요'
+            type="password"
+            placeholder="비밀번호를 입력하세요"
             onChange={onChangePassword}
           />
-          <div className='formbox'>
+          <div className="formbox">
             {password.length > 0 && (
               <span className={`message ${isPassword ? 'success' : 'error'}`}>
                 {passwordErrorMessage}
@@ -121,11 +118,11 @@ export default function EditUser() {
           <div className={styles.reenterpassword}>reenterpassword</div>
           <input
             className={styles.userinfo}
-            type='password'
-            placeholder='비밀번호 확인'
+            type="password"
+            placeholder="비밀번호 확인"
             onChange={onChangePasswordConfirm}
           />
-          <div className='formbox'>
+          <div className="formbox">
             {reEnterPassword.length > 0 && (
               <span
                 className={`message ${isConfirmPassword ? 'success' : 'error'}`}
@@ -140,7 +137,7 @@ export default function EditUser() {
           <button className={styles.button} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
-          <Link to='/map'>
+          <Link to="/map">
             <button className={styles.button}>Cancel</button>
           </Link>
           <span
