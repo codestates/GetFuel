@@ -31,9 +31,9 @@ export default function Main() {
           </a>
         </div>
         <div>
-          <button className={styles.Tutorial}>
+          <a href='map' className={styles.Tutorial}>
             <img src={getfuletutorial} />
-          </button>
+          </a>
         </div>
         </div>
         <img className={styles.image2} src={image2} />
