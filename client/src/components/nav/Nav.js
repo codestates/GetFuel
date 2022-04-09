@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 function Nav() {
     return (
         <div className={styles.nav}>
+          <Link to='/'>
             <img className={styles.logo} src={GetFuel} />
+            </Link>
             <div className={styles.menu}>
                 <Link to='signup'>
                     <button className={styles.signup}><span>Sign up</span></button>
@@ -17,6 +19,7 @@ function Nav() {
             </div>
         </div>
     )
+  
 }
 
 export default Nav;

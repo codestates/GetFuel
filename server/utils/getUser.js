@@ -5,11 +5,14 @@ dotenv.config();
 
 export async function getGoogleTokens({ code }) {
   const url = 'https://oauth2.googleapis.com/token';
+  const GOOGLE_CLIENT_ID =
+    '779018207520-qvftar8nin7c9bqo0q4ouk4mtj7gb6lc.apps.googleusercontent.com';
+  const GOOGLE_OAUTH_REDIRECTION =
+    'http://localhost:8080/api/sessions/oauth/google';
   const values = {
     code,
-    client_id: process.env.GOOGLE_CLIENT_ID,
-    client_secret: process.env.GOOGLE_CLIENT_SECRET,
-    redirect_uri: process.env.GOOGLE_OAUTH_REDIRECTURL,
+    client_id: GOOGLE_CLIENT_ID,
+    redirect_uri: GOOGLE_OAUTH_REDIRECTION,
     grant_type: 'authorization_code',
   };
   console.log({ values });

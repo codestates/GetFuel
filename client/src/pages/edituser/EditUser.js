@@ -2,14 +2,12 @@ import React, { useState, useCallback } from 'react';
 import GetFuel from '../../GetFuel.png';
 import styles from './EditUser.module.css';
 import axios from 'axios';
-import edituser from './edituser.css';
+import { useLocation } from 'react-router';
+import { useHistory, Link } from 'react-router-dom';
+import DeleteUserModal from './DeleteUserModal.js';
+import './DeleteUserModal.css';
 
-export default function EditUser(userInfo) {
-  console.log(userInfo);
-  const [userid, setUserid] = useState('');
-  const [accessToken, setAccessToken] = useState('');
-  const [updateErrorMessage, setUpdateErrorMessage] = useState('');
-  const [deleteErrorMessage, setDeleteErrorMessage] = useState('');
+export default function EditUser({ userInfo }) {
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
@@ -51,43 +49,34 @@ export default function EditUser(userInfo) {
     },
     [password]
   );
-
+  const history = useHistory();
   const handleUpdateUserInfo = () => {
+    const authorization = userInfo.accessToken;
+    const userId = userInfo.userId;
+
     axios
-      .put(`http://localhost:8080/updateinfo/${userid}`, {
-        Authorization: `Bearer ${accessToken}`,
-      })
-      .then((res) => {
-        if (res.status === '404') {
-          return setUpdateErrorMessage('잘못된 회원정보 입니다.');
-        } else if (res.status === '403') {
-          return setUpdateErrorMessage('접근 권한이 없습니다.');
-        } else {
-          return setUpdateErrorMessage('');
+      .put(
+        `http://localhost:8080/auth/updateinfo/${userId}`,
+        { password },
+        {
+          headers: {
+            Authorization: `Bearer ${authorization}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
         }
+      )
+      .then((res) => {
+        history.push('/login');
       })
       .catch((err) => {
         console.log(err, 'Failed to Update UserInfo');
       });
   };
 
-  const handleDeleteUserInfo = () => {
-    axios
-      .delete(`http://localhost:8080/deleteaccount/${userid}`, {
-        Authorization: `Bearer ${accessToken}`,
-      })
-      .then((res) => {
-        if (res.status === '404') {
-          return setDeleteErrorMessage('잘못된 회원정보 입니다.');
-        } else if (res.status === '403') {
-          return setDeleteErrorMessage('접근 권한이 없습니다.');
-        } else {
-          return setDeleteErrorMessage('');
-        }
-      })
-      .catch((err) => {
-        console.log(err, 'Failed to Delete UserInfo');
-      });
+  const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
+  const deleteModalHandler = () => {
+    setIsDeleteModal(!isOpenDeleteModal);
   };
 
   return (
@@ -98,27 +87,27 @@ export default function EditUser(userInfo) {
           <div className={styles.email}>email</div>
           <input
             className={styles.userinfo}
-            type='text'
-            placeholder='이메일을 입력하세요'
+            type="text"
+            placeholder="이메일을 입력하세요"
             disabled
           />
 
           <div className={styles.nickname}>nickname</div>
           <input
             className={styles.userinfo}
-            type='text'
-            placeholder='사용할 닉네임을입력하세요'
+            type="text"
+            placeholder="사용할 닉네임을입력하세요"
             disabled
           />
 
           <div className={styles.password}>password</div>
           <input
             className={styles.userinfo}
-            type='password'
-            placeholder='비밀번호를 입력하세요'
+            type="password"
+            placeholder="비밀번호를 입력하세요"
             onChange={onChangePassword}
           />
-          <div className='formbox'>
+          <div className="formbox">
             {password.length > 0 && (
               <span className={`message ${isPassword ? 'success' : 'error'}`}>
                 {passwordErrorMessage}
@@ -129,11 +118,11 @@ export default function EditUser(userInfo) {
           <div className={styles.reenterpassword}>reenterpassword</div>
           <input
             className={styles.userinfo}
-            type='password'
-            placeholder='비밀번호 확인'
+            type="password"
+            placeholder="비밀번호 확인"
             onChange={onChangePasswordConfirm}
           />
-          <div className='formbox'>
+          <div className="formbox">
             {reEnterPassword.length > 0 && (
               <span
                 className={`message ${isConfirmPassword ? 'success' : 'error'}`}
@@ -143,20 +132,32 @@ export default function EditUser(userInfo) {
             )}
           </div>
         </form>
-        <div>{updateErrorMessage}</div>
 
         <div className={styles.button_bundle}>
           <button className={styles.button} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
-
-          <button className={styles.button}>Cancel</button>
-
-          <button className={styles.button} onClick={handleDeleteUserInfo}>
-            Delete Account
-          </button>
-          <div>{deleteErrorMessage}</div>
+          <Link to="/map">
+            <button className={styles.button}>Cancel</button>
+          </Link>
+          <span
+            onClick={() => {
+              history.push({
+                pathname: '/deleteuser',
+                state: { userInfo: userInfo },
+              });
+            }}
+          >
+            <button className={styles.button} onClick={deleteModalHandler}>
+              Delete Account
+            </button>
+          </span>
         </div>
+      </div>
+      <div>
+        {isOpenDeleteModal ? (
+          <DeleteUserModal deleteModalHandler={deleteModalHandler} />
+        ) : null}
       </div>
     </div>
   );

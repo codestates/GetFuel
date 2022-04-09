@@ -46,31 +46,61 @@
 .section {
   background-color: #0b409c;
   color: #fff;
-  width: 300px;
+  width: 280px;
   margin-left: -16px;
   padding-top: 30px;
   position: absolute;
   top: 3.5rem;
-  left: -300px;
-  transition: 1s ease;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s linear;
   z-index: 2;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.section::-webkit-scrollbar {
+  width: 6px;
+}
+.section::-webkit-scrollbar-thumb {
+  height: 5%;
+  background-color: #ec6666;
+  border-radius: 10px;
+}
+.section::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.993);
 }
 
 .clickedSection {
   background-color: #0b409c;
   color: #fff;
-  width: 300px;
+  width: 280px;
+  height: auto;
   margin-left: -16px;
   padding-top: 30px;
   position: absolute;
   top: 3.5rem;
-  left: 0px;
-  transition: 1s ease;
+  transition: 0.5s linear;
+  visibility: visible;
+  opacity: 1;
   z-index: 2;
+  height: 400px;
+  overflow-y: scroll;
 }
 
+.clickedSection::-webkit-scrollbar {
+  width: 6px;
+}
+.clickedSection::-webkit-scrollbar-thumb {
+  height: 5%;
+  background-color: #ec6666;
+  border-radius: 10px;
+}
+.clickedSection::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.993);
+}
 .oil_btn {
-  width: 80px;
+  width: 70px;
   font-size: 13px;
   font-weight: 700;
   color: #fff;

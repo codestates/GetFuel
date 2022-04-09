@@ -1,13 +1,13 @@
-.signup_logo{
-    display: flex;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1%;
-    background-size: cover;
-    align-items: center;
-    text-align: center;
-    height: 33vh;
+.signup_logo {
+  display: flex;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1%;
+  background-size: cover;
+  align-items: center;
+  text-align: center;
+  height: 33vh;
 }
 
 .button_bundle{
@@ -19,14 +19,13 @@
     position: relative;
 }
 
-
 .button {
-    width: 52%;
-    height: 80%;
-    box-sizing: border-box;
-    background-color: #0b409c;
-    color: white;
-    font-size: large;
+  width: 52%;
+  height: 80%;
+  box-sizing: border-box;
+  background-color: #0b409c;
+  color: white;
+  font-size: large;
 }
 
 .button_bundle button:hover {
@@ -34,20 +33,18 @@
   background-color: white;
 }
 
-
-
-.inputform{
-    margin-top: 1%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 4%;
-    padding: 1%;
-    justify-content: center;
-    align-items: center;
+.inputform {
+  margin-top: 1%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 4%;
+  padding: 1%;
+  justify-content: center;
+  align-items: center;
 }
-.email{
-    margin-right: 100%;
-    margin-top: 2%;
+.email {
+  margin-right: 100%;
+  margin-top: 2%;
 }
 .userinfo{
     margin-top: 1%;
@@ -58,42 +55,41 @@
     height: 40px;
     
 }
-.nickname{
-    margin-right: 100%;
-    margin-top: 2%;
+.nickname {
+  margin-right: 100%;
+  margin-top: 2%;
 }
 
-.password{
-    margin-right: 100%;
-    margin-top: 2%;
+.password {
+  margin-right: 100%;
+  margin-top: 2%;
 }
 
-.reenterpassword{
-    margin-right: 100%;
-    margin-top: 2%;
+.reenterpassword {
+  margin-right: 100%;
+  margin-top: 2%;
 }
 
-.formbox{
-    margin-right: 100%;
-    white-space: nowrap;
-    margin-top: 2%;
-    color: red;
-    animation: warning 0.3s ease;
-    animation-iteration-count: 3;
-    
+.formbox {
+  margin-right: 100%;
+  white-space: nowrap;
+  margin-top: 2%;
+  color: red;
+  animation: warning 0.3s ease;
+  animation-iteration-count: 3;
 }
 
 @keyframes warning {
-    0% {
-      transform: translateX(-8px);
-    }
-    25% {
-      transform: translateX(8px);
-    }
-    50% {
-      transform: translateX(-8px);
-    }
-    75% {
-      transform: translateX(8px);
-    }
+  0% {
+    transform: translateX(-8px);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
 }

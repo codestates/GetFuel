@@ -9,7 +9,6 @@ export const isAuth = async (req, res, next) => {
   }
 
   const token = authHeader.split(' ')[1]; //access token
-  console.log(authHeader);
   jwt.verify(token, config.jwt.access_secret, async (error, decoded) => {
     if (error?.name === 'TokenExpiredError') {
       return res

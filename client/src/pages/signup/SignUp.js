@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import GetFuel from '../../GetFuel1.png';
 import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
+import Nav from '../../components/nav/Nav';
 
 export default function SignUp() {
   // 정보확인
@@ -102,7 +103,7 @@ export default function SignUp() {
     if (nickname && email && password) {
       axios
         .post(
-          'http://ec2-44-202-55-141.compute-1.amazonaws.com/auth/signup',
+          'http://localhost:8080/auth/signup',
           { email, nickname, password },
           {
             headers: { 'Content-Type': 'application/json' },
@@ -110,21 +111,11 @@ export default function SignUp() {
           }
         )
         .then((res) => {
-          console.log(res.data);
           if (res) {
-            SignupModalHandler();
+            signUpModalHandler();
           }
         })
-        .catch((err) => {
-          const messageFromServer = err;
-          if (messageFromServer.response.data.field === 'password') {
-            setIsPassword(messageFromServer.response.data.message);
-          } else if (messageFromServer.response.data.field === 'email') {
-            setIsEmail(messageFromServer.response.data.message);
-          } else if (messageFromServer.response.data.field === 'nickname') {
-            setIsNickname(messageFromServer.response.data.message);
-          }
-        });
+        .catch((err) => console.error(err));
     } else {
       setErrorMessage('모든 항목은 필수입니다.');
     }
@@ -132,99 +123,104 @@ export default function SignUp() {
 
   const [isOpenSignUpModal, setIsOpenSignUpModal] = useState(false);
 
-  const SignupModalHandler = () => {
+  const signUpModalHandler = () => {
     setIsOpenSignUpModal(!isOpenSignUpModal);
   };
 
   return (
     <div>
+      <Nav />
       <div className={styles.GetFuelLogo}>
         <img className={styles.signup_logo} src={GetFuel} />
       </div>
-      <form className={styles.inputform} onSubmit={(e) => e.preventDefault()}>
-        <div className={styles.email}>Email</div>
-        <input
-          className={styles.userinfo}
-          id='email'
-          type='email'
-          placeholder='이메일을 입력하세요'
-          onChange={onChangeEmail}
-        />
-        <div className={styles.formbox}>
-          {email.length > 0 && (
-            <span className={`message ${valEmail ? 'success' : 'error'}`}>
-              {emailMessage}
-            </span>
-          )}
-        </div>
+      <div>
+        <form className={styles.inputform} onSubmit={(e) => e.preventDefault()}>
+          <div className={styles.email}>Email</div>
+          <input
+            className={styles.userinfo}
+            id="email"
+            type="email"
+            placeholder="이메일을 입력하세요"
+            onChange={onChangeEmail}
+          />
+          <div className={styles.formbox}>
+            {email.length > 0 && (
+              <span className={`message ${valEmail ? 'success' : 'error'}`}>
+                {emailMessage}
+              </span>
+            )}
+          </div>
 
-        <div className={styles.nickname}>Nickname</div>
-        <input
-          className={styles.userinfo}
-          id='name'
-          type='text'
-          name='name'
-          placeholder='사용할 닉네임을 입력하세요'
-          autoComplete='off'
-          onChange={onChangeNickname}
-        />
-        <div className={styles.formbox}>
-          {nickname.length > 0 && (
-            <span className={`message ${valNickname ? 'success ' : 'error'}`}>
-              {nicknameMessage}
-            </span>
-          )}
-        </div>
-        
+          <div className={styles.nickname}>Nickname</div>
+          <input
+            className={styles.userinfo}
+            id="name"
+            type="text"
+            name="name"
+            placeholder="사용할 닉네임을 입력하세요"
+            autoComplete="off"
+            onChange={onChangeNickname}
+          />
+          <div className={styles.formbox}>
+            {nickname.length > 0 && (
+              <span className={`message ${valNickname ? 'success ' : 'error'}`}>
+                {nicknameMessage}
+              </span>
+            )}
+          </div>
+          <div className={styles.errorword}>{isnickname}</div>
 
-        <div className={styles.password}>Password</div>
-        <input
-          className={styles.userinfo}
-          type='password'
-          name='password'
-          placeholder='비밀번호를 입력하세요'
-          onChange={onChangePassword}
-        />
-        <div className={styles.formbox}>
-          {password.length > 0 && (
-            <span className={`message ${valPassword ? 'success ' : 'error'}`}>
-              {passwordMessage}
-            </span>
-          )}
-        </div>
-        
+          <div className={styles.password}>Password</div>
+          <input
+            className={styles.userinfo}
+            type="password"
+            name="password"
+            placeholder="비밀번호를 입력하세요"
+            onChange={onChangePassword}
+          />
+          <div className={styles.formbox}>
+            {password.length > 0 && (
+              <span className={`message ${valPassword ? 'success ' : 'error'}`}>
+                {passwordMessage}
+              </span>
+            )}
+          </div>
+          <div className={styles.errorword}>{isPassword}</div>
 
-        <div className={styles.reenterpassword}>Confirmpassword</div>
-        <input
-          className={styles.userinfo}
-          type='password'
-          name='passwordConfirm'
-          placeholder='비밀번호 확인'
-          onChange={onChangePasswordConfirm}
-        />
-        <div className={styles.formbox}>
-          {passwordConfirm.length > 0 && (
-            <span
-              className={`message ${valConfirmPassword ? 'success ' : 'error'}`}
-            >
-              {confirmPasswordMessage}
-            </span>
-          )}
-        </div>
+          <div className={styles.reenterpassword}>Confirmpassword</div>
+          <input
+            className={styles.userinfo}
+            type="password"
+            name="passwordConfirm"
+            placeholder="비밀번호 확인"
+            onChange={onChangePasswordConfirm}
+          />
+          <div className={styles.formbox}>
+            {passwordConfirm.length > 0 && (
+              <span
+                className={`message ${
+                  valConfirmPassword ? 'success ' : 'error'
+                }`}
+              >
+                {confirmPasswordMessage}
+              </span>
+            )}
+          </div>
 
-        <div className={styles.button_bundle}>
-          <button onClick={handleSignup} className={styles.button}>
-            Sign Up
-          </button>
+          <div className={styles.button_bundle}>
+            <button onClick={handleSignup} className={styles.button}>
+              Sign Up
+            </button>
 
-          <Link to='/'>
-            <button className={styles.button} >Cancel</button>
+            <Link to="/">
+              <button className={styles.button}>Cancel</button>
             </Link>
-        </div>
-      </form>
+          </div>
+        </form>
+      </div>
       <div>
         {isOpenSignUpModal ? (
-          <SignuUpModal SignupModalHandler={SignupModalHandler} />
+          <SignuUpModal signUpModalHandler={signUpModalHandler} />
         ) : null}
       </div>
     </div>
