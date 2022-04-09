@@ -8,6 +8,7 @@ import {
 import SearchBar from '../../components/searchbar/SearchBar.js';
 import './MapContainer.css';
 import markerImg from '../../img/station1.png';
+import geolacationImg from '../../img/geoImg.png';
 const { kakao } = window;
 
 const MapContainer = ({
@@ -30,7 +31,15 @@ const MapContainer = ({
   const [clickInfo, setClickInfo] = useState([]);
 
   const history = useHistory();
-  console.log(isLogin);
+
+  // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
+  function updateCoordi() {
+    let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
+    setCenterCoordi([latlng.Ma, latlng.La]);
+    const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
+    setcoordiKatec([...converted]);
+  }
+
   useEffect(() => {
     const container = document.getElementById('map');
     const options = {
@@ -58,7 +67,10 @@ const MapContainer = ({
     }
 
     function displayMarker(locPosition) {
-      new kakao.maps.Marker({ map, position: locPosition });
+      const imageSrc = geolacationImg;
+      const imageSize = new kakao.maps.Size(38, 38);
+      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+      new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
       map.setCenter(locPosition);
     }
   }, []);
@@ -79,13 +91,6 @@ const MapContainer = ({
         });
         kakaoMap.setBounds(bounds);
       }
-    }
-    // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
-    function updateCoordi() {
-      let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
-      setCenterCoordi([latlng.Ma, latlng.La]);
-      const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
-      setcoordiKatec([...converted]);
     }
 
     kakao.maps.event.addListener(
