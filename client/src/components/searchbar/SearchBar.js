@@ -17,6 +17,7 @@ const SearchBar = ({
   kakaoMap,
   userInfo,
   isLogin,
+  setIsLogin,
   logoutHandler,
   axiosInstance,
 }) => {
@@ -83,6 +84,7 @@ const SearchBar = ({
       <MapNav
         userInfo={userInfo}
         isLogin={isLogin}
+        setIsLogin={setIsLogin}
         logoutHandler={logoutHandler}
         axiosInstance={axiosInstance}
       />
@@ -91,7 +93,7 @@ const SearchBar = ({
           <label className={styles.label}>
             <FontAwesomeIcon icon={faBars} className={styles.menu_img} />
             <input
-              type='button'
+              type="button"
               value={'가격순 보기'}
               className={styles.menu_btn}
               onClick={handleSidebar}
@@ -117,8 +119,8 @@ const SearchBar = ({
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 className={styles.input}
-                type='search'
-                placeholder='지역을 입력하세요...'
+                type="search"
+                placeholder="지역을 입력하세요..."
                 ref={inputRef}
               />
               <button className={styles.button}>
