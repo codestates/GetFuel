@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import styles from './Main.module.css';
 import Nav from '../../components/nav/Nav';
 import image2 from '../../cooltext.png';
-import kakao from '../../kakao.png';
-import google from '../../google.png';
 import logoabr from '../../logobar.png';
 
 import { useHistory } from 'react-router-dom';
