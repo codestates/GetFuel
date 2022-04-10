@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import GetFuel from '../../GetFuel.png';
+import GetFuel from '../../GetFuel1.png';
 import styles from './EditUser.module.css';
 import axios from 'axios';
-import { useLocation } from 'react-router';
 import { useHistory, Link } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
@@ -86,7 +85,7 @@ export default function EditUser({ userInfo }) {
         <form className={styles.inputform}>
           <div className={styles.email}>email</div>
           <input
-            className={styles.userinfo}
+            className={styles.nouserinfo}
             type="text"
             placeholder="이메일을 입력하세요"
             disabled
@@ -94,7 +93,7 @@ export default function EditUser({ userInfo }) {
 
           <div className={styles.nickname}>nickname</div>
           <input
-            className={styles.userinfo}
+            className={styles.nouserinfo}
             type="text"
             placeholder="사용할 닉네임을입력하세요"
             disabled
@@ -107,7 +106,7 @@ export default function EditUser({ userInfo }) {
             placeholder="비밀번호를 입력하세요"
             onChange={onChangePassword}
           />
-          <div className="formbox">
+          <div className={styles.formbox}>
             {password.length > 0 && (
               <span className={`message ${isPassword ? 'success' : 'error'}`}>
                 {passwordErrorMessage}
@@ -115,14 +114,14 @@ export default function EditUser({ userInfo }) {
             )}
           </div>
 
-          <div className={styles.reenterpassword}>reenterpassword</div>
+          <div className={styles.confirmpassword}>confirmpassword</div>
           <input
             className={styles.userinfo}
             type="password"
             placeholder="비밀번호 확인"
             onChange={onChangePasswordConfirm}
           />
-          <div className="formbox">
+          <div className={styles.formbox}>
             {reEnterPassword.length > 0 && (
               <span
                 className={`message ${isConfirmPassword ? 'success' : 'error'}`}
@@ -148,8 +147,8 @@ export default function EditUser({ userInfo }) {
               });
             }}
           >
-            <button className={styles.button} onClick={deleteModalHandler}>
-              Delete Account
+            <button className={styles.button1} onClick={deleteModalHandler}>
+              Delete<br/>Account
             </button>
           </span>
         </div>

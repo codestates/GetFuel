@@ -6,6 +6,7 @@ import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
 import Nav from '../../components/nav/Nav';
 
+
 export default function SignUp() {
   // 정보확인
   const [nickname, setNickname] = useState('');
@@ -13,10 +14,6 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
-  // 서버에서 받아오는 상태메시지 저장?
-  const [isnickname, setIsNickname] = useState('');
-  const [isEmail, setIsEmail] = useState('');
-  const [isPassword, setIsPassword] = useState('');
 
   // 오류 메시지 상태를 저장
   const [nicknameMessage, setNicknameMessage] = useState('');
@@ -97,6 +94,7 @@ export default function SignUp() {
   );
 
   const [errorMessage, setErrorMessage] = useState('');
+ 
 
   // Signup버튼 클릭시 post
   const handleSignup = () => {
@@ -135,6 +133,7 @@ export default function SignUp() {
       </div>
       <div>
         <form className={styles.inputform} onSubmit={(e) => e.preventDefault()}>
+          <div className={styles.emailform}>
           <div className={styles.email}>Email</div>
           <input
             className={styles.userinfo}
@@ -143,6 +142,7 @@ export default function SignUp() {
             placeholder="이메일을 입력하세요"
             onChange={onChangeEmail}
           />
+          </div>
           <div className={styles.formbox}>
             {email.length > 0 && (
               <span className={`message ${valEmail ? 'success' : 'error'}`}>
@@ -150,7 +150,7 @@ export default function SignUp() {
               </span>
             )}
           </div>
-
+          <div className={styles.nickanmeform}>
           <div className={styles.nickname}>Nickname</div>
           <input
             className={styles.userinfo}
@@ -161,6 +161,7 @@ export default function SignUp() {
             autoComplete="off"
             onChange={onChangeNickname}
           />
+          </div>
           <div className={styles.formbox}>
             {nickname.length > 0 && (
               <span className={`message ${valNickname ? 'success ' : 'error'}`}>
@@ -168,8 +169,8 @@ export default function SignUp() {
               </span>
             )}
           </div>
-          <div className={styles.errorword}>{isnickname}</div>
-
+          
+          <div className={styles.passwordform}>
           <div className={styles.password}>Password</div>
           <input
             className={styles.userinfo}
@@ -178,6 +179,7 @@ export default function SignUp() {
             placeholder="비밀번호를 입력하세요"
             onChange={onChangePassword}
           />
+          </div>
           <div className={styles.formbox}>
             {password.length > 0 && (
               <span className={`message ${valPassword ? 'success ' : 'error'}`}>
@@ -185,9 +187,9 @@ export default function SignUp() {
               </span>
             )}
           </div>
-          <div className={styles.errorword}>{isPassword}</div>
-
-          <div className={styles.reenterpassword}>Confirmpassword</div>
+          
+          <div className={styles.confirmform}>
+          <div className={styles.confirmpassword}>Confirm password</div>
           <input
             className={styles.userinfo}
             type="password"
@@ -195,6 +197,7 @@ export default function SignUp() {
             placeholder="비밀번호 확인"
             onChange={onChangePasswordConfirm}
           />
+          </div>
           <div className={styles.formbox}>
             {passwordConfirm.length > 0 && (
               <span
