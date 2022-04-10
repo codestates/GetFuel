@@ -5,7 +5,6 @@ import { body } from 'express-validator';
 import { isAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validator.js';
 
-
 const router = express.Router();
 
 const validateUpdateInfo = [

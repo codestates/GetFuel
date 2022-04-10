@@ -22,12 +22,13 @@ export default function Main() {
 
 
         <div>
-
-          <button className={styles.Tutorial} onClick={() => history.push('/map')}>
+          <button
+            className={styles.Tutorial}
+            onClick={() => history.push('/map')}
+          >
             <img src={logoabr} />
           </button>
         </div>
-
       </div>
     </div>
   );
