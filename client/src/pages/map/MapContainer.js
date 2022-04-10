@@ -9,6 +9,7 @@ import SearchBar from '../../components/searchbar/SearchBar.js';
 import './MapContainer.css';
 import markerImg from '../../img/station1.png';
 import geolacationImg from '../../img/geoImg.png';
+import Loading from '../../components/loding/Loding.js';
 const { kakao } = window;
 
 const MapContainer = ({
@@ -30,24 +31,31 @@ const MapContainer = ({
   const [markers, setMarkers] = useState([]);
   const [clickInfo, setClickInfo] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const history = useHistory();
 
   // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
   function updateCoordi() {
     let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
+    setIsLoading(true);
     setCenterCoordi([latlng.Ma, latlng.La]);
     const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
     setcoordiKatec([...converted]);
+    setIsLoading(false);
   }
 
   useEffect(() => {
     const container = document.getElementById('map');
+    setIsLoading(true);
     const options = {
       center: new kakao.maps.LatLng(centerCoordi[0], centerCoordi[1]),
       level: 6,
     };
     const map = new kakao.maps.Map(container, options);
     setKakaoMap(map); //여기까지가 지도 생성
+    
+    
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -70,10 +78,12 @@ const MapContainer = ({
       const imageSrc = geolacationImg;
       const imageSize = new kakao.maps.Size(38, 38);
       const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+      
       new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
 
       setCenterCoordi([locPosition.Ma, locPosition.La]);
       map.setCenter(locPosition);
+      
     }
   }, []);
 
@@ -310,7 +320,10 @@ const MapContainer = ({
         logoutHandler={logoutHandler}
         axiosInstance={axiosInstance}
       />
+      <div>
+      {isLoading ? <Loading/> : ''}
       <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      </div>
     </div>
   );
 };

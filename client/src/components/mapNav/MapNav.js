@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './MapNav.module.css';
 import GetFuel from '../../newgetfuel.png';
 import { Link, useHistory } from 'react-router-dom';
@@ -6,10 +6,14 @@ import { Link, useHistory } from 'react-router-dom';
 function MapNav({ isLogin, setIsLogin, axiosInstance }) {
   const history = useHistory();
 
+  
+
   const handleLogout = async () => {
     setIsLogin(false);
+    
     await axiosInstance('/auth/signout');
     history.push('/');
+    
   };
 
   return (
@@ -32,6 +36,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance }) {
               Sign Up
             </button>
           )}
+          
           {isLogin ? (
             <button className={styles.btn} onClick={handleLogout}>
               Sign Out

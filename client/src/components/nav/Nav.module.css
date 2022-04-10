@@ -1,12 +1,14 @@
 .nav {
+  height: 100px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  background-color: #ffffff;
+  align-items: center;;
 }
 
 .logo {
   width: 120px;
-  margin: 20px;
+  margin-top: 30px;
   border-radius: 50%;
 }
 .menu{
@@ -14,90 +16,39 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content:center;
+  margin-top: 30px;
 }
 
 .signup {
-  background:#0b409c;
-  color:#fff;
-  border:none;
-  position:relative;
-  height: 40px;
-  width: 118px;
-  font-size: 15px;
-  padding: 0 10%;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-  border-radius: 3%;
+  border: none;
+  background: transparent;
+  font-size: 23px;
+  font-weight: bold;
+  font-weight: 700;
+  height: 30px;
 }
 .signup:hover{
-  background:#fff;
-  color:#0b409c;
+  background-color: #0d3f9c;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
 }
-.signup:before,
-.signup:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #0b409c;
-  transition:400ms ease all;
-}
-.signup:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-.signup:hover:before,
-.signup:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
+
 
 
 
 
 .login {
-  transform: translate(0%, -4%);
-  background:#0b409c;
-  color:#fff;
-  border:none;
-  position:relative;
-  height: 40px;
-  width: 118px;
-  font-size: 15px;
-  padding:0 10%;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-  border-radius: 3%;
+  border: none;
+  background: transparent;
+  font-size: 23px;
+  font-weight: bold;
+  font-weight: 700;
+  height: 30px;
 }
 .login:hover{
-  background:#fff;
-  color:#0b409c;
-}
-.login:before,
-.login:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height: 2px;
-  width:0;
-  background: #0b409c;
-  transition:400ms ease all;
-}
-.login:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-.login:hover:before,
-.login:hover:after{
-  width:100%;
-  transition:800ms ease all;
+  background-color: #0d3f9c;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
 }
