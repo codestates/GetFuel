@@ -40,7 +40,7 @@ export default function Login({ loginHandler }) {
           history.push('/map'); // 페이지 이동
           loginHandler(res.data);
         })
-        .catch((err) => setErrorMessage('이메일과 비밀번호를 확인하세요'));
+        .catch(() => setErrorMessage('이메일과 비밀번호를 확인하세요'));
     } else {
       setErrorMessage('이메일과 비밀번호를 입력하세요');
     }
@@ -54,9 +54,9 @@ export default function Login({ loginHandler }) {
       </div>
       <form onSubmit={handleSubmit}>
         <div className={styles.user}>email</div>
-        <input className={styles.userInfo} type="text" ref={emailRef} />
+        <input className={styles.userInfo} type='text' ref={emailRef} />
         <div className={styles.user}>password</div>
-        <input className={styles.userInfo} type="password" ref={passwordRef} />
+        <input className={styles.userInfo} type='password' ref={passwordRef} />
         <div className={styles.alert}>{errorMessage}</div>
         <div>
           <button className={styles.button}>Login</button>
