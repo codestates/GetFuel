@@ -4,7 +4,6 @@ import * as authController from '../controller/auth.js';
 import { body } from 'express-validator';
 import { isAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validator.js';
-import kakaoOAuth from '../controller/kakaoOAuth.js';
 
 const router = express.Router();
 
