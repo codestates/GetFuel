@@ -72,7 +72,6 @@ export default function App({ opinet }) {
         <Route path='/review'>
           <Review
             axiosInstance={axiosInstance}
-            loginFunctions={loginFunctions}
             userInfo={userInfo}
           />
         </Route>

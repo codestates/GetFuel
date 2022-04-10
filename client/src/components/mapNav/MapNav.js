@@ -23,7 +23,7 @@ function MapNav({ userInfo, isLogin, logoutHandler, axiosInstance }) {
         <img className={styles.logo} src={GetFuel} />
         <div className={styles.menu}>
           <span>
-            <a href='/edituser'>
+            <a>
               {isLogin ? (
                 <span
                   onClick={() => {
@@ -36,9 +36,9 @@ function MapNav({ userInfo, isLogin, logoutHandler, axiosInstance }) {
                   Your Profile
                 </span>
               ) : (
-                <a href='signup'>
+                <Link to='signup'>
                   <span>Sign up</span>
-                </a>
+                </Link>
               )}
             </a>
           </span>
@@ -46,7 +46,7 @@ function MapNav({ userInfo, isLogin, logoutHandler, axiosInstance }) {
             {isLogin ? (
               <span onClick={handleLogout}>Sign Out</span>
             ) : (
-              <spa>Login</spa>
+              <span>Login</span>
             )}
           </a>
         </div>

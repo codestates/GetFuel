@@ -10,7 +10,7 @@ import './DeleteUserModal.css';
 export default function EditUser() {
   const location = useLocation();
   const userInfo = location.state.userInfo;
-  console.log(userInfo);
+
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
@@ -56,15 +56,16 @@ export default function EditUser() {
   const handleUpdateUserInfo = () => {
     const authorization = userInfo.accessToken;
     const userId = userInfo.userId;
-    // console.log(authorization);
-    // console.log(userId);
 
     axios
       .put(
         `http://localhost:8080/auth/updateinfo/${userId}`,
         { password },
         {
-          headers: { Authorization: `Bearer ${authorization}` },
+          headers: {
+            Authorization: `Bearer ${authorization}`,
+            'Content-Type': 'application/json',
+          },
           withCredentials: true,
         }
       )
@@ -139,8 +140,9 @@ export default function EditUser() {
           <button className={styles.button} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
-
-          <button className={styles.button}>Cancel</button>
+          <Link to='/map'>
+            <button className={styles.button}>Cancel</button>
+          </Link>
           <span
             onClick={() => {
               history.push({

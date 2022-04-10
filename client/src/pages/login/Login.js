@@ -39,6 +39,7 @@ export default function Login({ loginHandler }) {
             'Bearer ' + res.data.accessToken;
           history.push('/map'); // 페이지 이동
           loginHandler(res.data);
+
         })
         .catch((err) => setErrorMessage('이메일과 비밀번호를 확인하세요'));
     } else {

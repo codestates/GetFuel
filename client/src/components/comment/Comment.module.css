@@ -1,9 +1,10 @@
 .review {
-  display: flex;
-  list-style: none;
   padding: 0.5rem 0.5rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid #0b409c;
+  border-radius: 0.5rem;
 }
 
 .content {
@@ -18,8 +19,9 @@
 
 .username {
   display: inline-block;
-  font-weight: 700;
+  font-weight: bold;
   margin-left: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .createdAt {
@@ -43,4 +45,8 @@
   margin-left: 10px;
   background-color: white;
   border: 0;
+}
+
+.idx {
+  display: none;
 }

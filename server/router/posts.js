@@ -17,11 +17,11 @@ const validatePost = [
   validate,
 ];
 
-router.get('/', postsController.getPosts);
-router.post('/:code', validatePost, postsController.createPost);
-router.put('/:postid', validatePost, postsController.updatePost);
-router.delete('/:postid', postsController.deletePost);
-router.post('/:postid/comment', postsController.createComment);
-router.put('/:postid/comment', postsController.updateComment);
-router.delete('/:postid/comment', postsController.deleteComment);
+router.get('/', isAuth, postsController.getPosts);
+router.post('/:code', isAuth, validatePost, postsController.createPost);
+router.put('/:postid', isAuth, validatePost, postsController.updatePost);
+router.delete('/:postid', isAuth, postsController.deletePost);
+router.post('/:postid/comment', isAuth, postsController.createComment);
+router.put('/:postid/comment', isAuth, postsController.updateComment);
+router.delete('/:postid/comment', isAuth, postsController.deleteComment);
 export default router;

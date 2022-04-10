@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import styles from './Reply.module.css'
 
-function Reply () {
+function Reply ({props}) {
     const textareaRef = React.useRef();
     
-    // const onReplySubmit = (e) => {
-    //     e.prevenDefault();
-    //     const value = textareaRef.current.value
-        
-    // }
+    console.log(props)
 
 
     return(
+        <>
+        <div className={styles.username}></div>
         <div className={styles.reply}>
             <textarea className={styles.replyContent} 
                         placeholder="답글 달기.." 
@@ -19,6 +17,7 @@ function Reply () {
                         />
             <button className={styles.replyBtn}>등록</button>
         </div>
+        </>
     )
 }
 
