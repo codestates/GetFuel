@@ -1,6 +1,6 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import { Route, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   coordiEPSTtoKATEC,
   coordiKATECtoEPSG,
@@ -17,7 +17,6 @@ const MapContainer = ({
   userInfo,
   isLogin,
   setIsLogin,
-  logoutHandler,
 }) => {
   const [searchValue, setSearchValue] = useState('서울시청');
   const [kakaoMap, setKakaoMap] = useState(null);
@@ -28,7 +27,6 @@ const MapContainer = ({
   const [stations, setStations] = useState([]);
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
-  const [clickInfo, setClickInfo] = useState([]);
 
   const history = useHistory();
 
@@ -43,8 +41,8 @@ const MapContainer = ({
   useEffect(() => {
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(centerCoordi[0], centerCoordi[1]),
-      level: 6,
+      center: new kakao.maps.LatLng(37.56683690482874, 126.9786564967784),
+      level: 10,
     };
     const map = new kakao.maps.Map(container, options);
     setKakaoMap(map); //여기까지가 지도 생성
@@ -55,7 +53,7 @@ const MapContainer = ({
         const lng = position.coords.longitude; //경도
 
         const locPosition = new kakao.maps.LatLng(lat, lng);
-        console.log(locPosition);
+
         displayMarker(locPosition);
       });
     } else {
@@ -174,8 +172,6 @@ const MapContainer = ({
         );
         // 주유소 코드로 axios 통신을 통해 해당 주유소 정보 가져옴 -> clikedInfo
         const clickedInfo = await opinet.stationInfo(clicked.id);
-        // console.log(clickedInfo);
-        setClickInfo(clickedInfo);
         // overlay HTML
 
         let content =
@@ -241,10 +237,12 @@ const MapContainer = ({
         if (clickedInfo.LPG_YN === 'Y' || clickedInfo.LPG_YN === 'C') {
           content += '<span class="lpg">🔋 충전소</span>';
         }
+
         content +=
           '<div>' +
           `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
           '</div>';
+
         // make customOverlay
         const overlay = new kakao.maps.CustomOverlay({
           map: kakaoMap,
@@ -256,22 +254,16 @@ const MapContainer = ({
         // overlay close에 click event 줌.
         document
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
-          .addEventListener('click', async function () {
-            const stationPosts = await axiosInstance.get('/posts', {
-              params: { code: `${clickedInfo.UNI_ID}` },
-            });
-            const postsData = stationPosts.data;
-            console.log(postsData);
+          .addEventListener('click', function () {
             history.push({
               pathname: `/review/${clickedInfo.UNI_ID}`,
-              state: { clickedInfo, postsData },
+              state: { clickedInfo },
             });
           });
 
         document
           .querySelector(`#${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
-            // console.log(clickedInfo)
             overlay.setMap(null);
           });
       });
@@ -307,7 +299,6 @@ const MapContainer = ({
         userInfo={userInfo}
         isLogin={isLogin}
         setIsLogin={setIsLogin}
-        logoutHandler={logoutHandler}
         axiosInstance={axiosInstance}
       />
       <div id="map" style={{ width: '100%', height: '750px' }}></div>

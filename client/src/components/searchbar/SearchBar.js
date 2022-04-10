@@ -18,7 +18,6 @@ const SearchBar = ({
   userInfo,
   isLogin,
   setIsLogin,
-  logoutHandler,
   axiosInstance,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -85,7 +84,6 @@ const SearchBar = ({
         userInfo={userInfo}
         isLogin={isLogin}
         setIsLogin={setIsLogin}
-        logoutHandler={logoutHandler}
         axiosInstance={axiosInstance}
       />
       <header className={styles.header}>
