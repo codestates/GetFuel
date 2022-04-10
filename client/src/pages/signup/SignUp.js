@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import GetFuel from '../../GetFuel1.png';
 import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
@@ -141,6 +141,7 @@ export default function SignUp() {
             type="email"
             placeholder="이메일을 입력하세요"
             onChange={onChangeEmail}
+            autoComplete="on"
           />
           </div>
           <div className={styles.formbox}>
@@ -158,7 +159,7 @@ export default function SignUp() {
             type="text"
             name="name"
             placeholder="사용할 닉네임을 입력하세요"
-            autoComplete="off"
+            autoComplete="on"
             onChange={onChangeNickname}
           />
           </div>
@@ -178,6 +179,7 @@ export default function SignUp() {
             name="password"
             placeholder="비밀번호를 입력하세요"
             onChange={onChangePassword}
+            autoComplete="off"
           />
           </div>
           <div className={styles.formbox}>
@@ -196,6 +198,7 @@ export default function SignUp() {
             name="passwordConfirm"
             placeholder="비밀번호 확인"
             onChange={onChangePasswordConfirm}
+            autoComplete="off"
           />
           </div>
           <div className={styles.formbox}>
