@@ -7,16 +7,16 @@
   background-size: cover;
   align-items: center;
   text-align: center;
-  height: 33vh;
+  height: 30vh;
 }
 
-.button_bundle {
-  margin-top: 2%;
-  width: 90%;
-  height: 8vh;
-  padding: 2%;
-  white-space: nowrap;
-  position: relative;
+.button_bundle{
+    margin-top: 10%;
+    width: 70%;
+    height: 8vh;
+    padding: 2%;
+    white-space: nowrap;
+    position: relative;
 }
 
 .button {
@@ -25,47 +25,73 @@
   box-sizing: border-box;
   background-color: #0b409c;
   color: white;
-  font-size: large;
+  font-size: 23px;
+  font-weight: bold;
+  border-radius: 12px;
 }
 
-.button_bundle button:hover {
-  color: purple;
-  background-color: white;
+.button:hover {
+  background-color: #ffffff;
+  color: #0b409c;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .inputform {
   margin-top: 1%;
-  margin-left: 5%;
+  margin-left: 20%;
   margin-right: 5%;
   margin-bottom: 4%;
   padding: 1%;
   justify-content: center;
   align-items: center;
+  
 }
+.confirmform{
+  white-space: nowrap;
+}
+
 .email {
   margin-right: 100%;
   margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
 }
-.userinfo {
-  margin-top: 1%;
-  display: inline-flex;
-  text-align: left;
-  width: 100%;
-  height: 50px;
+.userinfo{
+    margin-top: 1%;
+    display: inline-flex;
+    text-align: left;
+    padding: 1%;
+    width: 80%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 22px;
+    color: #0b409c;
+    border-bottom: 3px solid #0b409c;
+    
 }
 .nickname {
   margin-right: 100%;
   margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
 }
 
 .password {
   margin-right: 100%;
   margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
 }
 
-.reenterpassword {
+.confirmpassword {
   margin-right: 100%;
   margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
+
+  
 }
 
 .formbox {
@@ -75,6 +101,8 @@
   color: red;
   animation: warning 0.3s ease;
   animation-iteration-count: 3;
+  font-size: 15.6px;
+  font-weight: bold;
 }
 
 @keyframes warning {

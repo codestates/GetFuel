@@ -14,8 +14,22 @@
   border-radius: 50%;
 }
 
-.menu a:hover {
-  background-color: #0dff9c;
+.menu {
+  margin: 20px;
+}
+
+.btn {
+  border: none;
+  background: transparent;
+  font-size: 23px;
+  font-weight: bold;
+  font-weight: 700;
+  height: 30px;
+}
+
+.btn:hover {
+  background-color: #0d3f9c;
+  color: #fff;
   border-radius: 4px;
   cursor: pointer;
 }
