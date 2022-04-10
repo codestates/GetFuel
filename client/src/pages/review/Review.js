@@ -14,18 +14,6 @@ function Review({ userInfo, axiosInstance }) {
   const history = useHistory();
   //   axios.defaults.headers.common['Authorization'] = `Bearer ${userInfo.accessToken}`
 
-  useEffect(() => {
-    if (userInfo) {
-      axiosInstance
-        .get('/posts', {
-          params: { code: `${clickedInfo.UNI_ID}` },
-        })
-        .then((res) => {
-          setPosts(res.data);
-        });
-    }
-  }, [userInfo]);
-
   // 게시물 등록
   const onSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +21,8 @@ function Review({ userInfo, axiosInstance }) {
     if (!value) {
       alert('리뷰를 작성해 주세요.'); // 모달로 바꾸기
       return;
+    } else if (value.length < 10) {
+      alert('글자 수 길이는 10글자 이상이어야 합니다');
     }
     axiosInstance
       .post(`/posts/${clickedInfo.UNI_ID}`, { text: value })

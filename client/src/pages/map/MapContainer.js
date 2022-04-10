@@ -1,6 +1,6 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import { Route, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   coordiEPSTtoKATEC,
   coordiKATECtoEPSG,
@@ -250,7 +250,7 @@ const MapContainer = ({
         }
         content +=
           '<div>' +
-          `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
+          `<button id=btn${clickedInfo.UNI_ID} class='review_btn'>주유소 리뷰보기</button>` +
           '</div>';
         // make customOverlay
         const overlay = new kakao.maps.CustomOverlay({
@@ -261,18 +261,20 @@ const MapContainer = ({
         });
         overlay.setMap(kakaoMap);
         // overlay close에 click event 줌.
+
         document
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
-          .addEventListener('click', async function () {
-            const stationPosts = await axiosInstance.get('/posts', {
-              params: { code: `${clickedInfo.UNI_ID}` },
-            });
-            const postsData = stationPosts.data;
-
-            history.push({
-              pathname: `/review/${clickedInfo.UNI_ID}`,
-              state: { clickedInfo, postsData },
-            });
+          .addEventListener('click', function () {
+            if (!isLogin) {
+              alert('로그인 후 사용 가능합니다.');
+            } else if (isLogin) {
+              history.push({
+                pathname: `/review/${clickedInfo.UNI_ID}`,
+                state: { clickedInfo },
+              });
+            } else {
+              history.push('/map');
+            }
           });
 
         document
