@@ -55,6 +55,20 @@
   opacity: 0;
   transition: 0.5s linear;
   z-index: 2;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.section::-webkit-scrollbar {
+  width: 6px;
+}
+.section::-webkit-scrollbar-thumb {
+  height: 5%;
+  background-color: #ec6666;
+  border-radius: 10px;
+}
+.section::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.993);
 }
 
 .clickedSection {
@@ -70,8 +84,21 @@
   visibility: visible;
   opacity: 1;
   z-index: 2;
+  height: 400px;
+  overflow-y: scroll;
 }
 
+.clickedSection::-webkit-scrollbar {
+  width: 6px;
+}
+.clickedSection::-webkit-scrollbar-thumb {
+  height: 5%;
+  background-color: #ec6666;
+  border-radius: 10px;
+}
+.clickedSection::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.993);
+}
 .oil_btn {
   width: 70px;
   font-size: 13px;
