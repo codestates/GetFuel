@@ -2,72 +2,105 @@ import React, { useEffect, useState } from 'react';
 import styles from './Review.module.css';
 import Comment from '../../components/comment/Comment';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
 import { useLocation } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-function Review({ accessToken, userInfo, loginFunctions, axiosInstance }) {
+function Review({ userInfo, axiosInstance }) {
   const [posts, setPosts] = useState([]);
   const [station, setStation] = useState([]); // Comment에 props로 코드 내려줌
   const textareaRef = React.useRef();
   const location = useLocation();
   const clickedInfo = location.state.clickedInfo;
   const postsData = location.state.postsData;
-  //console.log(clickedInfo);
-  console.log(postsData);
-  // 여기 state에 담아서 여기 state를 comment로 내려줌
-
-  // 게시물 가져오기
-  const Board = () => {
-    axiosInstance
-      .get('/posts', { code: clickedInfo.UNI_ID })
-      .then((res) => {
-        console.log('어떤데이터들어오나', res); // submit에러 해결 후 setposts 사용
-      })
-      .catch((err) => console.log('board에러', err));
-  };
-  // 게시물 등록
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const value = textareaRef.current.value;
-    if (!value) {
-      alert('리뷰를 작성해 주세요.'); // 모달로 바꾸기
-      return;
-    }
-    console.log(clickedInfo.UNI_ID);
-    axios
-      .post(`http://localhost:8080/posts/${clickedInfo.UNI_ID}`, {
-        text: value,
-      })
-      .then(() => {
-        Board();
-      })
-      .catch((err) => console.log('submit에러', err));
-  };
-
+  const history = useHistory()
+//   axios.defaults.headers.common['Authorization'] = `Bearer ${userInfo.accessToken}`
+    
   useEffect(() => {
-    setStation(clickedInfo);
-  }, [clickedInfo]);
+      if(userInfo){
+    axiosInstance.get('/posts', {
+        params: { code: `${clickedInfo.UNI_ID}`}
+    })
+    .then((res) => {
+        setPosts(res.data)
+    })}
+  }, [userInfo])
 
-  return (
-    <div>
-      <div className={styles.commentForm}>
-        <textarea
-          className={styles.comment}
-          placeholder="게시글 추가.."
-          ref={textareaRef}
-        ></textarea>
-        <button className={styles.submit} onClick={onSubmit}>
-          submit
-        </button>
-      </div>
-      <div className={styles.line}></div>
-      <div className={styles.comments}>
-        <Route>
-          <Comment station={station} />
-        </Route>
-      </div>
-    </div>
-  );
+  
+    // 게시물 등록
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const value = textareaRef.current.value
+        if(!value) {
+            alert('리뷰를 작성해 주세요.') // 모달로 바꾸기
+            return;
+        }
+        axiosInstance.post(`/posts/${clickedInfo.UNI_ID}`, { text: value },)
+            .then(() => {
+                textareaRef.current.value = '';
+                axiosInstance.get('/posts', {
+                    params: { code: `${clickedInfo.UNI_ID}`}
+                })
+                .then((res) => {
+                    setPosts(res.data)
+                })
+        })
+        .catch((err) => console.log('submit에러', err)) 
+    }
+    
+    // 게시물 삭제
+    const handleDeleteComment = (idx) => {
+        if(window.confirm('해당 게시물을 삭제하시겠습니까?')){
+    axiosInstance.delete(`posts/${posts[idx].id}`, {userId: userInfo.userId})
+    .then(() => 
+        axiosInstance.get('/posts', {
+            params: { code: `${clickedInfo.UNI_ID}` }
+        })
+        .then((res) => setPosts(res.data))
+        )
+        .catch((err) => alert('자신 이외의 게시물은 삭제할 수 없습니다'))
+    }
+}
+    
+    // 게시물 수정
+    const handleEditComment = (idx) => {
+        
+    axiosInstance.put(`posts/${posts[idx].id}`, {userId: userInfo.userId})
+    .then(() => 
+        axiosInstance.get('/posts', {
+            params: { code: `${clickedInfo.UNI_ID}` }
+        })
+        .then((res) => setPosts(res.data))
+        )
+        .catch((err) => alert('수정이 완료되었습니다'))
+    }
+
+
+    const handleGoBack = () => {
+        history.push('/map')
+    } 
+
+    
+    const list = posts.map((v,idx) => (<Comment key={v.id} id={v.id} author={v.author} text={v.text}
+                                                createdAt={v.createdAt} handleDeleteComment={handleDeleteComment}
+                                                handleEditComment={handleEditComment}
+                                                idx={idx} userInfo={userInfo}/>))
+    return (
+        <div>
+            <button className={styles.out} onClick={handleGoBack}>x</button>
+            <form onSubmit={onSubmit}>
+            <div className={styles.board}>
+                <textarea className={styles.post}
+                            placeholder="게시글 추가.."
+                            ref={textareaRef}
+                            >
+                </textarea>
+                <button className={styles.submit} >submit</button>
+            </div>
+            </form>
+            <div className={styles.line}></div>
+            {list}
+        </div>
+    )
 }
 
 export default Review;
