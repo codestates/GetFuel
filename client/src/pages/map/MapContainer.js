@@ -271,7 +271,7 @@ const MapContainer = ({
               params: { code: `${clickedInfo.UNI_ID}` },
             });
             const postsData = stationPosts.data;
-            console.log(postsData);
+            
             history.push({
               pathname: `/review/${clickedInfo.UNI_ID}`,
               state: { clickedInfo, postsData },

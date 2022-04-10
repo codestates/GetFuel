@@ -50,7 +50,6 @@ export default function App({ opinet }) {
   function issueAccessToken(data) {
     setUserInfo({ accessToken: data.accessToken, userId: data.userId });
   }
-
   return (
     <div>
       <div className={styles.App}>
@@ -73,7 +72,6 @@ export default function App({ opinet }) {
         <Route path="/review">
           <Review
             axiosInstance={axiosInstance}
-            loginFunctions={loginFunctions}
             userInfo={userInfo}
           />
         </Route>
