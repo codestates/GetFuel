@@ -1,6 +1,6 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
-import { Route, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   coordiEPSTtoKATEC,
   coordiKATECtoEPSG,
