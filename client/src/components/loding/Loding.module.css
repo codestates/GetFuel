@@ -16,10 +16,8 @@
   }
 
   .loading {
-    
     width: 70px;
     height: 70px;
-
     border: 10px solid #f3f3f3; 
     border-top: 10px solid #383636; 
     border-radius: 50%;
