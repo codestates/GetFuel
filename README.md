@@ -7,7 +7,7 @@ The fastest way to find the cheapest gas station in your neighborhood! **GetFuel
 ## FRONT  
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>  
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>  
-<img src="https://img.shields.io/badge/StyledComponet-DB7093?styled-components=flat-square&logo=styled-components&logoColor=white"/>  
+<img src="https://img.shields.io/badge/PostCSS-DD3A0A?PostCSS=flat-square&logo=PostCSS&logoColor=white"/>  
 
 ## BACK  
 <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white"/>  
