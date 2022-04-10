@@ -1,12 +1,13 @@
 # :fuelpump: GetFuel
- ![스크린샷, 2022-03-16 21-46-04](https://user-images.githubusercontent.com/85835389/158592922-3b22e553-b84b-4902-beba-cb18dbd4d46d.png)
+![image](https://user-images.githubusercontent.com/85835389/162539920-f3e37207-3a70-48bb-8837-c9a9456bf72a.png)
 ### :station: 우리 동네 가장 싼 주유소를 가장 빠르게 찾는 방법! GetFuel
-The fastest way to find the cheapest gas station in your neighborhood! **GetFuel**
+The fastest way to find the cheapest gas station in your neighborhood! **GetFuel**  
+🖥️ 배포주소: (<a href="https://getfuel.shop">getfuel.shop</a>)
 # :hammer: 어떤 기술이 사용 되었나요?
 ## FRONT  
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>  
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>  
-<img src="https://img.shields.io/badge/StyledComponet-DB7093?styled-components=flat-square&logo=styled-components&logoColor=white"/>  
+<img src="https://img.shields.io/badge/PostCSS-DD3A0A?PostCSS=flat-square&logo=PostCSS&logoColor=white"/>  
 
 ## BACK  
 <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white"/>  
@@ -14,8 +15,8 @@ The fastest way to find the cheapest gas station in your neighborhood! **GetFuel
 <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=AmazonAWS&logoColor=white"/>  
 <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=black"/>  
 
-## :electric_plug: System Architecture 삽입 예정
-
+## :electric_plug: System Architecture 
+![image](https://user-images.githubusercontent.com/85835389/162535437-d1078032-de13-41f8-acbc-7f1b20404bc1.png)
 ## :movie_camera: Final Render 삽입 예정(gif)
 
 ## :raising_hand: 우리를 소개합니다.  

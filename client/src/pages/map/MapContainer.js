@@ -9,6 +9,7 @@ import SearchBar from '../../components/searchbar/SearchBar.js';
 import './MapContainer.css';
 import markerImg from '../../img/station1.png';
 import geolacationImg from '../../img/geoImg.png';
+import Loading from '../../components/loding/Loding.js';
 const { kakao } = window;
 
 const MapContainer = ({
@@ -28,18 +29,23 @@ const MapContainer = ({
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const history = useHistory();
 
   // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
   function updateCoordi() {
     let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
+    setIsLoading(true);
     setCenterCoordi([latlng.Ma, latlng.La]);
     const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
     setcoordiKatec([...converted]);
+    setIsLoading(false);
   }
 
   useEffect(() => {
     const container = document.getElementById('map');
+    setIsLoading(true);
     const options = {
       center: new kakao.maps.LatLng(37.56683690482874, 126.9786564967784),
       level: 10,
@@ -68,6 +74,7 @@ const MapContainer = ({
       const imageSrc = geolacationImg;
       const imageSize = new kakao.maps.Size(38, 38);
       const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
       new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
 
       setCenterCoordi([locPosition.Ma, locPosition.La]);
@@ -301,7 +308,10 @@ const MapContainer = ({
         setIsLogin={setIsLogin}
         axiosInstance={axiosInstance}
       />
-      <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      <div>
+        {isLoading ? <Loading /> : ''}
+        <div id="map" style={{ width: '100%', height: '750px' }}></div>
+      </div>
     </div>
   );
 };
