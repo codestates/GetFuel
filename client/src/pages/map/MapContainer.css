@@ -106,10 +106,13 @@
   letter-spacing: 1px;
   cursor: pointer;
   font-weight: bold;
-  background-color: white;
+  background-color: transparent;
   border: none;
   font-family: "BenchNine", Arial, sans-serif;
   line-height: 1em;
-  position: relative;
+  position: absolute;
   text-transform: uppercase;
+  color: white;
+  bottom: 0;
+  right: 0;
 }
