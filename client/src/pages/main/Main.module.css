@@ -1,33 +1,62 @@
+.txtlogo{
+  display: flex;
+  justify-content: center;
+  width: 85%;
+  margin-top: 20%;
+  margin-left: 7.6%;
+  
+}
+
 .title {
-  font-size: larger;
+  width: 56%;
+  font-size: 30px;
   font-weight: bold;
-  margin-bottom: 40px;
+  margin-bottom: 2%;
+  transform: translate(39%, 200%);
+}
+
+.button{
+  transform: translate(0%, 90%);
+  height: 20%;
+  border: 0;
+  outline: 0;
+  justify-content: center;
+  text-align: center;
+
 }
 
 .kakao {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border: 0;
   outline: 0;
   cursor: pointer;
+  justify-content: center;
 }
 
 .google {
+  transform: translate(-53%, -30%);
+  margin-left: 27.8%;
   background-color: white;
   border: 0;
   outline: 0;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  
 }
 
-.getfuel {
+.Tutorial {
+  transform: translate(0%, 30%);
   background-color: white;
   border: 0;
   outline: 0;
   cursor: pointer;
+
+  justify-content: center;
+  align-items: center;
 }
 
-.experience {
-  height: 46px;
-}
+
 
 .image1 {
   width: 100px;
