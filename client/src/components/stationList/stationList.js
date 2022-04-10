@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './stationList.module.css';
 import SOL from '../../img/s-oil.png';
 import HDO from '../../img/HDO.jpg';
@@ -37,35 +37,35 @@ const StationList = ({ stations, markers }) => {
             {station.POLL_DIV_CD === 'SOL' && (
               <img
                 src={SOL}
-                alt="station_logo"
+                alt='station_logo'
                 className={styles.station_logo}
               />
             )}
             {station.POLL_DIV_CD === 'HDO' && (
               <img
                 src={HDO}
-                alt="station_logo"
+                alt='station_logo'
                 className={styles.station_logo}
               />
             )}
             {station.POLL_DIV_CD === 'GSC' && (
               <img
                 src={GSC}
-                alt="station_logo"
+                alt='station_logo'
                 className={styles.station_logo}
               />
             )}
             {station.POLL_DIV_CD === 'SKE' && (
               <img
                 src={SKE}
-                alt="station_logo"
+                alt='station_logo'
                 className={styles.station_logo}
               />
             )}
             {station.POLL_DIV_CD === 'ETC' && (
               <img
                 src={ETC}
-                alt="station_logo"
+                alt='station_logo'
                 className={styles.station_logo}
               />
             )}
@@ -73,7 +73,7 @@ const StationList = ({ stations, markers }) => {
               ('RTO' || 'RTX' || 'NHO' || 'E1G' || 'SKG') && (
               <img
                 src={ETC}
-                alt="station_logo"
+                alt='station_logo'
                 className={styles.station_logo}
               />
             )}

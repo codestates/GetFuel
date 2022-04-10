@@ -54,8 +54,6 @@ const MapContainer = ({
     };
     const map = new kakao.maps.Map(container, options);
     setKakaoMap(map); //여기까지가 지도 생성
-    
-    
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -78,12 +76,11 @@ const MapContainer = ({
       const imageSrc = geolacationImg;
       const imageSize = new kakao.maps.Size(38, 38);
       const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-      
+
       new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
 
       setCenterCoordi([locPosition.Ma, locPosition.La]);
       map.setCenter(locPosition);
-      
     }
   }, []);
 
@@ -271,7 +268,7 @@ const MapContainer = ({
               params: { code: `${clickedInfo.UNI_ID}` },
             });
             const postsData = stationPosts.data;
-            
+
             history.push({
               pathname: `/review/${clickedInfo.UNI_ID}`,
               state: { clickedInfo, postsData },
@@ -321,8 +318,8 @@ const MapContainer = ({
         axiosInstance={axiosInstance}
       />
       <div>
-      {isLoading ? <Loading/> : ''}
-      <div id="map" style={{ width: '100%', height: '750px' }}></div>
+        {isLoading ? <Loading /> : ''}
+        <div id='map' style={{ width: '100%', height: '750px' }}></div>
       </div>
     </div>
   );

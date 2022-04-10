@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Main.module.css';
 import Nav from '../../components/nav/Nav';
 import image2 from '../../cooltext.png';

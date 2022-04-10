@@ -6,14 +6,12 @@ import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
 import Nav from '../../components/nav/Nav';
 
-
 export default function SignUp() {
   // 정보확인
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-
 
   // 오류 메시지 상태를 저장
   const [nicknameMessage, setNicknameMessage] = useState('');
@@ -94,7 +92,6 @@ export default function SignUp() {
   );
 
   const [errorMessage, setErrorMessage] = useState('');
- 
 
   // Signup버튼 클릭시 post
   const handleSignup = () => {
@@ -134,14 +131,14 @@ export default function SignUp() {
       <div>
         <form className={styles.inputform} onSubmit={(e) => e.preventDefault()}>
           <div className={styles.emailform}>
-          <div className={styles.email}>Email</div>
-          <input
-            className={styles.userinfo}
-            id="email"
-            type="email"
-            placeholder="이메일을 입력하세요"
-            onChange={onChangeEmail}
-          />
+            <div className={styles.email}>Email</div>
+            <input
+              className={styles.userinfo}
+              id='email'
+              type='email'
+              placeholder='이메일을 입력하세요'
+              onChange={onChangeEmail}
+            />
           </div>
           <div className={styles.formbox}>
             {email.length > 0 && (
@@ -151,16 +148,16 @@ export default function SignUp() {
             )}
           </div>
           <div className={styles.nickanmeform}>
-          <div className={styles.nickname}>Nickname</div>
-          <input
-            className={styles.userinfo}
-            id="name"
-            type="text"
-            name="name"
-            placeholder="사용할 닉네임을 입력하세요"
-            autoComplete="off"
-            onChange={onChangeNickname}
-          />
+            <div className={styles.nickname}>Nickname</div>
+            <input
+              className={styles.userinfo}
+              id='name'
+              type='text'
+              name='name'
+              placeholder='사용할 닉네임을 입력하세요'
+              autoComplete='off'
+              onChange={onChangeNickname}
+            />
           </div>
           <div className={styles.formbox}>
             {nickname.length > 0 && (
@@ -169,16 +166,16 @@ export default function SignUp() {
               </span>
             )}
           </div>
-          
+
           <div className={styles.passwordform}>
-          <div className={styles.password}>Password</div>
-          <input
-            className={styles.userinfo}
-            type="password"
-            name="password"
-            placeholder="비밀번호를 입력하세요"
-            onChange={onChangePassword}
-          />
+            <div className={styles.password}>Password</div>
+            <input
+              className={styles.userinfo}
+              type='password'
+              name='password'
+              placeholder='비밀번호를 입력하세요'
+              onChange={onChangePassword}
+            />
           </div>
           <div className={styles.formbox}>
             {password.length > 0 && (
@@ -187,16 +184,16 @@ export default function SignUp() {
               </span>
             )}
           </div>
-          
+
           <div className={styles.confirmform}>
-          <div className={styles.confirmpassword}>Confirm password</div>
-          <input
-            className={styles.userinfo}
-            type="password"
-            name="passwordConfirm"
-            placeholder="비밀번호 확인"
-            onChange={onChangePasswordConfirm}
-          />
+            <div className={styles.confirmpassword}>Confirm password</div>
+            <input
+              className={styles.userinfo}
+              type='password'
+              name='passwordConfirm'
+              placeholder='비밀번호 확인'
+              onChange={onChangePasswordConfirm}
+            />
           </div>
           <div className={styles.formbox}>
             {passwordConfirm.length > 0 && (
@@ -215,7 +212,7 @@ export default function SignUp() {
               Sign Up
             </button>
 
-            <Link to="/">
+            <Link to='/'>
               <button className={styles.button}>Cancel</button>
             </Link>
           </div>

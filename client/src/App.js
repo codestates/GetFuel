@@ -14,7 +14,7 @@ import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [loginFunctions, setLoginFunctions] = useState({
+  const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
@@ -53,13 +53,13 @@ export default function App({ opinet }) {
   return (
     <div>
       <div className={styles.App}>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Main />
         </Route>
-        <Route path="/login">
+        <Route path='/login'>
           <Login loginHandler={loginHandler} />
         </Route>
-        <Route path="/map">
+        <Route path='/map'>
           <MapContainer
             opinet={opinet}
             axiosInstance={axiosInstance}
@@ -69,18 +69,15 @@ export default function App({ opinet }) {
             setIsLogin={setIsLogin}
           />
         </Route>
-        <Route path="/review">
-          <Review
-            axiosInstance={axiosInstance}
-            userInfo={userInfo}
-          />
+        <Route path='/review'>
+          <Review axiosInstance={axiosInstance} userInfo={userInfo} />
         </Route>
-        <Route path="/signup" component={SignUp} />
-        <Route path="/edituser">
+        <Route path='/signup' component={SignUp} />
+        <Route path='/edituser'>
           <EditUser userInfo={userInfo} />
         </Route>
         {/* <Route path="/edituser" component={EditUser} /> */}
-        <Route path="/deleteuser" component={DeleteUserModal} />
+        <Route path='/deleteuser' component={DeleteUserModal} />
       </div>
     </div>
   );
