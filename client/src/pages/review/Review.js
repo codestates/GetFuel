@@ -35,7 +35,10 @@ function Review({ userInfo, axiosInstance }) {
     if (!value) {
       alert('리뷰를 작성해 주세요.'); // 모달로 바꾸기
       return;
+    } else if (value.length < 10) {
+      alert('글자 수 길이는 10글자 이상이어야 합니다');
     }
+
     axiosInstance
       .post(`/posts/${clickedInfo.UNI_ID}`, { text: value })
       .then(() => {
@@ -47,8 +50,7 @@ function Review({ userInfo, axiosInstance }) {
           .then((res) => {
             setPosts(res.data);
           });
-      })
-      .catch((err) => console.log('submit에러', err));
+      });
   };
 
   // 게시물 삭제
@@ -98,6 +100,7 @@ function Review({ userInfo, axiosInstance }) {
       userInfo={userInfo}
     />
   ));
+
   return (
     <div>
       <button className={styles.out} onClick={handleGoBack}>

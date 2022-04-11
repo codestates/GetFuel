@@ -124,16 +124,18 @@ const MapContainer = ({
       coordiKatec[0],
       coordiKatec[1]
     );
-    const copiedStationsInfo = [...stationsInfo];
-    const coordiConvert = copiedStationsInfo.map((station) => {
+
+    const coordiConvert = stationsInfo.map((station) => {
       const converted = coordiKATECtoEPSG(
         station.GIS_X_COOR,
         station.GIS_Y_COOR
       );
-      station.GIS_X_COOR = converted[1];
-      station.GIS_Y_COOR = converted[0];
+      station.GIS_X_COOR = Number(parseFloat(converted[1]).toFixed(5));
+      station.GIS_Y_COOR = Number(parseFloat(converted[0]).toFixed(5));
+      console.log(station);
       return station;
     });
+
     setStations([...coordiConvert]);
   }, [coordiKatec]);
 
@@ -141,8 +143,7 @@ const MapContainer = ({
     if (kakaoMap === null) {
       return;
     }
-    const copiedStations = [...stations];
-    const markerData = copiedStations.map((station) => {
+    const markerData = stations.map((station) => {
       return {
         id: station.UNI_ID,
         title: station.OS_NM,
@@ -169,6 +170,7 @@ const MapContainer = ({
         image: markerImage,
         clickable: true,
       });
+
       //add click event at clicked marker
       kakao.maps.event.addListener(marker, 'click', async () => {
         // marker 클릭시 중심좌표 이동
@@ -247,7 +249,7 @@ const MapContainer = ({
 
         content +=
           '<div>' +
-          `<button id=btn${clickedInfo.UNI_ID}>주유소정보</button>` +
+          `<button id=btn${clickedInfo.UNI_ID} class='review_btn'>주유소 리뷰보기</button>` +
           '</div>';
 
         // make customOverlay
@@ -259,13 +261,20 @@ const MapContainer = ({
         });
         overlay.setMap(kakaoMap);
         // overlay close에 click event 줌.
+
         document
           .querySelector(`#btn${clickedInfo.UNI_ID}`)
           .addEventListener('click', function () {
-            history.push({
-              pathname: `/review/${clickedInfo.UNI_ID}`,
-              state: { clickedInfo },
-            });
+            if (!isLogin) {
+              alert('로그인 후 사용 가능합니다.');
+            } else if (isLogin) {
+              history.push({
+                pathname: `/review/${clickedInfo.UNI_ID}`,
+                state: { clickedInfo },
+              });
+            } else {
+              history.push('/map');
+            }
           });
 
         document
@@ -291,7 +300,7 @@ const MapContainer = ({
       );
       kakaoMap.setBounds(bounds);
     }
-    kakaoMap.setLevel(7);
+    kakaoMap.setLevel(6);
   }, [kakaoMap, markerPositions]);
   return (
     <div>
