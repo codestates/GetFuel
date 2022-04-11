@@ -19,56 +19,55 @@ const MapContainer = ({
   isLogin,
   setIsLogin,
 }) => {
-  const [searchValue, setSearchValue] = useState('서울시청');
+  const [searchValue, setSearchValue] = useState(null);
   const [kakaoMap, setKakaoMap] = useState(null);
-  const [centerCoordi, setCenterCoordi] = useState([
-    37.56683690482874, 126.9786564967784,
-  ]);
+  const [coordiGeo, setCoordiGeo] = useState([]);
+  const [centerCoordi, setCenterCoordi] = useState([]);
   const [coordiKatec, setcoordiKatec] = useState([]);
   const [stations, setStations] = useState([]);
   const [markerPositions, setMarkerPositions] = useState([]);
   const [markers, setMarkers] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
 
   // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
   function updateCoordi() {
     let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
+    console.log(latlng);
     setIsLoading(true);
     setCenterCoordi([latlng.Ma, latlng.La]);
-    const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
-    setcoordiKatec([...converted]);
     setIsLoading(false);
   }
 
   useEffect(() => {
-    const container = document.getElementById('map');
-    setIsLoading(true);
-    const options = {
-      center: new kakao.maps.LatLng(37.56683690482874, 126.9786564967784),
-      level: 10,
-    };
-    const map = new kakao.maps.Map(container, options);
-    setKakaoMap(map); //여기까지가 지도 생성
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude; //위도
         const lng = position.coords.longitude; //경도
-
-        const locPosition = new kakao.maps.LatLng(lat, lng);
-
-        displayMarker(locPosition);
+        setCoordiGeo([lat, lng]);
+        setCenterCoordi([lat, lng]);
       });
     } else {
-      const locPosition = new kakao.maps.LatLng([
-        37.56683690482874, 126.9786564967784,
-      ]);
-
-      displayMarker(locPosition);
+      centerCoordi([37.56683690482874, 126.9786564967784]);
     }
+  }, []);
+
+  useEffect(() => {
+    if (!coordiGeo.length) {
+      return;
+    }
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(coordiGeo[0], coordiGeo[1]),
+      level: 7,
+    };
+    const map = new kakao.maps.Map(container, options);
+    setKakaoMap(map); //여기까지가 지도 생성
+
+    const locPosition = new kakao.maps.LatLng(coordiGeo[0], coordiGeo[1]);
+    displayMarker(locPosition);
 
     function displayMarker(locPosition) {
       const imageSrc = geolacationImg;
@@ -77,18 +76,19 @@ const MapContainer = ({
 
       new kakao.maps.Marker({ map, position: locPosition, image: markerImage });
 
-      setCenterCoordi([locPosition.Ma, locPosition.La]);
       map.setCenter(locPosition);
     }
-  }, []);
+    setIsLoading(false);
+  }, [coordiGeo]);
 
   useEffect(() => {
-    if (kakaoMap === null) {
+    if (kakaoMap === null || searchValue === null) {
       return;
     }
 
     const ps = new kakao.maps.services.Places();
     ps.keywordSearch(searchValue, placesSearchCB);
+
     // 키워드로 지도 검색
     function placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
@@ -108,10 +108,18 @@ const MapContainer = ({
         kakao.maps.event.removeListener(kakaoMap, 'center_changed', callBack);
       }
     );
-    kakao.maps.event.addListener(kakaoMap, 'dragend', updateCoordi);
   }, [searchValue, kakaoMap]);
 
   useEffect(() => {
+    if (kakaoMap === null) {
+      return;
+    }
+    kakao.maps.event.addListener(kakaoMap, 'dragend', updateCoordi);
+  }, [kakaoMap]);
+  useEffect(() => {
+    if (!centerCoordi.length) {
+      return;
+    }
     const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
     setcoordiKatec([...converted]);
   }, [centerCoordi]);
@@ -132,10 +140,9 @@ const MapContainer = ({
       );
       station.GIS_X_COOR = Number(parseFloat(converted[1]).toFixed(5));
       station.GIS_Y_COOR = Number(parseFloat(converted[0]).toFixed(5));
-      console.log(station);
       return station;
     });
-
+    console.log(coordiConvert);
     setStations([...coordiConvert]);
   }, [coordiKatec]);
 
@@ -285,7 +292,7 @@ const MapContainer = ({
       });
       return marker;
     });
-    //
+
     setMarkers((markers) => {
       markers.forEach((el) => el.setMap(null));
       //return markers.concat(newMarkers);
@@ -318,7 +325,7 @@ const MapContainer = ({
         axiosInstance={axiosInstance}
       />
       <div>
-        {isLoading ? <Loading /> : ''}
+        {isLoading ? <Loading /> : null}
         <div id="map" style={{ width: '100%', height: '750px' }}></div>
       </div>
     </div>
