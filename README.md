@@ -27,8 +27,9 @@ The fastest way to find the cheapest gas station in your neighborhood! **GetFuel
 
 <details>
 <summary> Map Page(현위치 표시) </summary> 
-<img src="https://user-images.githubusercontent.com/57275302/162775656-4461bc2d-6a29-4a25-8e06-71799c03f9ab.gif">
+<img src="https://user-images.githubusercontent.com/57275302/162782136-9b1a1774-26bc-4242-84aa-60e1e5bfcc6a.gif">
 </details>
+
 
 
 <details>
