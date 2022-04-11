@@ -20,8 +20,6 @@ The fastest way to find the cheapest gas station in your neighborhood! **GetFuel
 ![image](https://user-images.githubusercontent.com/85835389/162535437-d1078032-de13-41f8-acbc-7f1b20404bc1.png)
 
 ## :movie_camera: Final Render
-![image](https://user-images.githubusercontent.com/85835389/162673158-669288a1-4601-4010-bdcb-d39d88913c64.png)
-## :movie_camera: Final Render
 <details>
 <summary> Main Page(Mobile) </summary> 
 <img src="https://user-images.githubusercontent.com/85835389/162772504-f911d246-9355-443e-b985-490a61065439.gif">
