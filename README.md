@@ -1,5 +1,7 @@
 # :fuelpump: GetFuel
+![image](https://user-images.githubusercontent.com/85835389/162539920-f3e37207-3a70-48bb-8837-c9a9456bf72a.png)
 ![image](https://user-images.githubusercontent.com/85835389/162539832-ca29db52-e258-47c2-9f71-7cee75fdd4f3.png)
+
 ### :station: 우리 동네 가장 싼 주유소를 가장 빠르게 찾는 방법! GetFuel
 The fastest way to find the cheapest gas station in your neighborhood! **GetFuel**  
 🖥️ 배포주소: (<a href="https://getfuel.shop">getfuel.shop</a>)
@@ -16,6 +18,9 @@ The fastest way to find the cheapest gas station in your neighborhood! **GetFuel
 <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=black"/>  
 
 ## :electric_plug: System Architecture 
+![image](https://user-images.githubusercontent.com/85835389/162535437-d1078032-de13-41f8-acbc-7f1b20404bc1.png)
+
+## :movie_camera: Final Render
 ![image](https://user-images.githubusercontent.com/85835389/162673158-669288a1-4601-4010-bdcb-d39d88913c64.png)
 ## :movie_camera: Final Render
 <details>

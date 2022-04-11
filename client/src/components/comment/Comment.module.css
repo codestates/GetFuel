@@ -1,0 +1,52 @@
+.review {
+  padding: 0.5rem 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid #0b409c;
+  border-radius: 0.5rem;
+}
+
+.content {
+  flex: 1 0 0;
+}
+
+.userInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.username {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.createdAt {
+  display: inline-block;
+  color: gray;
+  margin-left: 0.5rem;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.modify {
+  background-color: white;
+  border: 0;
+}
+
+.delete {
+  margin-left: 10px;
+  background-color: white;
+  border: 0;
+}
+
+.idx {
+  display: none;
+}

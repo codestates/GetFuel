@@ -1,0 +1,35 @@
+.nav {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  align-items: center;
+}
+
+.logo {
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 10px;
+  border: 3px double #0d3f9c;
+  border-radius: 50%;
+}
+
+.menu {
+  margin: 20px;
+}
+
+.btn {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  font-weight: bold;
+  font-weight: 700;
+  height: 30px;
+}
+
+.btn:hover {
+  background-color: #0d3f9c;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}

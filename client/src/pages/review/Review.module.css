@@ -1,0 +1,45 @@
+.post {
+  width: 60%;
+  height: 100px;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  border-width: 1.5px;
+  font-size: 15px;
+  border: 2px solid #0b409c;
+  outline: none;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.submit {
+  display: table;
+  height: 50px;
+  width: 20%;
+  background-color: #0b409c;
+  margin-left: auto;
+  margin-top: 0.5rem;
+  margin-right: auto;
+  border-width: 1.5px;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.line {
+  border: 0.5px solid #0b409c;
+}
+
+.posts {
+  flex: 1 0 80vh;
+  border: 0.5px solid gray;
+  overflow-y: scroll;
+}
+
+.out {
+  float: right;
+  font-size: 1.5rem;
+  background-color: white;
+  border-width: 0em;
+}

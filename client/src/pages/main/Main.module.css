@@ -1,0 +1,56 @@
+.txtlogo{
+  display: flex;
+  justify-content: center;
+  width: 85%;
+  margin-top: 20%;
+  margin-left: 7.6%;
+  
+}
+
+.title {
+  width: 56%;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 2%;
+  transform: translate(42%, 200%);
+}
+
+.button{
+  transform: translate(0%, 90%);
+  height: 20%;
+  border: 0;
+  outline: 0;
+  justify-content: center;
+  text-align: center;
+
+}
+
+
+.Tutorial {
+  transform: translate(143%, 400%);
+  background-color: white;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.image1 {
+  width: 100px;
+  display: flex;
+  margin-left: auto;
+  margin-right: 5%;
+  margin-bottom: -20px;
+  filter: blur(2px);
+}
+
+.image2 {
+  display: flex;
+  transform: scaleX(-1);
+  width: 200px;
+  margin-left: 7%;
+  filter: blur(1px);
+}

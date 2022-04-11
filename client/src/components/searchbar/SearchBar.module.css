@@ -1,0 +1,173 @@
+.header {
+  display: flex;
+  height: 5rem;
+  padding: 1em 1em;
+  height: 40px;
+  background: #f5f5f5;
+}
+
+.div {
+  display: flex;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 10px;
+  left: 5px;
+  transition: 0.5s;
+}
+
+.menu_img {
+  color: #0b409c;
+  font-size: 1.5rem;
+  margin-right: 3px;
+}
+
+.menu_btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0b409c;
+}
+
+.btn_div {
+  border-bottom: 2px solid #7d7c7d;
+  margin-top: -10px;
+  padding-bottom: 8px;
+}
+.section {
+  background-color: #0b409c;
+  color: #fff;
+  width: 280px;
+  margin-left: -16px;
+  padding-top: 30px;
+  position: absolute;
+  top: 3.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s linear;
+  z-index: 2;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.section::-webkit-scrollbar {
+  width: 6px;
+}
+.section::-webkit-scrollbar-thumb {
+  height: 5%;
+  background-color: #ec6666;
+  border-radius: 10px;
+}
+.section::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.993);
+}
+
+.clickedSection {
+  background-color: #0b409c;
+  color: #fff;
+  width: 280px;
+  height: auto;
+  margin-left: -16px;
+  padding-top: 30px;
+  position: absolute;
+  top: 3.5rem;
+  transition: 0.5s linear;
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.clickedSection::-webkit-scrollbar {
+  width: 6px;
+}
+.clickedSection::-webkit-scrollbar-thumb {
+  height: 5%;
+  background-color: #ec6666;
+  border-radius: 10px;
+}
+.clickedSection::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.993);
+}
+.oil_btn {
+  width: 70px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  margin: 5px;
+  height: 25px;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  background-image: linear-gradient(
+    to right,
+    #ed6ea0,
+    #ec8c69,
+    #f7186a,
+    #fbb03b
+  );
+  box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}
+
+.oil_btn:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.oil_btn:focus {
+  outline: none;
+}
+
+.form_div {
+  display: inline-block;
+  text-align: center;
+  margin-left: 4em;
+  margin-top: 10px;
+}
+
+.form {
+  display: inline-block;
+  width: 450px;
+  align-items: center;
+}
+
+.input {
+  width: 90%;
+  border: 3px solid #0b409c;
+  border-radius: 5px 0 0 5px;
+  padding: 5px;
+  height: 30px;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.button {
+  width: 40px;
+  height: 30px;
+  border: 1px solid #0b409c;
+  background: #0b409c;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
