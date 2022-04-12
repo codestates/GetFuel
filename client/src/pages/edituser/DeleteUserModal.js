@@ -13,9 +13,8 @@ function DeleteUserModal() {
   const handleDeleteUserInfo = async () => {
     const authorization = userInfo.accessToken;
     const userId = userInfo.userId;
-
-    await axios
-      .delete(`http://localhost:8080/auth/deleteaccount/${userId}`, {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/auth/deleteaccount/${userId}`, {
         headers: {
           Authorization: `Bearer ${authorization}`,
           'Content-Type': 'application/json',

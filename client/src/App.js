@@ -14,7 +14,7 @@ import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [loginFunctions, setLoginFunctions] = useState({
+  const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
@@ -26,9 +26,13 @@ export default function App({ opinet }) {
     }
 
     try {
-      const refresh = await axios.get('http://localhost:8080/auth/refresh', {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const refresh = await axios.get(
+        `${process.env.REACT_APP_API_URL}/auth/refresh`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+
       if (refresh.data.data === null) {
         setIsLogin(false);
       } else if (refresh.data.accessToken) {
@@ -56,13 +60,13 @@ export default function App({ opinet }) {
   return (
     <div>
       <div className={styles.App}>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Main />
         </Route>
-        <Route path="/login">
+        <Route path='/login'>
           <Login loginHandler={loginHandler} />
         </Route>
-        <Route path="/map">
+        <Route path='/map'>
           <MapContainer
             opinet={opinet}
             axiosInstance={axiosInstance}
