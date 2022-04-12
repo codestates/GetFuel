@@ -25,7 +25,11 @@ userVirtualId(postSchema);
 const Post = Mongoose.model('Post', postSchema);
 
 export async function getByCode(code) {
-  return Post.find({ code }).sort({ createdAt: -1 }).populate('author');
+  return await Post.find({ code })
+    .sort({ createdAt: -1 })
+    .populate('author')
+    .populate('comments.author')
+    .exec();
 }
 
 export async function getById(postId) {
