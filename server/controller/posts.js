@@ -3,7 +3,7 @@ import * as postsRepository from '../data/posts.js';
 
 export async function getPosts(req, res) {
   const { code } = req.query;
-  
+
   if (code) {
     const findByCode = await postsRepository.getByCode(code);
     return res.status(200).json(findByCode);
@@ -35,7 +35,6 @@ export async function updatePost(req, res) {
 }
 
 export async function deletePost(req, res) {
-  
   const postId = req.params.postid;
   const post = await postsRepository.getById(postId);
 
@@ -71,7 +70,6 @@ export async function updateComment(req, res) {
   if (found[0].comments[0].author.toString() !== req.userId) {
     return res.sendStatus(403);
   }
-
   const updated = await postsRepository.modifyComment(text, postId, commentId);
   res.status(200).json(updated);
 }
@@ -88,7 +86,6 @@ export async function deleteComment(req, res) {
   if (found[0].comments[0].author.toString() !== req.userId) {
     return res.sendStatus(403);
   }
-
   await postsRepository.deleteComment(postId, commentId);
   res.sendStatus(204);
 }

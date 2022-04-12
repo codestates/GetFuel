@@ -57,18 +57,18 @@ export default function Login({ loginHandler }) {
         <div className={styles.user}>Email</div>
         <input
           className={styles.userInfo}
-          type='text'
-          placeholder='이메일을 입력하세요'
+          type="text"
+          placeholder="이메일을 입력하세요"
           ref={emailRef}
-          autoComplete='on'
+          autoComplete="on"
         />
         <div className={styles.user}>Password</div>
         <input
           className={styles.userInfo}
-          type='password'
-          placeholder='비밀번호를 입력하세요'
+          type="password"
+          placeholder="비밀번호를 입력하세요"
           ref={passwordRef}
-          autoComplete='off'
+          autoComplete="off"
         />
         <div className={styles.alert}>{errorMessage}</div>
         <div>

@@ -1,12 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import GetFuel from '../../GetFuel1.png';
 import styles from './EditUser.module.css';
-import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
 
-export default function EditUser({ userInfo }) {
+export default function EditUser({ userInfo, axiosInstance }) {
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
@@ -49,8 +48,7 @@ export default function EditUser({ userInfo }) {
     [password]
   );
   const history = useHistory();
-  const handleUpdateUserInfo = () => {
-    const authorization = userInfo.accessToken;
+  const handleUpdateUserInfo = async () => {
     const userId = userInfo.userId;
 
     axios
@@ -143,7 +141,7 @@ export default function EditUser({ userInfo }) {
             onClick={() => {
               history.push({
                 pathname: '/deleteuser',
-                state: { userInfo: userInfo },
+                state: { userInfo },
               });
             }}
           >
