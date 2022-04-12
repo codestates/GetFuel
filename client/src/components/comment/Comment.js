@@ -3,12 +3,12 @@ import styles from './Comment.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencil } from "@fortawesome/free-solid-svg-icons"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
-
+import Reply from "../reply/Reply";
 
 function Comment (props) {
     const parseDate = new Date(props.createdAt).toLocaleDateString('ko-kr')
     
-
+    console.log(props)
     
     return(
     <div className={styles.review}>
@@ -27,6 +27,7 @@ function Comment (props) {
             </div>
             <div className={styles.comment}>{props.text}</div>
             <div className={styles.line}></div>
+            <Reply />
         </div>
     </div>
     )
