@@ -21,6 +21,10 @@ export default function App({ opinet }) {
 
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
+    if (isLogin === false) {
+      return;
+    }
+
     try {
       const refresh = await axios.get(
         `${process.env.REACT_APP_API_URL}/auth/refresh`,
@@ -39,7 +43,7 @@ export default function App({ opinet }) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [isLogin]);
 
   function loginHandler(data) {
     setIsLogin(true);
@@ -72,15 +76,14 @@ export default function App({ opinet }) {
             setIsLogin={setIsLogin}
           />
         </Route>
-        <Route path='/review'>
+        <Route path="/review">
           <Review axiosInstance={axiosInstance} userInfo={userInfo} />
         </Route>
-        <Route path='/signup' component={SignUp} />
-        <Route path='/edituser'>
-          <EditUser userInfo={userInfo} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/edituser">
+          <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
-        {/* <Route path="/edituser" component={EditUser} /> */}
-        <Route path='/deleteuser' component={DeleteUserModal} />
+        <Route path="/deleteuser" component={DeleteUserModal} />
       </div>
     </div>
   );
