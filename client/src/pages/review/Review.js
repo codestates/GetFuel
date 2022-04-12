@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Review.module.css';
 import Comment from '../../components/comment/Comment';
-import axios from 'axios';
 import { useLocation } from 'react-router';
-import { useHistory } from 'react-router-dom';
 
 function Review({ userInfo, axiosInstance }) {
   const [posts, setPosts] = useState([]);

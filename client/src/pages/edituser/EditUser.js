@@ -131,7 +131,7 @@ export default function EditUser({ userInfo, axiosInstance }) {
             onClick={() => {
               history.push({
                 pathname: '/deleteuser',
-                state: { userInfo: userInfo },
+                state: { userInfo },
               });
             }}
           >
