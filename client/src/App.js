@@ -70,14 +70,11 @@ export default function App({ opinet }) {
           />
         </Route>
         <Route path="/review">
-          <Review
-            axiosInstance={axiosInstance}
-            userInfo={userInfo}
-          />
+          <Review axiosInstance={axiosInstance} userInfo={userInfo} />
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/edituser">
-          <EditUser userInfo={userInfo} />
+          <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
         {/* <Route path="/edituser" component={EditUser} /> */}
         <Route path="/deleteuser" component={DeleteUserModal} />
