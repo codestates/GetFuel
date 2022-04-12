@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import GetFuel from '../../GetFuel1.png';
 import styles from './EditUser.module.css';
+import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
@@ -49,6 +50,7 @@ export default function EditUser({ userInfo, axiosInstance }) {
   );
   const history = useHistory();
   const handleUpdateUserInfo = async () => {
+    const authorization = userInfo.accessToken;
     const userId = userInfo.userId;
 
     axios
