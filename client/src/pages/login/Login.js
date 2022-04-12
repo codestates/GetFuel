@@ -60,6 +60,7 @@ export default function Login({ loginHandler }) {
           type="text"
           placeholder="이메일을 입력하세요"
           ref={emailRef}
+          autoComplete="on"
         />
         <div className={styles.user}>Password</div>
         <input
@@ -67,6 +68,7 @@ export default function Login({ loginHandler }) {
           type="password"
           placeholder="비밀번호를 입력하세요"
           ref={passwordRef}
+          autoComplete="off"
         />
         <div className={styles.alert}>{errorMessage}</div>
         <div>
