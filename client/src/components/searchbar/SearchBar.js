@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 import MapNav from '../mapNav/MapNav.js';
 import StationList from '../stationList/stationList.js';
-import { coordiKATECtoEPSG } from '../../utils/coordinate.js';
+import { coordiKATECtoWGS } from '../../utils/coordinate.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +40,7 @@ const SearchBar = ({
 
   const saveOpinetData = (copiedStationsInfo) => {
     const coordiConvert = copiedStationsInfo.map((station) => {
-      const converted = coordiKATECtoEPSG(
+      const converted = coordiKATECtoWGS(
         station.GIS_X_COOR,
         station.GIS_Y_COOR
       );

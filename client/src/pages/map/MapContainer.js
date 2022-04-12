@@ -1,10 +1,7 @@
 /* global kakao */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  coordiEPSTtoKATEC,
-  coordiKATECtoEPSG,
-} from '../../utils/coordinate.js';
+import { coordiWGStoKATEC, coordiKATECtoWGS } from '../../utils/coordinate.js';
 import SearchBar from '../../components/searchbar/SearchBar.js';
 import './MapContainer.css';
 import markerImg from '../../img/station1.png';
@@ -35,7 +32,6 @@ const MapContainer = ({
   // 위경도로 이루어진 중심좌표 -> centerCoordi -> convert -> coordiKatec
   function updateCoordi() {
     let latlng = kakaoMap.getCenter(); // 지도의 중심좌표를 얻어옵니다
-    console.log(latlng);
     setIsLoading(true);
     setCenterCoordi([latlng.Ma, latlng.La]);
     setIsLoading(false);
@@ -120,7 +116,7 @@ const MapContainer = ({
     if (!centerCoordi.length) {
       return;
     }
-    const converted = coordiEPSTtoKATEC(centerCoordi[1], centerCoordi[0]);
+    const converted = coordiWGStoKATEC(centerCoordi[1], centerCoordi[0]);
     setcoordiKatec([...converted]);
   }, [centerCoordi]);
 
@@ -134,7 +130,7 @@ const MapContainer = ({
     );
 
     const coordiConvert = stationsInfo.map((station) => {
-      const converted = coordiKATECtoEPSG(
+      const converted = coordiKATECtoWGS(
         station.GIS_X_COOR,
         station.GIS_Y_COOR
       );
@@ -255,8 +251,8 @@ const MapContainer = ({
         }
 
         content +=
-          '<div>' +
-          `<button id=btn${clickedInfo.UNI_ID} class='review_btn'>주유소 리뷰보기</button>` +
+          '<div class="review_div">' +
+          `<button id=btn${clickedInfo.UNI_ID} class='review_btn'>Review</button>` +
           '</div>';
 
         // make customOverlay
