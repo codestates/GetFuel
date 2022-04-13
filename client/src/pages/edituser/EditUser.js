@@ -87,7 +87,7 @@ export default function EditUser({ userInfo }) {
           <input
             className={styles.nouserinfo}
             type="text"
-            placeholder="이메일을 입력하세요"
+            placeholder="lemonbom@naver.com"
             disabled
           />
 
@@ -95,7 +95,7 @@ export default function EditUser({ userInfo }) {
           <input
             className={styles.nouserinfo}
             type="text"
-            placeholder="사용할 닉네임을입력하세요"
+            placeholder="lemonman"
             disabled
           />
 
