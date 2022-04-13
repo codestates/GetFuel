@@ -1,30 +1,44 @@
 import axios from 'axios';
 
 class Opinet {
-  async aroundStationGasoline(x, y) {
-    const respons = await axios.get('http://localhost:8080/opinet/around', {
-      params: { x, y, prodcd: 'B027', radius: 2000 },
+  constructor() {
+    this.opinet = axios.create({
+      baseURL: 'http://localhost:8080/opinet',
     });
+  }
+  async aroundStationGasoline(x, y) {
+    const respons = await this.opinet.get(
+      `/opinet/around`,
+      {
+        params: { x, y, prodcd: 'B027', radius: 2000 },
+      }
+    );
     return respons.data;
   }
 
   async aroundStationDiesel(x, y) {
-    const respons = await axios.get('http://localhost:8080/opinet/around', {
-      params: { x, y, prodcd: 'D047', radius: 2000 },
-    });
+    const respons = await this.opinet.get(
+      `/opinet/around`,
+      {
+        params: { x, y, prodcd: 'D047', radius: 2000 },
+      }
+    );
     return respons.data;
   }
 
   async aroundStationPremium(x, y) {
-    const respons = await axios.get('http://localhost:8080/opinet/around', {
-      params: { x, y, prodcd: 'B034', radius: 2000 },
-    });
+    const respons = await this.opinet.get(
+      `/opinet/around`,
+      {
+        params: { x, y, prodcd: 'B034', radius: 2000 },
+      }
+    );
     return respons.data;
   }
 
   async stationInfo(id) {
-    const respons = await axios.get(
-      'http://localhost:8080/opinet/stationinfo',
+    const respons = await this.opinet.get(
+      `/opinet/stationinfo`,
       {
         params: { id },
       }

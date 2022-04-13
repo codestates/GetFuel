@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import GetFuel from '../../GetFuel1.png';
 import styles from './EditUser.module.css';
-import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
+import axios from 'axios';
 
-export default function EditUser({ userInfo }) {
+export default function EditUser({ userInfo, axiosInstance }) {
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
@@ -49,28 +49,16 @@ export default function EditUser({ userInfo }) {
     [password]
   );
   const history = useHistory();
-  const handleUpdateUserInfo = () => {
-    const authorization = userInfo.accessToken;
+  const handleUpdateUserInfo = async () => {
     const userId = userInfo.userId;
-
-    axios
-      .put(
-        `http://localhost:8080/auth/updateinfo/${userId}`,
-        { password },
-        {
-          headers: {
-            Authorization: `Bearer ${authorization}`,
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        history.push('/login');
-      })
-      .catch((err) => {
-        console.log(err, 'Failed to Update UserInfo');
-      });
+    try {
+      await axiosInstance.put(`/auth/updateinfo/${userId}`, { password });
+      history.push('/login');
+    } catch (error) {
+      if (error) {
+        console.log(error, 'Failed to Update UserInfo');
+      }
+    }
   };
 
   const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
@@ -86,24 +74,24 @@ export default function EditUser({ userInfo }) {
           <div className={styles.email}>email</div>
           <input
             className={styles.nouserinfo}
-            type="text"
-            placeholder="lemonbom@naver.com"
+            type='text'
+            placeholder='이메일을 입력하세요'
             disabled
           />
 
           <div className={styles.nickname}>nickname</div>
           <input
             className={styles.nouserinfo}
-            type="text"
-            placeholder="lemonman"
+            type='text'
+            placeholder='사용할 닉네임을입력하세요'
             disabled
           />
 
           <div className={styles.password}>password</div>
           <input
             className={styles.userinfo}
-            type="password"
-            placeholder="비밀번호를 입력하세요"
+            type='password'
+            placeholder='비밀번호를 입력하세요'
             onChange={onChangePassword}
           />
           <div className={styles.formbox}>
@@ -117,8 +105,8 @@ export default function EditUser({ userInfo }) {
           <div className={styles.confirmpassword}>confirmpassword</div>
           <input
             className={styles.userinfo}
-            type="password"
-            placeholder="비밀번호 확인"
+            type='password'
+            placeholder='비밀번호 확인'
             onChange={onChangePasswordConfirm}
           />
           <div className={styles.formbox}>
@@ -136,19 +124,21 @@ export default function EditUser({ userInfo }) {
           <button className={styles.button} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
-          <Link to="/map">
+          <Link to='/map'>
             <button className={styles.button}>Cancel</button>
           </Link>
           <span
             onClick={() => {
               history.push({
                 pathname: '/deleteuser',
-                state: { userInfo: userInfo },
+                state: { userInfo },
               });
             }}
           >
             <button className={styles.button1} onClick={deleteModalHandler}>
-              Delete<br/>Account
+              Delete
+              <br />
+              Account
             </button>
           </span>
         </div>

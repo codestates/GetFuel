@@ -14,17 +14,23 @@ import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [loginFunctions, setLoginFunctions] = useState({
+  const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
 
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
+    if (isLogin === false) {
+      return;
+    }
+
     try {
-      const refresh = await axios.get('http://localhost:8080/auth/refresh', {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const refresh = await axios.get('http://localhost:8080/auth/refresh', 
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
 
       if (refresh.data.data === null) {
         setIsLogin(false);
@@ -36,7 +42,7 @@ export default function App({ opinet }) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [isLogin]);
 
   function loginHandler(data) {
     setIsLogin(true);
@@ -53,13 +59,13 @@ export default function App({ opinet }) {
   return (
     <div>
       <div className={styles.App}>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Main />
         </Route>
-        <Route path="/login">
+        <Route path='/login'>
           <Login loginHandler={loginHandler} />
         </Route>
-        <Route path="/map">
+        <Route path='/map'>
           <MapContainer
             opinet={opinet}
             axiosInstance={axiosInstance}
@@ -70,16 +76,12 @@ export default function App({ opinet }) {
           />
         </Route>
         <Route path="/review">
-          <Review
-            axiosInstance={axiosInstance}
-            userInfo={userInfo}
-          />
+          <Review axiosInstance={axiosInstance} userInfo={userInfo} />
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/edituser">
-          <EditUser userInfo={userInfo} />
+          <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
-        {/* <Route path="/edituser" component={EditUser} /> */}
         <Route path="/deleteuser" component={DeleteUserModal} />
       </div>
     </div>
