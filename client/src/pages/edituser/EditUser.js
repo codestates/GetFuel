@@ -51,6 +51,7 @@ export default function EditUser({ userInfo, axiosInstance }) {
   const history = useHistory();
   const handleUpdateUserInfo = async () => {
     const userId = userInfo.userId;
+
     try {
       await axiosInstance.put(`/auth/updateinfo/${userId}`, { password });
       history.push('/login');
