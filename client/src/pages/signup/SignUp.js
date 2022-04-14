@@ -215,7 +215,7 @@ export default function SignUp() {
               Sign Up
             </button>
 
-            <Link to="/">
+            <Link to='/'>
               <button className={styles.button}>Cancel</button>
             </Link>
           </div>
