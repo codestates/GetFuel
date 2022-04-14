@@ -3,12 +3,12 @@ import axios from 'axios';
 class Opinet {
   constructor() {
     this.opinet = axios.create({
-      baseURL: 'http://localhost:8080/',
+      baseURL: `${process.env.REACT_APP_API_URL}/opinet`,
     });
   }
   async aroundStationGasoline(x, y) {
-    const respons = await this.opinet.get(
-      `/opinet/around`,
+    const respons = await axios.get(
+      `/around`,
       {
         params: { x, y, prodcd: 'B027', radius: 2000 },
       }
@@ -17,8 +17,8 @@ class Opinet {
   }
 
   async aroundStationDiesel(x, y) {
-    const respons = await this.opinet.get(
-      `/opinet/around`,
+    const respons = await axios.get(
+      `/around`,
       {
         params: { x, y, prodcd: 'D047', radius: 2000 },
       }
@@ -27,8 +27,8 @@ class Opinet {
   }
 
   async aroundStationPremium(x, y) {
-    const respons = await this.opinet.get(
-      `/opinet/around`,
+    const respons = await axios.get(
+      `/around`,
       {
         params: { x, y, prodcd: 'B034', radius: 2000 },
       }
@@ -37,8 +37,8 @@ class Opinet {
   }
 
   async stationInfo(id) {
-    const respons = await this.opinet.get(
-      `/opinet/stationinfo`,
+    const respons = await axios.get(
+      `/stationinfo`,
       {
         params: { id },
       }
