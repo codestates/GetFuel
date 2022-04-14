@@ -8,11 +8,11 @@
 }
 
 .title {
-  width: 56%;
+  width: 64%;
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 2%;
-  transform: translate(42%, 200%);
+  transform: translate(33%, 200%);
 }
 
 .button{
@@ -27,7 +27,7 @@
 
 
 .Tutorial {
-  transform: translate(143%, 400%);
+  transform: translate(130%, 400%);
   background-color: white;
   border: 0;
   outline: 0;
