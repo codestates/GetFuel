@@ -46,8 +46,7 @@ export async function signin(req, res) {
   const refreshToken = jwt.sign({ id: user.id }, config.jwt.refresh_secret, {
     expiresIn: config.jwt.refresh_expiresInSec,
   });
-  console.log('acess', accessToken);
-  console.log('refresh', refreshToken);
+  
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
   res.status(200).json({ accessToken, email, userId: user.id });
