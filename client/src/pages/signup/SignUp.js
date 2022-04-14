@@ -98,7 +98,7 @@ export default function SignUp() {
     if (nickname && email && password) {
       axios
         .post(
-          'http://localhost:8080/auth/signup',
+          `${process.env.REACT_APP_API_URL}/auth/signup`,
           { email, nickname, password },
           {
             headers: { 'Content-Type': 'application/json' },
