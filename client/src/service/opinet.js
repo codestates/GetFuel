@@ -8,7 +8,7 @@ class Opinet {
   }
   async aroundStationGasoline(x, y) {
     const respons = await axios.get(
-      `${process.env.REACT_APP_API_URL}/opinet/around`,
+      `/around`,
       {
         params: { x, y, prodcd: 'B027', radius: 2000 },
       }
@@ -18,7 +18,7 @@ class Opinet {
 
   async aroundStationDiesel(x, y) {
     const respons = await axios.get(
-      `${process.env.REACT_APP_API_URL}/opinet/around`,
+      `/around`,
       {
         params: { x, y, prodcd: 'D047', radius: 2000 },
       }
@@ -28,7 +28,7 @@ class Opinet {
 
   async aroundStationPremium(x, y) {
     const respons = await axios.get(
-      `${process.env.REACT_APP_API_URL}/opinet/around`,
+      `/around`,
       {
         params: { x, y, prodcd: 'B034', radius: 2000 },
       }
@@ -38,7 +38,7 @@ class Opinet {
 
   async stationInfo(id) {
     const respons = await axios.get(
-      `${process.env.REACT_APP_API_URL}/opinet/stationinfo`,
+      `/stationinfo`,
       {
         params: { id },
       }

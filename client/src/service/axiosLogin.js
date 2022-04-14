@@ -58,7 +58,7 @@ function useAxiosPrivate(accessToken, loginFunctions) {
         return Promise.reject(error); // 에러가 419가 아닌경우 return
       }
     );
-    // cleanUp
+    // req, res cleanUp
     return () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
