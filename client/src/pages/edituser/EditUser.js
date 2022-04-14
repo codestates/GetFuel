@@ -51,24 +51,14 @@ export default function EditUser({ userInfo, axiosInstance }) {
   const handleUpdateUserInfo = async () => {
     const userId = userInfo.userId;
 
-    axios
-      .put(
-        `${process.env.REACT_APP_API_URL}/auth/updateinfo/${userId}`,
-        { password },
-        {
-          headers: {
-            Authorization: `Bearer ${authorization}`,
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        history.push('/login');
-      })
-      .catch((err) => {
-        console.log(err, 'Failed to Update UserInfo');
-      });
+    try {
+      await axiosInstance.put(`/auth/updateinfo/${userId}`, { password });
+      history.push('/login');
+    } catch (error) {
+      if (error) {
+        console.log(error, 'Failed to Update UserInfo');
+      }
+    }
   };
 
   const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
