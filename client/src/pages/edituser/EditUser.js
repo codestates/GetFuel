@@ -4,6 +4,7 @@ import styles from './EditUser.module.css';
 import { useHistory, Link } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
+import axios from 'axios';
 
 export default function EditUser({ userInfo, axiosInstance }) {
   const [password, setPassword] = useState('');
@@ -121,11 +122,11 @@ export default function EditUser({ userInfo, axiosInstance }) {
         </form>
 
         <div className={styles.button_bundle}>
-          <button className={styles.button} onClick={handleUpdateUserInfo}>
+          <button className={styles.button1} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
           <Link to='/map'>
-            <button className={styles.button}>Cancel</button>
+            <button className={styles.button2}>Cancel</button>
           </Link>
           <span
             onClick={() => {
@@ -135,7 +136,7 @@ export default function EditUser({ userInfo, axiosInstance }) {
               });
             }}
           >
-            <button className={styles.button1} onClick={deleteModalHandler}>
+            <button className={styles.button3} onClick={deleteModalHandler}>
               Delete
               <br />
               Account
