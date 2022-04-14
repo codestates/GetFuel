@@ -3,7 +3,7 @@ import * as postsRepository from '../data/posts.js';
 
 export async function getPosts(req, res) {
   const { code } = req.query;
-  
+
   if (code) {
     const findByCode = await postsRepository.getByCode(code);
     return res.status(200).json(findByCode);
@@ -35,7 +35,6 @@ export async function updatePost(req, res) {
 }
 
 export async function deletePost(req, res) {
-  
   const postId = req.params.postid;
   const post = await postsRepository.getById(postId);
 
