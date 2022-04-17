@@ -121,7 +121,6 @@ export async function deleteAccount(req, res) {
   if (!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
-  res.clearCookie('refreshToken');
 
   const user = await usersRepository.findById(id);
   if (!user) {
@@ -132,5 +131,6 @@ export async function deleteAccount(req, res) {
     return res.sendStatus(403);
   }
   await usersRepository.removeUser(id);
+  res.clearCookie('refreshToken');
   res.sendStatus(204);
 }
