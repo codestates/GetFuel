@@ -1,11 +1,10 @@
 .App {
   font-size: 5;
   box-sizing: border-box;
-  padding-top: 0 !important;
-  padding-bottom: 10px !important;
-  width: 100vw;
+  width: 155vw;
   max-width: 750px;
-  min-height: calc(100vh - 2px);
+  min-width: 240px;
+  height: 300vh;
   background-color: #ffffff;
   margin: 0 auto;
   display: flex;

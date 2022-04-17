@@ -1,21 +1,23 @@
 import React from 'react';
 import styles from './Nav.module.css';
 import GetFuel from '../../newgetfuel.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 
 function Nav() {
+    const history = useHistory();
+
     return (
         <div className={styles.nav}>
-          <Link to='/'>
+          
             <img className={styles.logo} src={GetFuel} />
-            </Link>
             <div className={styles.menu}>
-                <Link to='signup'>
-                    <button className={styles.signup}><span>Sign up</span></button>
-                </Link>
-                <Link to='login'>
-                    <button className={styles.login}>Login</button>
-                </Link>
+                
+            <button className={styles.signup} onClick={() => history.push('/signup')}><span>Sign up</span></button>
+                
+                
+            <button className={styles.login} onClick={() => history.push('/login')}>Login</button>
+                
             </div>
         </div>
     )
