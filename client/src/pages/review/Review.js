@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './Review.module.css';
 import Comment from '../../components/comment/Comment';
 import { useLocation } from 'react-router';
+import GetFuel from '../../newgetfuel.png';
+import { useHistory } from 'react-router-dom';
 
-function Review({ userInfo, axiosInstance }) {
+function Review({ userInfo, axiosInstance, setIsLogin }) {
+  const history = useHistory();
   const [posts, setPosts] = useState([]);
   const textareaRef = React.useRef();
   const location = useLocation();
@@ -34,10 +37,34 @@ function Review({ userInfo, axiosInstance }) {
     setPosts([...stationPosts.data]);
   };
 
+  const handleGoBack = () => {
+    history.push('/map')
+  }
+
+  const handleLogout = async () => {
+    setIsLogin(false);
+
+    await axiosInstance('/auth/signout');
+    history.push('/');
+  };
+
   return (
     <>
       {userInfo && (
         <div>
+          <div className={styles.nav}>
+        <img className={styles.logo} src={GetFuel} onClick={handleGoBack}/>
+        <div className={styles.menu}>
+            <button
+              className={styles.btn}
+              onClick={() => history.push('/edituser')}>
+              Edit Profile
+            </button>
+            <button className={styles.btn} onClick={handleLogout}>
+              Sign Out
+            </button>
+        </div>
+      </div>
           <div className={styles.commentForm}>
             <form onSubmit={handleSubmit}>
               <textarea
