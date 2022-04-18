@@ -5,11 +5,13 @@ import MapContainer from '../src/pages/map/MapContainer.js';
 import Review from './pages/review/Review.js';
 import SignUp from './pages/signup/SignUp.js';
 import EditUser from './pages/edituser/EditUser.js';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAxiosPrivate from './service/axiosLogin';
 import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
+
+axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -18,8 +20,8 @@ export default function App({ opinet }) {
     loginHandler,
     issueAccessToken,
   });
-
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
+
   useEffect(async () => {
     if (isLogin === false) {
       return;
@@ -31,7 +33,6 @@ export default function App({ opinet }) {
           headers: { 'Content-Type': 'application/json' },
         }
       );
-      
       if (refresh.data.data === null) {
         setIsLogin(false);
       } else if (refresh.data.accessToken) {
@@ -54,13 +55,19 @@ export default function App({ opinet }) {
   }
 
   function issueAccessToken(data) {
-    setUserInfo({ accessToken: data.accessToken, userId: data.userId });
+    setUserInfo({
+      accessToken: data.accessToken,
+      userId: data.userId,
+      loginType: data.loginType,
+      kakaoAccessToken: data.kakaoAccessToken,
+    });
   }
+
   return (
     <div>
       <div className={styles.App}>
         <Route exact path='/'>
-          <Main />
+          <Main loginHandler={loginHandler} />
         </Route>
         <Route path='/login'>
           <Login loginHandler={loginHandler} />
@@ -75,14 +82,14 @@ export default function App({ opinet }) {
             setIsLogin={setIsLogin}
           />
         </Route>
-        <Route path="/review">
+        <Route path='/review'>
           <Review axiosInstance={axiosInstance} userInfo={userInfo} />
         </Route>
-        <Route path="/signup" component={SignUp} />
-        <Route path="/edituser">
+        <Route path='/signup' component={SignUp} />
+        <Route path='/edituser'>
           <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
-        <Route path="/deleteuser" component={DeleteUserModal} />
+        <Route path='/deleteuser' component={DeleteUserModal} />
       </div>
     </div>
   );
