@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 function useAxiosPrivate(accessToken, loginFunctions) {
   const axiosPrivate = axios.create({
-    baseURL: `${process.env.REACT_APP_API_URL}`,
+    baseURL: `http://localhost:8080`,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -22,7 +22,7 @@ function useAxiosPrivate(accessToken, loginFunctions) {
 
       return refreshed.data.accessToken;
     } catch (error) {
-      console.log(error);
+      console.log('axiosLogin.js 에러------------- ', error);
     }
   }
 
