@@ -18,7 +18,7 @@ export default function App({ opinet }) {
     loginHandler,
     issueAccessToken,
   });
-
+  
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
     if (isLogin === false) {
@@ -76,7 +76,7 @@ export default function App({ opinet }) {
           />
         </Route>
         <Route path="/review">
-          <Review axiosInstance={axiosInstance} userInfo={userInfo} />
+          <Review axiosInstance={axiosInstance} userInfo={userInfo} setIsLogin={setIsLogin} />
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/edituser">
