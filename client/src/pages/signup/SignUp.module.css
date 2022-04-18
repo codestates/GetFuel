@@ -11,7 +11,7 @@
 }
 
 .button_bundle{
-    margin-top: 10%;
+    margin-top: 7%;
     width: 70%;
     height: 8vh;
     padding: 2%;
@@ -20,8 +20,9 @@
 }
 
 .button {
-  width: 52%;
-  height: 80%;
+  width: 53%;
+  height: 50px;
+
   box-sizing: border-box;
   background-color: #0b409c;
   color: white;

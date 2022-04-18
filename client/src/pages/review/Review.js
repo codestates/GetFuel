@@ -9,6 +9,7 @@ function Review({ userInfo, axiosInstance }) {
   const textareaRef = React.useRef();
 
   const location = useLocation();
+
   const clickedInfo = location.state.clickedInfo; // click 된 주유소 정보
 
   useEffect(async () => {
