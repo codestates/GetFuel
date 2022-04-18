@@ -6,7 +6,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Comment({ post, axiosInstance, clickedInfo, setPosts }) {
   const parseDate = new Date(post.createdAt).toLocaleDateString('ko-kr');
-  // console.log(post);
+  console.log(post);
   const handleDelete = async () => {
     await axiosInstance.delete(`/posts/${post.id}`);
 

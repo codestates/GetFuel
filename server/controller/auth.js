@@ -3,11 +3,10 @@ import bcrypt from 'bcrypt';
 import 'express-async-errors';
 import * as usersRepository from '../data/auth.js';
 import { config } from '../configuration/config.js';
-import axios from 'axios';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  // console.log(email);
+  console.log(email);
 
   const found = await usersRepository.findByEmail(email);
   if (found) {
@@ -28,8 +27,6 @@ export async function signup(req, res) {
 export async function signin(req, res) {
   const { email, password } = req.body;
   const user = await usersRepository.findByEmail(email);
-  // console.log(user);
-  const loginType = user.type;
   if (!user) {
     return res
       .status(401)
@@ -49,9 +46,10 @@ export async function signin(req, res) {
   const refreshToken = jwt.sign({ id: user.id }, config.jwt.refresh_secret, {
     expiresIn: config.jwt.refresh_expiresInSec,
   });
+  
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
-  res.status(200).json({ accessToken, email, userId: user.id, loginType });
+  res.status(200).json({ accessToken, email, userId: user.id });
 }
 
 export async function refresh(req, res) {
@@ -96,25 +94,6 @@ export async function signout(req, res) {
     .clearCookie('refreshToken', { path: '/' })
     .status(200)
     .json({ message: 'Logout' });
-}
-
-export async function oauthSignout(req, res) {
-  const kakaoAccessToken = req.body.data.kakaoAccessToken;
-  const loginType = req.body.data.loginType;
-
-  if (!kakaoAccessToken) {
-    return res.status(401).json({ message: 'Not A KakaoUser' });
-  } else {
-    if (loginType === 'kakao') {
-      await axios.post('https://kauth.kakao.com/v1/user/unlink', {
-        headers: {
-          Authorization: `Bearer ${kakaoAccessToken}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-    }
-  }
-  res.clearCookie('refreshToken').status(200).json({ message: 'Logout' });
 }
 
 export async function updateInfo(req, res) {

@@ -134,11 +134,11 @@ export default function SignUp() {
             <div className={styles.email}>Email</div>
             <input
               className={styles.userinfo}
-              id='email'
-              type='email'
-              placeholder='이메일을 입력하세요'
+              id="email"
+              type="email"
+              placeholder="이메일을 입력하세요"
               onChange={onChangeEmail}
-              autoComplete='on'
+              autoComplete="on"
             />
           </div>
           <div className={styles.formbox}>
@@ -152,11 +152,11 @@ export default function SignUp() {
             <div className={styles.nickname}>Nickname</div>
             <input
               className={styles.userinfo}
-              id='name'
-              type='text'
-              name='name'
-              placeholder='사용할 닉네임을 입력하세요'
-              autoComplete='on'
+              id="name"
+              type="text"
+              name="name"
+              placeholder="사용할 닉네임을 입력하세요"
+              autoComplete="on"
               onChange={onChangeNickname}
             />
           </div>
@@ -172,11 +172,11 @@ export default function SignUp() {
             <div className={styles.password}>Password</div>
             <input
               className={styles.userinfo}
-              type='password'
-              name='password'
-              placeholder='비밀번호를 입력하세요'
+              type="password"
+              name="password"
+              placeholder="비밀번호를 입력하세요"
               onChange={onChangePassword}
-              autoComplete='off'
+              autoComplete="off"
             />
           </div>
           <div className={styles.formbox}>
@@ -191,11 +191,11 @@ export default function SignUp() {
             <div className={styles.confirmpassword}>Confirm password</div>
             <input
               className={styles.userinfo}
-              type='password'
-              name='passwordConfirm'
-              placeholder='비밀번호 확인'
+              type="password"
+              name="passwordConfirm"
+              placeholder="비밀번호 확인"
               onChange={onChangePasswordConfirm}
-              autoComplete='off'
+              autoComplete="off"
             />
           </div>
           <div className={styles.formbox}>
@@ -215,7 +215,7 @@ export default function SignUp() {
               Sign Up
             </button>
 
-            <Link to='/'>
+            <Link to="/">
               <button className={styles.button}>Cancel</button>
             </Link>
           </div>
