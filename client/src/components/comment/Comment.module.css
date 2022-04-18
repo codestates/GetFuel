@@ -34,6 +34,8 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .modify {
@@ -49,4 +51,75 @@
 
 .idx {
   display: none;
+}
+
+.reply {
+  display: flex;
+  justify-content: space-between;
+}
+
+.replyContent {
+  border: 0;
+  width: 85%;
+  display: flex;
+  margin-left: 1rem;
+  outline: 0;
+}
+
+.replyBtn {
+  background-color: #0b409c;
+  color: white;
+  border-width: 1px;
+  width: 3rem;
+  height: 1.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 00.3rem;
+}
+
+.line {
+  border: 0.2px solid gray;
+  margin-bottom: 1rem;
+}
+
+.confirm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3rem;
+}
+
+.modifyContent {
+  display: flex;
+  margin: 0.3rem;
+  justify-content: space-between;
+}
+
+.modifyInput {
+  border: 0;
+  width: 70%;
+  display: flex;
+  margin-left: 1rem;
+  outline: 0;
+  margin-top: 1rem;
+}
+
+.modifyConfirm {
+  background-color: #0b409c;
+  color: white;
+  border-width: 1px;
+  width: 4rem;
+  height: 1.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 00.3rem;
+  margin-right: -0.3rem;
+}
+
+.cancle {
+  background-color: #0b409c;
+  color: white;
+  border-width: 1px;
+  width: 3rem;
+  height: 1.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 00.3rem;
+  margin-right: -4rem;
 }
