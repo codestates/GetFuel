@@ -28,9 +28,11 @@ export default function App({ opinet }) {
     }
 
     try {
-      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, 
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
       if (refresh.data.data === null) {
         setIsLogin(false);
       } else if (refresh.data.accessToken) {

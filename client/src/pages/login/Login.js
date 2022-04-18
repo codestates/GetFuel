@@ -29,7 +29,7 @@ export default function Login({ loginHandler }) {
     if (email && password) {
       axios
         .post(
-          `http://localhost:8080/auth/signin`,
+          'http://localhost:8080/auth/signin',
           { email, password },
           {
             headers: { 'Content-Type': 'application/json' },
