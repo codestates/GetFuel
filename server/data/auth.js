@@ -2,9 +2,14 @@ import Mongoose from 'mongoose';
 import { userVirtualId } from '../database/database.js';
 
 const userSchema = new Mongoose.Schema({
-  email: { type: String, required: true },
+  type: {
+    type: String,
+    default: 'user',
+    enum: ['user', 'kakao', 'google'],
+  },
+  email: { type: String, required: true, unique: true },
   nickname: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String },
 });
 
 userVirtualId(userSchema);
@@ -29,3 +34,9 @@ export async function update(id, password) {
 export async function removeUser(id) {
   return User.findByIdAndDelete(id);
 }
+
+export async function findAndUpdateUser(filter, update, options) {
+  return User.findOneAndUpdate(filter, update, options);
+}
+
+export default User;

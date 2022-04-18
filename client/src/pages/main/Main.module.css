@@ -1,10 +1,9 @@
-.txtlogo{
+.txtlogo {
   display: flex;
   justify-content: center;
   width: 85%;
   margin-top: 20%;
   margin-left: 7.6%;
-  
 }
 
 .title {
@@ -13,8 +12,6 @@
   font-weight: bold;
   text-align: center;
   transform: translate(0%, 400%);
-}
-
 
 .Tutorial {
   width: 100%;
@@ -27,7 +24,17 @@
   align-items: center;
 }
 
-
+.kakao {
+ width: 100%;
+  transform: translate(0%, 400%);
+  background-color: white;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
 
 .image2 {
   display: flex;
