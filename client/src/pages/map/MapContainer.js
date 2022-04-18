@@ -138,7 +138,7 @@ const MapContainer = ({
       station.GIS_Y_COOR = Number(parseFloat(converted[0]).toFixed(5));
       return station;
     });
-    console.log(coordiConvert);
+    // console.log(coordiConvert);
     setStations([...coordiConvert]);
   }, [coordiKatec]);
 
