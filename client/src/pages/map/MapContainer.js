@@ -128,7 +128,7 @@ const MapContainer = ({
       coordiKatec[0],
       coordiKatec[1]
     );
-
+    console.log(stationsInfo);
     const coordiConvert = stationsInfo.map((station) => {
       const converted = coordiKATECtoWGS(
         station.GIS_X_COOR,

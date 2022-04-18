@@ -27,7 +27,7 @@ export default function Login({ loginHandler }) {
     if (email && password) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URL}/auth/signin`,
+          `http://localhost:8080/auth/signin`,
           { email, password },
           {
             headers: { 'Content-Type': 'application/json' },

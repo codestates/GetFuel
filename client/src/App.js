@@ -27,7 +27,8 @@ export default function App({ opinet }) {
 
     try {
       const refresh = await axios.get(
-        `${process.env.REACT_APP_API_URL}/auth/refresh`,
+        // `${process.env.REACT_APP_API_URL}/auth/refresh`,
+        'http://localhost:8080/auth/refresh',
         {
           headers: { 'Content-Type': 'application/json' },
         }
