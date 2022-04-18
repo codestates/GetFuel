@@ -2,15 +2,59 @@ import React from 'react';
 import styles from './MapNav.module.css';
 import GetFuel from '../../newgetfuel.png';
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
-function MapNav({ isLogin, setIsLogin, axiosInstance }) {
+function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
   const history = useHistory();
 
-  const handleLogout = async () => {
-    setIsLogin(false);
+  const access_token = userInfo.access_token;
+  const loginType = userInfo.loginType;
 
-    await axiosInstance('/auth/signout');
-    history.push('/');
+  const handleLogout = async () => {
+    if (loginType === 'user') {
+      await axiosInstance('/auth/signout');
+      setIsLogin(false);
+      history.push('/');
+    } else if (loginType === 'kakao') {
+      await axios
+        .delete(`${process.env.REACT_APP_API_URL}/auth/oauth/signout`, {
+          data: { access_token: access_token, loginType: loginType },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          setIsLogin(false);
+          history.push('/');
+        });
+    } else if (loginType === 'google') {
+      if (!window.gapi.auth2) {
+        window.gapi.load('auth2', function () {
+          window.gapi.auth2
+            .init({
+              client_id: process.env.REACT_APP_CLIENTID,
+              scope: 'email',
+            })
+            .then(() => {
+              if (window.gapi) {
+                const auth2 = window.gapi.auth2.getAuthInstance();
+                if (auth2 != null) {
+                  auth2
+                    .signOut()
+                    .then(
+                      auth2
+                        .disconnect()
+                        .then(() => console.log('LOGOUT SUCCESSFUL'))
+                    );
+                  setIsLogin(false);
+                  history.push('/');
+                }
+              }
+            });
+        });
+      }
+    }
   };
 
   return (
