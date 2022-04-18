@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './Login.module.css';
 import GetFuel from '../../GetFuel_logo1.png';
 import Nav from '../../components/nav/Nav';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Loading from '../../components/loding/Loding.js';
 
 axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
@@ -11,6 +12,7 @@ export default function Login({ loginHandler }) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
 
@@ -47,6 +49,38 @@ export default function Login({ loginHandler }) {
     }
   };
 
+  const getAccessToken = (authorizationCode) => {
+    if (authorizationCode) {
+      axios
+        .get(
+          `http://localhost:8080/oauth/google/login`,
+          {
+            params: { authorizationCode },
+          },
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          loginHandler(res.data);
+          history.push('/map');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get('code');
+    if (authorizationCode) {
+      getAccessToken(authorizationCode);
+    }
+    setIsLoading(false);
+  }, []);
+
   return (
     <div>
       <Nav />
@@ -57,24 +91,25 @@ export default function Login({ loginHandler }) {
         <div className={styles.user}>Email</div>
         <input
           className={styles.userInfo}
-          type="text"
-          placeholder="이메일을 입력하세요"
+          type='text'
+          placeholder='이메일을 입력하세요'
           ref={emailRef}
-          autoComplete="on"
+          autoComplete='on'
         />
         <div className={styles.user}>Password</div>
         <input
           className={styles.userInfo}
-          type="password"
-          placeholder="비밀번호를 입력하세요"
+          type='password'
+          placeholder='비밀번호를 입력하세요'
           ref={passwordRef}
-          autoComplete="off"
+          autoComplete='off'
         />
         <div className={styles.alert}>{errorMessage}</div>
         <div>
           <button className={styles.button}>Login</button>
         </div>
       </form>
+      <div>{isLoading ? <Loading /> : null}</div>
     </div>
   );
 }
