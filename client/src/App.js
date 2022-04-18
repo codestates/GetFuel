@@ -20,7 +20,6 @@ export default function App({ opinet }) {
     loginHandler,
     issueAccessToken,
   });
-  // console.log(userInfo);
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
 
   useEffect(async () => {
@@ -29,12 +28,9 @@ export default function App({ opinet }) {
     }
 
     try {
-      const refresh = await axios.get(
-        `${process.env.REACT_APP_API_URL}/auth/refresh`,
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
 
       if (refresh.data.data === null) {
         setIsLogin(false);
@@ -62,7 +58,7 @@ export default function App({ opinet }) {
       accessToken: data.accessToken,
       userId: data.userId,
       loginType: data.loginType,
-      access_token: data.access_token,
+      kakaoAccessToken: data.kakaoAccessToken,
     });
   }
 

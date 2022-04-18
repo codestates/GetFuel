@@ -29,14 +29,13 @@ export default function Login({ loginHandler }) {
     if (email && password) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URL}/auth/signin`,
+          `http://localhost:8080/auth/signin`,
           { email, password },
           {
             headers: { 'Content-Type': 'application/json' },
           }
         )
         .then((res) => {
-          console.log(res);
           axios.defaults.headers.common['Authorization'] =
             'Bearer ' + res.data.accessToken;
           history.push('/map'); // 페이지 이동
@@ -54,7 +53,7 @@ export default function Login({ loginHandler }) {
     if (authorizationCode) {
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/oauth/google/login`,
+          `http://localhost:8080/oauth/google/login`,
           {
             params: { authorizationCode },
           },

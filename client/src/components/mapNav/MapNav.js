@@ -7,18 +7,21 @@ import axios from 'axios';
 function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
   const history = useHistory();
 
-  const access_token = userInfo.access_token;
   const loginType = userInfo.loginType;
 
   const handleLogout = async () => {
+    console.log(userInfo);
     if (loginType === 'user') {
       await axiosInstance('/auth/signout');
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'kakao') {
       await axios
-        .delete(`${process.env.REACT_APP_API_URL}/auth/oauth/signout`, {
-          data: { access_token: access_token, loginType: loginType },
+        .delete(`http://localhost:8080/auth/oauth/signout`, {
+          data: {
+            kakaoAccessToken: userInfo.kakaoAccessToken,
+            loginType,
+          },
           headers: {
             'Content-Type': 'application/json',
           },
@@ -33,7 +36,8 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
         window.gapi.load('auth2', function () {
           window.gapi.auth2
             .init({
-              client_id: process.env.REACT_APP_CLIENTID,
+              client_id:
+                '779018207520-qvftar8nin7c9bqo0q4ouk4mtj7gb6lc.apps.googleusercontent.com',
               scope: 'email',
             })
             .then(() => {

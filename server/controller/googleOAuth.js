@@ -56,7 +56,6 @@ export default async function googleOauthHandler(req, res) {
 
     const findId = await findByEmail(email);
     const userId = findId.id;
-    console.log(findId);
     const loginType = findId.type;
 
     // ! Generate Token

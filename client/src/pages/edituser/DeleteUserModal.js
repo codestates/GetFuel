@@ -14,20 +14,15 @@ function DeleteUserModal() {
     const authorization = userInfo.accessToken;
     const userId = userInfo.userId;
 
-    await axios
-      .delete(`${process.env.REACT_APP_API_URL}auth/deleteaccount/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${authorization}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        history.push('/');
-      })
-      .catch((err) => {
-        console.log(err, 'Failed to Delete UserInfo');
-      });
+    await axios.delete(`http://localhost:8080/auth/deleteaccount/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${authorization}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+
+    history.push('/');
   };
 
   return (

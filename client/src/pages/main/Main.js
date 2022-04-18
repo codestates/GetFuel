@@ -29,7 +29,7 @@ export default function Main({ loginHandler }) {
     if (authorizationCode) {
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/oauth/kakao/login`,
+          `http://localhost:8080/oauth/kakao/login`,
           {
             params: { authorizationCode },
           },
@@ -39,7 +39,6 @@ export default function Main({ loginHandler }) {
           }
         )
         .then((res) => {
-          // console.log(res);
           loginHandler(res.data);
           history.push('/map');
         })

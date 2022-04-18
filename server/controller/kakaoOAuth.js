@@ -21,8 +21,6 @@ export default async function kakaoOauthHandler(req, res) {
     });
 
     const { access_token } = getToken.data;
-    // console.log(getToken.data);
-    // const kakaoLogOutToken = getToken.data.access_token;
 
     const data = await axios({
       method: 'GET',
@@ -80,7 +78,7 @@ export default async function kakaoOauthHandler(req, res) {
       accessToken: kakaoAccessToken,
       userId,
       loginType,
-      access_token,
+      kakaoAccessToken: access_token,
     });
 
     res.redirect(process.env.MAPPAGE);

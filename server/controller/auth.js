@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  console.log(email);
+  // console.log(email);
 
   const found = await usersRepository.findByEmail(email);
   if (found) {
@@ -28,7 +28,7 @@ export async function signup(req, res) {
 export async function signin(req, res) {
   const { email, password } = req.body;
   const user = await usersRepository.findByEmail(email);
-  console.log(user);
+  // console.log(user);
   const loginType = user.type;
   if (!user) {
     return res
@@ -99,27 +99,19 @@ export async function signout(req, res) {
 }
 
 export async function oauthSignout(req, res) {
-  // console.log(req.body);
-  const access_token = req.body.access_token;
-  const loginType = req.body.loginType;
+  const kakaoAccessToken = req.body.data.kakaoAccessToken;
+  const loginType = req.body.data.loginType;
 
-  if (!access_token) {
+  if (!kakaoAccessToken) {
     return res.status(401).json({ message: 'Not A KakaoUser' });
   } else {
     if (loginType === 'kakao') {
-      await axios
-        .post(`https://kauth.kakao.com/v1/user/unlink`, {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      await axios.post('https://kauth.kakao.com/v1/user/unlink', {
+        headers: {
+          Authorization: `Bearer ${kakaoAccessToken}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
     }
   }
   res.clearCookie('refreshToken').status(200).json({ message: 'Logout' });
