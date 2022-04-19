@@ -12,7 +12,6 @@
   font-weight: bold;
   text-align: center;
   transform: translate(0%, 400%);
-}
 
 .Tutorial {
   width: 100%;
@@ -26,7 +25,7 @@
 }
 
 .kakao {
-  width: 100%;
+ width: 100%;
   transform: translate(0%, 400%);
   background-color: white;
   border: 0;
