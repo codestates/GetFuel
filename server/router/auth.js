@@ -40,7 +40,7 @@ router.post('/signup', validateSignup, authController.signup);
 router.post('/signin', validateSignin, authController.signin);
 router.get('/refresh', authController.refresh);
 router.get('/signout', isAuth, authController.signout);
-router.delete('/oauth/signout', authController.oauthSignout);
+router.post('/oauth/signout', authController.oauthSignout);
 
 router.put(
   '/updateinfo/:id',

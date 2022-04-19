@@ -7,17 +7,15 @@ import axios from 'axios';
 function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
   const history = useHistory();
 
-  const loginType = userInfo.loginType;
-
   const handleLogout = async () => {
-    console.log(userInfo);
+    const loginType = userInfo.loginType;
     if (loginType === 'user') {
       await axiosInstance('/auth/signout');
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'kakao') {
       await axios
-        .delete(`http://localhost:8080/auth/oauth/signout`, {
+        .post(`http://localhost:8080/auth/oauth/signout`, {
           data: {
             kakaoAccessToken: userInfo.kakaoAccessToken,
             loginType,
@@ -60,13 +58,12 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
       }
     }
   };
-
   return (
     <>
       <div className={styles.nav}>
         <img className={styles.logo} src={GetFuel} />
         <div className={styles.menu}>
-          {isLogin ? (
+          {isLogin && localStorage.getItem('loginType') === 'user' ? (
             <button
               className={styles.btn}
               onClick={() => history.push('/edituser')}
@@ -77,9 +74,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
             <button
               className={styles.btn}
               onClick={() => history.push('/signup')}
-            >
-              Sign Up
-            </button>
+            ></button>
           )}
 
           {isLogin ? (
@@ -87,15 +82,11 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
               Sign Out
             </button>
           ) : (
-            <Link to='login'>
-              <button
-                className={styles.btn}
-                onClick={() => history.push('/signin')}
-              >
-                Sign In
-              </button>
+            <Link to='signup'>
+              <button className={styles.btn}>Sign up</button>
             </Link>
           )}
+          {}
         </div>
       </div>
     </>
