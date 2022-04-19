@@ -71,7 +71,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
               Edit Profile
             </button>
           ) : (
-            <button></button>
+            <div></div>
           )}
 
           {isLogin ? (
