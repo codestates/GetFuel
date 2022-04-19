@@ -1,4 +1,4 @@
-.post {
+.comment {
   width: 60%;
   height: 100px;
   display: table;
@@ -42,4 +42,36 @@
   font-size: 1.5rem;
   background-color: white;
   border-width: 0em;
+}
+
+.nav {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  font-weight: bold;
+  font-weight: 700;
+  height: 30px;
+  margin-right: 1rem;
+}
+
+.logo {
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 10px;
+  border: 3px double #0d3f9c;
+  border-radius: 50%;
+}
+
+.btn:hover {
+  background-color: #0d3f9c;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
 }

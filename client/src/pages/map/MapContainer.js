@@ -138,7 +138,7 @@ const MapContainer = ({
       station.GIS_Y_COOR = Number(parseFloat(converted[0]).toFixed(5));
       return station;
     });
-    console.log(coordiConvert);
+    // console.log(coordiConvert);
     setStations([...coordiConvert]);
   }, [coordiKatec]);
 
@@ -321,8 +321,8 @@ const MapContainer = ({
         axiosInstance={axiosInstance}
       />
       <div>
-      {isLoading ? <Loading /> : null}
-        <div id="map" style={{ width: '100%', height: '750px' }}></div>
+        {isLoading ? <Loading /> : null}
+        <div id='map' style={{ width: '100%', height: '750px' }}></div>
       </div>
     </div>
   );

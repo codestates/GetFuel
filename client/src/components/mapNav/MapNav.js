@@ -71,10 +71,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
               Edit Profile
             </button>
           ) : (
-            <button
-              className={styles.btn}
-              onClick={() => history.push('/signup')}
-            ></button>
+            <button></button>
           )}
 
           {isLogin ? (
