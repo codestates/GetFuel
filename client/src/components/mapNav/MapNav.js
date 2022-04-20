@@ -3,6 +3,7 @@ import styles from './MapNav.module.css';
 import GetFuel from '../../img/newgetfuel.png';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
   const history = useHistory();
@@ -48,13 +49,11 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
               if (window.gapi) {
                 const auth2 = window.gapi.auth2.getAuthInstance();
                 if (auth2 != null) {
-                  auth2
-                    .signOut()
-                    .then(
-                      auth2
-                        .disconnect()
-                        .then(() => console.log('LOGOUT SUCCESSFUL'))
-                    );
+                  auth2.signOut().then(
+                    auth2.disconnect().then(() => {
+                      console.log('LOGOUT SUCCESSFUL');
+                    })
+                  );
                   setIsLogin(false);
                   history.push('/');
                 }

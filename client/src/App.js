@@ -23,7 +23,7 @@ export default function App({ opinet }) {
     loginHandler,
     issueAccessToken,
   });
-
+  
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
     if (isLogin === false) {
@@ -75,13 +75,13 @@ export default function App({ opinet }) {
   return (
     <div>
       <div className={styles.App}>
-        <Route exact path='/'>
+        <Route exact path="/">
           <Main />
         </Route>
-        <Route path='/login'>
+        <Route path="/login">
           <Login loginHandler={loginHandler} />
         </Route>
-        <Route path='/map'>
+        <Route path="/map">
           <MapContainer
             opinet={opinet}
             axiosInstance={axiosInstance}
@@ -92,7 +92,7 @@ export default function App({ opinet }) {
             loginType={loginType}
           />
         </Route>
-        <Route path='/review'>
+        <Route path="/review">
           <Review
             axiosInstance={axiosInstance}
             userInfo={userInfo}
@@ -101,15 +101,15 @@ export default function App({ opinet }) {
             loginType={loginType}
           />
         </Route>
-        <Route path='/signup' component={SignUp} />
-        <Route path='/edituser'>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/edituser">
           <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
-        <Route path='/deleteuser' component={DeleteUserModal} />
-        <Route exact path='/googlelogin'>
+        <Route path="/deleteuser" component={DeleteUserModal} />
+        <Route exact path="/googlelogin">
           <GoogleLogin loginHandler={loginHandler} />
         </Route>
-        <Route exact path='/kakaologin'>
+        <Route exact path="/kakaologin">
           <KakaoLogin loginHandler={loginHandler} />
         </Route>
       </div>
