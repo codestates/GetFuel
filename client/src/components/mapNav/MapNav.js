@@ -89,7 +89,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
                 className={styles.btn}
                 onClick={() => history.push('/login')}
               >
-                Sign In
+                Login
               </button>
               <button
                 className={styles.btn}

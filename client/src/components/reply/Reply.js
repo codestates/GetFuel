@@ -64,7 +64,7 @@ function Reply({
           <span className={styles.modifyContent}>
             <input
               className={styles.modifyInput}
-              placeholder='수정할 댓글 내용을 입력하세요..'
+              placeholder="수정할 댓글 내용을 입력하세요.."
               ref={inputRef}
             />
             <button className={styles.cancle} onClick={handleCloseReply}>

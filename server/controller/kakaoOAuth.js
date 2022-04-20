@@ -4,6 +4,7 @@ import axios from 'axios';
 import User from '../data/auth.js';
 import jwt from 'jsonwebtoken';
 import { findByEmail } from '../data/auth.js';
+import { config } from '../configuration/config.js';
 axios.defaults.withCredentials = true;
 
 export default async function kakaoOauthHandler(req, res) {
@@ -14,7 +15,7 @@ export default async function kakaoOauthHandler(req, res) {
   try {
     const getToken = await axios({
       method: 'POST',
-      url: `https://kauth.kakao.com/oauth/token?code=${code}&client_id=${process.env.KAKAO_CLIENT_ID}&client_secret=${process.env.KAKAO_CLIENT_SECRET}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&grant_type=${grant_type}`,
+      url: `https://kauth.kakao.com/oauth/token?code=${code}&client_id=${config.oauth.kakaoClientId}&client_secret=${config.oauth.kakaoClientSecret}&redirect_uri=${config.oauth.kakaoRedirectURI}&grant_type=${grant_type}`,
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
       },
@@ -55,17 +56,17 @@ export default async function kakaoOauthHandler(req, res) {
 
     const kakaoAccessToken = jwt.sign(
       { id: userId },
-      process.env.JWT_ACCESS_SECRET,
+      config.jwt.access_secret,
       {
-        expiresIn: process.env.JWT_ACCESS_EXPIRES,
+        expiresIn: config.jwt.access_expiresInSec,
       }
     );
 
     const kakaoRefreshToken = jwt.sign(
       { id: userId },
-      process.env.JWT_REFRESH_SECRET,
+      config.jwt.refresh_secret,
       {
-        expiresIn: process.env.JWT_REFRESH_EXPIRES,
+        expiresIn: config.jwt.refresh_expiresInSec,
       }
     );
 
@@ -82,7 +83,7 @@ export default async function kakaoOauthHandler(req, res) {
     });
   } catch (err) {
     res.cookie('kakao_login', 'fail', { maxAge });
-    res.redirect(process.env.MAINPAGE);
+    res.redirect(config.oauth.mainPageURL);
     console.log(err);
   }
 }
