@@ -5,7 +5,8 @@ import { useLocation } from 'react-router';
 import GetFuel from '../../newgetfuel.png';
 import { useHistory } from 'react-router-dom';
 
-function Review({ userInfo, axiosInstance, setIsLogin }) {
+function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
+
   const history = useHistory();
   const [posts, setPosts] = useState([]);
   const textareaRef = React.useRef();
@@ -21,7 +22,7 @@ function Review({ userInfo, axiosInstance, setIsLogin }) {
     });
     setPosts([...stationPosts.data]);
   }, [userInfo]);
-  
+
   // 버튼 클릭시 게시물 등록
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +30,6 @@ function Review({ userInfo, axiosInstance, setIsLogin }) {
     textareaRef.current.value = '';
 
     await axiosInstance.post(`/posts/${clickedInfo.UNI_ID}`, {
-        text,
     });
     const stationPosts = await axiosInstance.get('/posts', {
         params: { code: `${clickedInfo.UNI_ID}` },
@@ -38,8 +38,8 @@ function Review({ userInfo, axiosInstance, setIsLogin }) {
   };
 
   const handleGoBack = () => {
-    history.push('/map')
-  }
+    history.push('/map');
+  };
 
   const handleLogout = async () => {
     setIsLogin(false);
@@ -53,23 +53,33 @@ function Review({ userInfo, axiosInstance, setIsLogin }) {
       {userInfo && (
         <div>
           <div className={styles.nav}>
-        <img className={styles.logo} src={GetFuel} onClick={handleGoBack}/>
-        <div className={styles.menu}>
-            <button
-              className={styles.btn}
-              onClick={() => history.push('/edituser')}>
-              Edit Profile
-            </button>
-            <button className={styles.btn} onClick={handleLogout}>
-              Sign Out
-            </button>
-        </div>
-      </div>
+            <img className={styles.logo} src={GetFuel} onClick={handleGoBack} />
+            <div className={styles.menu}>
+              {isLogin && localStorage.getItem('loginType') === 'user' ? (
+                <button
+                  className={styles.btn}
+                  onClick={() => history.push('/edituser')}
+                >
+                  Edit Profile
+                </button>
+              ) : (
+                <div></div>
+              )}
+
+              {isLogin ? (
+                <button className={styles.btn} onClick={handleLogout}>
+                  Sign Out
+                </button>
+              ) : (
+                <button></button>
+              )}
+            </div>
+          </div>
           <div className={styles.commentForm}>
             <form onSubmit={handleSubmit}>
               <textarea
                 className={styles.comment}
-                placeholder="게시글 추가.."
+                placeholder='게시글 추가..'
                 ref={textareaRef}
               >
               </textarea>

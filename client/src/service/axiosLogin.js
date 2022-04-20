@@ -22,7 +22,7 @@ function useAxiosPrivate(accessToken, loginFunctions) {
 
       return refreshed.data.accessToken;
     } catch (error) {
-      console.log('axiosLogin.js 에러------------- ', error);
+      console.log(error);
     }
   }
 

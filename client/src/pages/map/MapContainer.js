@@ -321,8 +321,8 @@ const MapContainer = ({
         axiosInstance={axiosInstance}
       />
       <div>
-      {isLoading ? <Loading /> : null}
-        <div id="map" style={{ width: '100%', height: '750px' }}></div>
+        {isLoading ? <Loading /> : null}
+        <div id='map' style={{ width: '100%', height: '750px' }}></div>
       </div>
     </div>
   );

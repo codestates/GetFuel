@@ -10,6 +10,7 @@ const userSchema = new Mongoose.Schema({
   email: { type: String, required: true, unique: true },
   nickname: { type: String, required: true },
   password: { type: String },
+  kakaoAccessToken: String,
 });
 
 userVirtualId(userSchema);

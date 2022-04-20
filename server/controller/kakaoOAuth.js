@@ -43,6 +43,7 @@ export default async function kakaoOauthHandler(req, res) {
         await new User({
           email,
           nickname,
+          kakaoAccessToken: access_token,
           type: 'kakao',
         }).save();
       }
@@ -52,9 +53,8 @@ export default async function kakaoOauthHandler(req, res) {
     const userId = findId.id;
     const loginType = findId.type;
 
-    // ! Generate Token
     const kakaoAccessToken = jwt.sign(
-      { userId },
+      { id: userId },
       process.env.JWT_ACCESS_SECRET,
       {
         expiresIn: process.env.JWT_ACCESS_EXPIRES,
@@ -62,7 +62,7 @@ export default async function kakaoOauthHandler(req, res) {
     );
 
     const kakaoRefreshToken = jwt.sign(
-      { userId },
+      { id: userId },
       process.env.JWT_REFRESH_SECRET,
       {
         expiresIn: process.env.JWT_REFRESH_EXPIRES,
@@ -80,8 +80,6 @@ export default async function kakaoOauthHandler(req, res) {
       loginType,
       kakaoAccessToken: access_token,
     });
-
-    res.redirect(process.env.MAPPAGE);
   } catch (err) {
     res.cookie('kakao_login', 'fail', { maxAge });
     res.redirect(process.env.MAINPAGE);
