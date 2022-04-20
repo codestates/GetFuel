@@ -108,19 +108,17 @@ export async function oauthSignout(req, res) {
   const kakaoAccessToken = req.body.data.kakaoAccessToken;
   const loginType = req.body.data.loginType;
 
-  if (!kakaoAccessToken) {
-    return res.status(401).json({ message: 'Not A KakaoUser' });
-  } else {
-    if (loginType === 'kakao') {
-      await axios.post('https://kauth.kakao.com/v1/user/unlink', {
-        headers: {
-          Authorization: `Bearer ${kakaoAccessToken}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-    }
+  if (loginType === 'kakao') {
+    await axios.post('https://kauth.kakao.com/v1/user/unlink', {
+      headers: {
+        Authorization: `Bearer ${kakaoAccessToken}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    res.clearCookie('refreshToken').status(200).json({ message: 'Logout' });
+  } else if (loginType === 'google') {
+    res.clearCookie('refreshToken').status(200).json({ message: 'Logout' });
   }
-  res.clearCookie('refreshToken').status(200).json({ message: 'Logout' });
 }
 
 export async function updateInfo(req, res) {

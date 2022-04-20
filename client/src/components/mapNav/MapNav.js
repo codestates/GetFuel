@@ -6,7 +6,6 @@ import axios from 'axios';
 
 function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
   const history = useHistory();
-
   const handleLogout = async () => {
     const loginType = userInfo.loginType;
     if (loginType === 'user') {
@@ -30,12 +29,22 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
           history.push('/');
         });
     } else if (loginType === 'google') {
+      const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
+        data: {
+          loginType,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      });
+
       if (!window.gapi.auth2) {
         window.gapi.load('auth2', function () {
           window.gapi.auth2
             .init({
-              client_id:
-                '779018207520-qvftar8nin7c9bqo0q4ouk4mtj7gb6lc.apps.googleusercontent.com',
+              client_id: client_id,
               scope: 'email',
             })
             .then(() => {
@@ -49,6 +58,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
                         .disconnect()
                         .then(() => console.log('LOGOUT SUCCESSFUL'))
                     );
+                  console.log('작동?');
                   setIsLogin(false);
                   history.push('/');
                 }
