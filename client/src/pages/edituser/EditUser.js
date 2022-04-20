@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import GetFuel from '../../GetFuel1.png';
+import GetFuel from '../../img/GetFuel1.png';
 import styles from './EditUser.module.css';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import DeleteUserModal from './DeleteUserModal.js';
 import './DeleteUserModal.css';
 import axios from 'axios';
@@ -64,6 +64,10 @@ export default function EditUser({ userInfo, axiosInstance }) {
   const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
   const deleteModalHandler = () => {
     setIsDeleteModal(!isOpenDeleteModal);
+    history.push({
+      pathname: '/deleteuser',
+      state: { userInfo },
+    });
   };
 
   return (
@@ -74,24 +78,24 @@ export default function EditUser({ userInfo, axiosInstance }) {
           <div className={styles.email}>email</div>
           <input
             className={styles.nouserinfo}
-            type='text'
-            placeholder='이메일을 입력하세요'
+            type="text"
+            placeholder="이메일을 입력하세요"
             disabled
           />
 
           <div className={styles.nickname}>nickname</div>
           <input
             className={styles.nouserinfo}
-            type='text'
-            placeholder='사용할 닉네임을입력하세요'
+            type="text"
+            placeholder="사용할 닉네임을입력하세요"
             disabled
           />
 
           <div className={styles.password}>password</div>
           <input
             className={styles.userinfo}
-            type='password'
-            placeholder='비밀번호를 입력하세요'
+            type="password"
+            placeholder="비밀번호를 입력하세요"
             onChange={onChangePassword}
           />
           <div className={styles.formbox}>
@@ -105,8 +109,8 @@ export default function EditUser({ userInfo, axiosInstance }) {
           <div className={styles.confirmpassword}>confirmpassword</div>
           <input
             className={styles.userinfo}
-            type='password'
-            placeholder='비밀번호 확인'
+            type="password"
+            placeholder="비밀번호 확인"
             onChange={onChangePasswordConfirm}
           />
           <div className={styles.formbox}>
@@ -124,23 +128,19 @@ export default function EditUser({ userInfo, axiosInstance }) {
           <button className={styles.button1} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
-          <Link to='/map'>
-            <button className={styles.button2}>Cancel</button>
-          </Link>
-          <span
+          <button
+            className={styles.button2}
             onClick={() => {
-              history.push({
-                pathname: '/deleteuser',
-                state: { userInfo },
-              });
+              history.push('/map');
             }}
           >
-            <button className={styles.button3} onClick={deleteModalHandler}>
-              Delete
-              <br />
-              Account
-            </button>
-          </span>
+            Cancel
+          </button>
+          <button className={styles.button3} onClick={deleteModalHandler}>
+            Delete
+            <br />
+            Account
+          </button>
         </div>
       </div>
       <div>

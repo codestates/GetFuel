@@ -3,10 +3,10 @@ import bcrypt from 'bcrypt';
 import 'express-async-errors';
 import * as usersRepository from '../data/auth.js';
 import { config } from '../configuration/config.js';
+import axios from 'axios';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  console.log(email);
 
   const found = await usersRepository.findByEmail(email);
   if (found) {
@@ -27,6 +27,8 @@ export async function signup(req, res) {
 export async function signin(req, res) {
   const { email, password } = req.body;
   const user = await usersRepository.findByEmail(email);
+  const loginType = user.type;
+
   if (!user) {
     return res
       .status(401)
@@ -46,10 +48,9 @@ export async function signin(req, res) {
   const refreshToken = jwt.sign({ id: user.id }, config.jwt.refresh_secret, {
     expiresIn: config.jwt.refresh_expiresInSec,
   });
-  
 
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
-  res.status(200).json({ accessToken, email, userId: user.id });
+  res.status(200).json({ accessToken, email, userId: user.id, loginType });
 }
 
 export async function refresh(req, res) {
@@ -61,19 +62,24 @@ export async function refresh(req, res) {
 
   try {
     const decoded = jwt.verify(refreshToken, config.jwt.refresh_secret);
+
     const found = await usersRepository.findById(decoded.id);
     if (!found) {
       return res.status(403).json({ message: ' Forbidden ' });
     }
+
     const accessToken = jwt.sign({ id: found.id }, config.jwt.access_secret, {
       expiresIn: config.jwt.access_expiresInSec,
     });
     res.json({
       accessToken,
       userId: found.id,
+      loginType: found.type,
+      kakaoAccessToken: found.kakaoAccessToken,
       message: ' complete access token issuance ',
     });
   } catch (error) {
+    console.log(error);
     if (
       error.name === 'TokenExpiredError' ||
       error.name === 'invalid signature' ||
@@ -94,6 +100,25 @@ export async function signout(req, res) {
     .clearCookie('refreshToken', { path: '/' })
     .status(200)
     .json({ message: 'Logout' });
+}
+
+export async function oauthSignout(req, res) {
+  const kakaoAccessToken = req.body.data.kakaoAccessToken;
+  const loginType = req.body.data.loginType;
+
+  if (!kakaoAccessToken) {
+    return res.status(401).json({ message: 'Not A KakaoUser' });
+  } else {
+    if (loginType === 'kakao') {
+      await axios.post('https://kauth.kakao.com/v1/user/unlink', {
+        headers: {
+          Authorization: `Bearer ${kakaoAccessToken}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+    }
+  }
+  res.clearCookie('refreshToken').status(200).json({ message: 'Logout' });
 }
 
 export async function updateInfo(req, res) {
@@ -120,7 +145,6 @@ export async function deleteAccount(req, res) {
   if (!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
-  res.clearCookie('refreshToken');
 
   const user = await usersRepository.findById(id);
   if (!user) {
@@ -131,5 +155,6 @@ export async function deleteAccount(req, res) {
     return res.sendStatus(403);
   }
   await usersRepository.removeUser(id);
+  res.clearCookie('refreshToken');
   res.sendStatus(204);
 }

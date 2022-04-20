@@ -19,6 +19,7 @@ const SearchBar = ({
   isLogin,
   setIsLogin,
   axiosInstance,
+  loginType,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -44,10 +45,11 @@ const SearchBar = ({
         station.GIS_X_COOR,
         station.GIS_Y_COOR
       );
-      station.GIS_X_COOR = converted[1];
-      station.GIS_Y_COOR = converted[0];
+      station.GIS_X_COOR = Number(parseFloat(converted[1]).toFixed(5));
+      station.GIS_Y_COOR = Number(parseFloat(converted[0]).toFixed(5));
       return station;
     });
+    console.log(coordiConvert);
     setStations([...coordiConvert]);
   };
 
@@ -85,6 +87,7 @@ const SearchBar = ({
         isLogin={isLogin}
         setIsLogin={setIsLogin}
         axiosInstance={axiosInstance}
+        loginType={loginType}
       />
       <header className={styles.header}>
         <div className={styles.div}>

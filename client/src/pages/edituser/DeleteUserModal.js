@@ -34,7 +34,11 @@ function DeleteUserModal() {
     <div className="Delete_ModalContainer">
       <div className="Delete_ModalBackdrop">
         <div className="Delete_ModalView">
-          <img className="logo" src={require('../../GetFuel1.png')} alt="" />
+          <img
+            className="logo"
+            src={require('../../img/GetFuel1.png')}
+            alt=""
+          />
           <div className="Delete_title">정말 탈퇴 하시겠습니까?</div>
           <span>
             <Link to="/login">
