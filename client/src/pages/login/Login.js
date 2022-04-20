@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styles from './Login.module.css';
-import GetFuel from '../../GetFuel_logo1.png';
+import GetFuel from '../../img/GetFuel_logo1.png';
 import Nav from '../../components/nav/Nav';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';

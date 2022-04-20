@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import GetFuel from '../../GetFuel1.png';
+import { useHistory } from 'react-router-dom';
+import GetFuel from '../../img/GetFuel1.png';
 import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
 import Nav from '../../components/nav/Nav';
 
 export default function SignUp() {
+  const history = useHistory();
+  const [isOpenSignUpModal, setIsOpenSignUpModal] = useState(false);
   // 정보확인
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -116,8 +118,6 @@ export default function SignUp() {
     }
   };
 
-  const [isOpenSignUpModal, setIsOpenSignUpModal] = useState(false);
-
   const signUpModalHandler = () => {
     setIsOpenSignUpModal(!isOpenSignUpModal);
   };
@@ -211,13 +211,15 @@ export default function SignUp() {
           </div>
 
           <div className={styles.button_bundle}>
-            <button onClick={handleSignup} className={styles.button}>
+            <button onClick={handleSignup} className={styles.button1}>
               Sign Up
             </button>
-
-            <Link to="/">
-              <button className={styles.button}>Cancel</button>
-            </Link>
+            <button
+              className={styles.button2}
+              onClick={() => history.push('/')}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>

@@ -15,6 +15,7 @@ const MapContainer = ({
   userInfo,
   isLogin,
   setIsLogin,
+  loginType,
 }) => {
   const [searchValue, setSearchValue] = useState(null);
   const [kakaoMap, setKakaoMap] = useState(null);
@@ -319,9 +320,10 @@ const MapContainer = ({
         isLogin={isLogin}
         setIsLogin={setIsLogin}
         axiosInstance={axiosInstance}
+        loginType={loginType}
       />
       <div>
-      {isLoading ? <Loading /> : null}
+        {isLoading ? <Loading /> : null}
         <div id="map" style={{ width: '100%', height: '750px' }}></div>
       </div>
     </div>

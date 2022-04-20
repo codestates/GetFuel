@@ -10,15 +10,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAxiosPrivate from './service/axiosLogin';
 import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
+import GoogleLogin from './pages/oauth/GoogleLogin.js';
+import KakaoLogin from './pages/oauth/KakaoLogin.js';
+
+axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [loginType, setLoginType] = useState(null);
   const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
   console.log(isLogin);
+  console.log(userInfo, loginType);
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
     if (isLogin === false) {
@@ -52,8 +58,21 @@ export default function App({ opinet }) {
   }
 
   function issueAccessToken(data) {
-    setUserInfo({ accessToken: data.accessToken, userId: data.userId });
+    if (data.kakaoAccessToken) {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+        kakaoAccessToken: data.kakaoAccessToken,
+      });
+    } else {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+      });
+    }
+    setLoginType(data.loginType);
   }
+
   return (
     <div>
       <div className={styles.App}>
@@ -71,16 +90,29 @@ export default function App({ opinet }) {
             isLogin={isLogin}
             logoutHandler={logoutHandler}
             setIsLogin={setIsLogin}
+            loginType={loginType}
           />
         </Route>
         <Route path="/review">
-          <Review axiosInstance={axiosInstance} userInfo={userInfo} />
+          <Review
+            axiosInstance={axiosInstance}
+            userInfo={userInfo}
+            setIsLogin={setIsLogin}
+            isLogin={isLogin}
+            loginType={loginType}
+          />
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/edituser">
           <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
         <Route path="/deleteuser" component={DeleteUserModal} />
+        <Route exact path="/googlelogin">
+          <GoogleLogin loginHandler={loginHandler} />
+        </Route>
+        <Route exact path="/kakaologin">
+          <KakaoLogin loginHandler={loginHandler} />
+        </Route>
       </div>
     </div>
   );
