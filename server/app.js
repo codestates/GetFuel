@@ -26,7 +26,6 @@ app.use(
   })
 );
 
-
 app.use(helmet());
 app.use(morgan('tiny'));
 app.use(cookieParser());

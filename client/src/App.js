@@ -5,42 +5,83 @@ import MapContainer from '../src/pages/map/MapContainer.js';
 import Review from './pages/review/Review.js';
 import SignUp from './pages/signup/SignUp.js';
 import EditUser from './pages/edituser/EditUser.js';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import useAxiosPrivate from './service/axiosLogin';
+import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [loginFunctions, setLoginFunctions] = useState({
+    loginHandler,
+    issueAccessToken,
+  });
 
-  const loginHandler = (data) => {
+  const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
+  useEffect(async () => {
+    try {
+      const refresh = await axios.get('http://localhost:8080/auth/refresh', {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (refresh.data.data === null) {
+        setIsLogin(false);
+      } else if (refresh.data.accessToken) {
+        axios.defaults.headers.common['Authorization'] =
+          'Bearer ' + refresh.data.accessToken;
+        loginHandler(refresh.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  function loginHandler(data) {
     setIsLogin(true);
     issueAccessToken(data);
-  };
+  }
 
-  const issueAccessToken = (data) => {
+  function logoutHandler() {
+    setIsLogin(false);
+  }
+
+  function issueAccessToken(data) {
     setUserInfo({ accessToken: data.accessToken, userId: data.userId });
-  };
-
+  }
   return (
-    <div >
-    <div className={styles.App}>
-      <Route exact path='/'>
-        <Main />
-      </Route>
-      <Route path='/login'>
-        <Login loginHandler={loginHandler} />
-      </Route>
-      <Route path='/map'>
-        <MapContainer opinet={opinet} />
-      </Route>
-      <Route path='/review'>
-        <Review />
-      </Route>
-      <Route path='/signup' component={SignUp} />
-      <Route path='/edituser' component={EditUser} />
-    </div>
-    
+    <div>
+      <div className={styles.App}>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route path="/login">
+          <Login loginHandler={loginHandler} />
+        </Route>
+        <Route path="/map">
+          <MapContainer
+            opinet={opinet}
+            axiosInstance={axiosInstance}
+            userInfo={userInfo}
+            isLogin={isLogin}
+            logoutHandler={logoutHandler}
+            setIsLogin={setIsLogin}
+          />
+        </Route>
+        <Route path="/review">
+          <Review
+            axiosInstance={axiosInstance}
+            userInfo={userInfo}
+          />
+        </Route>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/edituser">
+          <EditUser userInfo={userInfo} />
+        </Route>
+        {/* <Route path="/edituser" component={EditUser} /> */}
+        <Route path="/deleteuser" component={DeleteUserModal} />
+      </div>
     </div>
   );
 }

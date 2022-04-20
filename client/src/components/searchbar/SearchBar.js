@@ -15,6 +15,11 @@ const SearchBar = ({
   markers,
   opinet,
   kakaoMap,
+  userInfo,
+  isLogin,
+  setIsLogin,
+  logoutHandler,
+  axiosInstance,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -76,7 +81,13 @@ const SearchBar = ({
 
   return (
     <>
-      <MapNav />
+      <MapNav
+        userInfo={userInfo}
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        logoutHandler={logoutHandler}
+        axiosInstance={axiosInstance}
+      />
       <header className={styles.header}>
         <div className={styles.div}>
           <label className={styles.label}>

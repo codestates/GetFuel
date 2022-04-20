@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+<<<<<<< HEAD
 import GetFuel from '../../GetFuel.png';
 import styles from './EditUser.module.css';
 import axios from 'axios';
@@ -10,6 +11,16 @@ export default function EditUser(userInfo) {
   const [accessToken, setAccessToken] = useState('');
   const [updateErrorMessage, setUpdateErrorMessage] = useState('');
   const [deleteErrorMessage, setDeleteErrorMessage] = useState('');
+=======
+import GetFuel from '../../GetFuel1.png';
+import styles from './EditUser.module.css';
+import axios from 'axios';
+import { useHistory, Link } from 'react-router-dom';
+import DeleteUserModal from './DeleteUserModal.js';
+import './DeleteUserModal.css';
+
+export default function EditUser({ userInfo }) {
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
 
@@ -51,6 +62,7 @@ export default function EditUser(userInfo) {
     },
     [password]
   );
+<<<<<<< HEAD
 
   const handleUpdateUserInfo = () => {
     axios
@@ -65,12 +77,34 @@ export default function EditUser(userInfo) {
         } else {
           return setUpdateErrorMessage('');
         }
+=======
+  const history = useHistory();
+  const handleUpdateUserInfo = () => {
+    const authorization = userInfo.accessToken;
+    const userId = userInfo.userId;
+
+    axios
+      .put(
+        `http://localhost:8080/auth/updateinfo/${userId}`,
+        { password },
+        {
+          headers: {
+            Authorization: `Bearer ${authorization}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        history.push('/login');
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
       })
       .catch((err) => {
         console.log(err, 'Failed to Update UserInfo');
       });
   };
 
+<<<<<<< HEAD
   const handleDeleteUserInfo = () => {
     axios
       .delete(`http://localhost:8080/deleteaccount/${userid}`, {
@@ -88,6 +122,11 @@ export default function EditUser(userInfo) {
       .catch((err) => {
         console.log(err, 'Failed to Delete UserInfo');
       });
+=======
+  const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
+  const deleteModalHandler = () => {
+    setIsDeleteModal(!isOpenDeleteModal);
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
   };
 
   return (
@@ -97,28 +136,48 @@ export default function EditUser(userInfo) {
         <form className={styles.inputform}>
           <div className={styles.email}>email</div>
           <input
+<<<<<<< HEAD
             className={styles.userinfo}
             type='text'
             placeholder='이메일을 입력하세요'
+=======
+            className={styles.nouserinfo}
+            type="text"
+            placeholder="이메일을 입력하세요"
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
             disabled
           />
 
           <div className={styles.nickname}>nickname</div>
           <input
+<<<<<<< HEAD
             className={styles.userinfo}
             type='text'
             placeholder='사용할 닉네임을입력하세요'
+=======
+            className={styles.nouserinfo}
+            type="text"
+            placeholder="사용할 닉네임을입력하세요"
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
             disabled
           />
 
           <div className={styles.password}>password</div>
           <input
             className={styles.userinfo}
+<<<<<<< HEAD
             type='password'
             placeholder='비밀번호를 입력하세요'
             onChange={onChangePassword}
           />
           <div className='formbox'>
+=======
+            type="password"
+            placeholder="비밀번호를 입력하세요"
+            onChange={onChangePassword}
+          />
+          <div className={styles.formbox}>
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
             {password.length > 0 && (
               <span className={`message ${isPassword ? 'success' : 'error'}`}>
                 {passwordErrorMessage}
@@ -126,6 +185,7 @@ export default function EditUser(userInfo) {
             )}
           </div>
 
+<<<<<<< HEAD
           <div className={styles.reenterpassword}>reenterpassword</div>
           <input
             className={styles.userinfo}
@@ -134,6 +194,16 @@ export default function EditUser(userInfo) {
             onChange={onChangePasswordConfirm}
           />
           <div className='formbox'>
+=======
+          <div className={styles.confirmpassword}>confirmpassword</div>
+          <input
+            className={styles.userinfo}
+            type="password"
+            placeholder="비밀번호 확인"
+            onChange={onChangePasswordConfirm}
+          />
+          <div className={styles.formbox}>
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
             {reEnterPassword.length > 0 && (
               <span
                 className={`message ${isConfirmPassword ? 'success' : 'error'}`}
@@ -143,12 +213,16 @@ export default function EditUser(userInfo) {
             )}
           </div>
         </form>
+<<<<<<< HEAD
         <div>{updateErrorMessage}</div>
+=======
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
 
         <div className={styles.button_bundle}>
           <button className={styles.button} onClick={handleUpdateUserInfo}>
             Comfirm
           </button>
+<<<<<<< HEAD
 
           <button className={styles.button}>Cancel</button>
 
@@ -158,6 +232,30 @@ export default function EditUser(userInfo) {
           <div>{deleteErrorMessage}</div>
         </div>
       </div>
+=======
+          <Link to="/map">
+            <button className={styles.button}>Cancel</button>
+          </Link>
+          <span
+            onClick={() => {
+              history.push({
+                pathname: '/deleteuser',
+                state: { userInfo: userInfo },
+              });
+            }}
+          >
+            <button className={styles.button1} onClick={deleteModalHandler}>
+              Delete<br/>Account
+            </button>
+          </span>
+        </div>
+      </div>
+      <div>
+        {isOpenDeleteModal ? (
+          <DeleteUserModal deleteModalHandler={deleteModalHandler} />
+        ) : null}
+      </div>
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
     </div>
   );
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .logo{
     display: flex;
     margin-top: 5%;
@@ -65,4 +66,143 @@
 .reenterpassword{
     margin-right: 100%;
     margin-top: 2%;
+=======
+.logo {
+  display: flex;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1%;
+  background-size: cover;
+  align-items: center;
+  text-align: center;
+  height: 30vh;
+}
+
+.button_bundle {
+  transform: translate(3%, -20%);
+  margin-left: 3%;
+  margin-top: 2%;
+  width: 60%;
+  height: 8vh;
+  padding: 2%;
+  white-space: nowrap;
+  
+  position: relative;
+}
+
+.button {
+  transform: translate(140%, 0%);
+  width: 25%;
+  height: 80%;
+  box-sizing: border-box;
+  background-color: #0b409c;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 12px;
+}
+.button1{
+  transform: translate(137%, -17%);
+  width: 25%;
+  height: 88%;
+  box-sizing: border-box;
+  background-color: #0b409c;
+  color: white;
+  font-size: 23px;
+  font-weight: bold;
+  border-radius: 12px;
+}
+
+.button_bundle button:hover {
+  background-color: #ffffff;
+  color: #0b409c;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.inputform {
+  margin-top: 1%;
+  margin-left: 20%;
+  margin-right: 5%;
+  margin-bottom: 4%;
+  padding: 3%;
+  justify-content: center;
+  align-items: center;
+}
+.email {
+  margin-right: 100%;
+  margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
+}
+.userinfo {
+  margin-top: 1%;
+    display: inline-flex;
+    text-align: left;
+    padding: 1%;
+    width: 80%;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #0b409c;
+    border-bottom: 3px solid #0b409c;
+}
+.nouserinfo{
+  background-color: #d3d3d3;
+  margin-top: 1%;
+    display: inline-flex;
+    text-align: left;
+    padding: 1%;
+    width: 80%;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #0b409c;
+    border-bottom: 3px solid #0b409c;
+}
+.nickname {
+  margin-right: 100%;
+  margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.password {
+  margin-right: 100%;
+  margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.confirmpassword {
+  margin-right: 100%;
+  margin-top: 2%;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.formbox {
+  margin-right: 100%;
+  white-space: nowrap;
+  margin-top: 2%;
+  color: red;
+  animation: warning 0.3s ease;
+  animation-iteration-count: 3;
+}
+
+@keyframes warning {
+  0% {
+    transform: translateX(-8px);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
 }

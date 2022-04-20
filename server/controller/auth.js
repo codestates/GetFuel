@@ -6,8 +6,6 @@ import { config } from '../configuration/config.js';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  console.log(req.body);
-
   const found = await usersRepository.findByEmail(email);
   if (found) {
     return res

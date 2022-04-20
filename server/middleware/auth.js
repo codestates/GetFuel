@@ -9,15 +9,15 @@ export const isAuth = async (req, res, next) => {
   }
 
   const token = authHeader.split(' ')[1]; //access token
-
   jwt.verify(token, config.jwt.access_secret, async (error, decoded) => {
-    if (error.name === 'TokenExpiredError') {
+    if (error?.name === 'TokenExpiredError') {
       return res
         .status(419)
         .json({ code: 419, message: '토큰이 만료되었습니다.' });
     }
 
     if (error) {
+      console.log(error);
       return res
         .status(401)
         .json({ code: 401, message: 'Authentication Error' });

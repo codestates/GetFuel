@@ -52,4 +52,8 @@
     "postcss-loader": "^6.2.1",
     "postcss-nested": "^5.0.6"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 21e6b6a9db70bdfa2dc58e7034aad65a1e0e2677
