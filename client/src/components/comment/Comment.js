@@ -11,7 +11,6 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
   const inputRef = React.useRef();
   const [isOpenComment, setIsOpenComment] = useState(false);
 
-  console.log(post);
   // 댓글 보여주기
   const handleReplySubmit = async (e) => {
     e.preventDefault();
