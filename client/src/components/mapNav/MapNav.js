@@ -13,30 +13,36 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'kakao') {
-      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
-        data: {
-          kakaoAccessToken: userInfo.kakaoAccessToken,
-          loginType,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_AWS_API_URL}/auth/oauth/signout`,
+        {
+          data: {
+            kakaoAccessToken: userInfo.kakaoAccessToken,
+            loginType,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
 
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'google') {
       const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
-        data: {
-          loginType,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_AWS_API_URL}/auth/oauth/signout`,
+        {
+          data: {
+            loginType,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
 
       if (!window.gapi.auth2) {
         window.gapi.load('auth2', function () {

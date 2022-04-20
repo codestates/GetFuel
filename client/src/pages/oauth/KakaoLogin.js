@@ -16,7 +16,7 @@ export default function KakaoLogin({ loginHandler }) {
     if (authorizationCode) {
       axios
         .get(
-          `http://localhost:8080/oauth/kakao/login`,
+          `${process.env.REACT_APP_AWS_API_URL}/oauth/kakao/login`,
           {
             params: { authorizationCode },
           },
