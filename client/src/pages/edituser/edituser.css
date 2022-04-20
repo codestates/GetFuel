@@ -1,0 +1,35 @@
+.formbox .message {
+  font-size: 15px;
+}
+
+.formbox .success {
+  font-size: 15px;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  animation: warning 0.2s ease;
+  animation-iteration-count: 3;
+}
+
+.formbox .error {
+  font-size: 15px;
+  color: red;
+  display: flex;
+  justify-content: center;
+  animation: warning 0.2s ease;
+  animation-iteration-count: 3;
+}
+@keyframes warning {
+  0% {
+    transform: translateX(-8px);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}

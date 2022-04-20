@@ -1,0 +1,34 @@
+.commentForm {
+  display: flex;
+}
+
+.comment {
+  width: 80%;
+  height: 100px;
+  display: flex;
+  margin: 20px;
+  border-width: 1.5px;
+  font-size: 15px;
+  border-color: black;
+  outline: none;
+}
+
+.submit {
+  height: 50px;
+  width: 20%;
+  background-color: greenyellow;
+  margin-left: -10px;
+  margin-top: 20px;
+  margin-right: 20px;
+  border-width: 1.5px;
+}
+
+.line {
+  border: 1px solid black;
+}
+
+.comments {
+  flex: 1 0 80vh;
+  border: 0.5px solid gray;
+  overflow-y: scroll;
+}
