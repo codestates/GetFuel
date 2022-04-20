@@ -11,6 +11,7 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
   const inputRef = React.useRef();
   const [isOpenComment, setIsOpenComment] = useState(false);
 
+  console.log(post);
   // 댓글 보여주기
   const handleReplySubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
     });
     setPosts([...stationComments.data]);
   };
-  
+
   // 게시물 삭제
   const handleDelete = async () => {
     if (window.confirm('게시물을 삭제 하시겠습니까?')) {
@@ -59,7 +60,7 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
     setIsOpenComment(false);
     alert('수정 완료 되었습니다.');
   };
-  
+
   return (
     <div className={styles.review}>
       <div className={styles.content}>
@@ -68,30 +69,43 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
             <div className={styles.username}>{post.author.nickname}</div>
             <div className={styles.createdAt}>{parseDate}</div>
           </div>
-          {userInfo.userId === post.author._id ?
-          <div>
-            <button className={styles.modify} onClick={handleOpenComment}>
-              <FontAwesomeIcon icon={faPencil } /> 
-            </button>
-            <button className={styles.delete} onClick={handleDelete}>
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </div>: <div></div>}
-        </div>
-        {isOpenComment === true ?
-          <div className={styles.modifyContent}> 
-            <input className={styles.modifyInput}
-                      placeholder="수정할 게시글 내용을 입력하세요.."
-                      ref={inputRef}
-            />
-            <button className={styles.cancle} onClick={handleCloseComment}>취소</button>
-            <button className={styles.modifyConfirm} onClick={handleUpdateComment}>수정하기</button>
+          {userInfo.userId === post.author._id ? (
+            <div>
+              <button className={styles.modify} onClick={handleOpenComment}>
+                <FontAwesomeIcon icon={faPencil} />
+              </button>
+              <button className={styles.delete} onClick={handleDelete}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
             </div>
-        : <div className={styles.comment}>{post.text}</div>}
+          ) : (
+            <div></div>
+          )}
+        </div>
+        {isOpenComment === true ? (
+          <div className={styles.modifyContent}>
+            <input
+              className={styles.modifyInput}
+              placeholder="수정할 게시글 내용을 입력하세요.."
+              ref={inputRef}
+            />
+            <button className={styles.cancle} onClick={handleCloseComment}>
+              취소
+            </button>
+            <button
+              className={styles.modifyConfirm}
+              onClick={handleUpdateComment}
+            >
+              수정하기
+            </button>
+          </div>
+        ) : (
+          <div className={styles.comment}>{post.text}</div>
+        )}
         <div className={styles.line}></div>
         {post.comments.map((comment) => (
           <Reply
-            key={comment._id} 
+            key={comment._id}
             comment={comment}
             axiosInstance={axiosInstance}
             clickedInfo={clickedInfo}
@@ -101,11 +115,14 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
           />
         ))}
         <div className={styles.confirm}>
-            <textarea className={styles.replyContent} 
-                        placeholder="답글 달기.."
-                        ref={textareaRef} 
-                        />
-            <button className={styles.replyBtn} onClick={handleReplySubmit}>등록</button>
+          <textarea
+            className={styles.replyContent}
+            placeholder="답글 달기.."
+            ref={textareaRef}
+          />
+          <button className={styles.replyBtn} onClick={handleReplySubmit}>
+            등록
+          </button>
         </div>
       </div>
     </div>

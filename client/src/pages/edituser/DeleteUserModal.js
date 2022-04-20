@@ -15,13 +15,16 @@ function DeleteUserModal() {
     const userId = userInfo.userId;
 
     await axios
-      .delete(`http://localhost:8080/auth/deleteaccount/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${authorization}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      })
+      .delete(
+        `${process.env.REACT_APP_AWS_API_URL}/auth/deleteaccount/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authorization}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         history.push('/');
       })

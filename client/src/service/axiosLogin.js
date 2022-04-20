@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 function useAxiosPrivate(accessToken, loginFunctions) {
   const axiosPrivate = axios.create({
-    baseURL: `http://localhost:8080`,
+    baseURL: `${process.env.REACT_APP_AWS_API_URL}`,
     headers: {
       'Content-Type': 'application/json',
     },

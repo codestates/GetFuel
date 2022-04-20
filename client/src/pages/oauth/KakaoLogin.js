@@ -16,7 +16,7 @@ export default function KakaoLogin({ loginHandler }) {
     if (authorizationCode) {
       axios
         .get(
-          `http://localhost:8080/oauth/kakao/login`,
+          `${process.env.REACT_APP_AWS_API_URL}/oauth/kakao/login`,
           {
             params: { authorizationCode },
           },
@@ -47,8 +47,8 @@ export default function KakaoLogin({ loginHandler }) {
   return (
     <div>
       <Nav />
-      <div className='container'>
-        <img src={kakaologin} className='oauth' />
+      <div className="container">
+        <img src={kakaologin} className="oauth" />
       </div>
       <div>{isLoading ? <Loading /> : null}</div>
     </div>

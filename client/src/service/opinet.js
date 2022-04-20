@@ -3,7 +3,7 @@ import axios from 'axios';
 class Opinet {
   constructor() {
     this.opinet = axios.create({
-      baseURL: `http://localhost:8080/opinet`,
+      baseURL: `${process.env.REACT_APP_AWS_API_URL}/opinet`,
     });
   }
   async aroundStationGasoline(x, y) {
