@@ -18,11 +18,12 @@ axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken �
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [loginType, setLoginType] = useState(null);
   const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
-  console.log(isLogin);
+
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
     if (isLogin === false) {
@@ -33,6 +34,7 @@ export default function App({ opinet }) {
       const refresh = await axios.get(`http://localhost:8080/auth/refresh`, {
         headers: { 'Content-Type': 'application/json' },
       });
+
       if (refresh.data.data === null) {
         setIsLogin(false);
       } else if (refresh.data.accessToken) {
@@ -55,13 +57,19 @@ export default function App({ opinet }) {
   }
 
   function issueAccessToken(data) {
-    setUserInfo({
-      accessToken: data.accessToken,
-      userId: data.userId,
-      loginType: data.loginType,
-      kakaoAccessToken: data.kakaoAccessToken,
-    });
-    window.localStorage.setItem('loginType', data.loginType);
+    if (data.kakaoAccessToken) {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+        kakaoAccessToken: data.kakaoAccessToken,
+      });
+    } else {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+      });
+    }
+    setLoginType(data.loginType);
   }
 
   return (
@@ -70,7 +78,6 @@ export default function App({ opinet }) {
         <Route exact path='/'>
           <Main />
         </Route>
-
         <Route path='/login'>
           <Login loginHandler={loginHandler} />
         </Route>
@@ -82,6 +89,7 @@ export default function App({ opinet }) {
             isLogin={isLogin}
             logoutHandler={logoutHandler}
             setIsLogin={setIsLogin}
+            loginType={loginType}
           />
         </Route>
         <Route path='/review'>
@@ -90,6 +98,7 @@ export default function App({ opinet }) {
             userInfo={userInfo}
             setIsLogin={setIsLogin}
             isLogin={isLogin}
+            loginType={loginType}
           />
         </Route>
         <Route path='/signup' component={SignUp} />

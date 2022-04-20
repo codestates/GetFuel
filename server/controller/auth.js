@@ -4,8 +4,6 @@ import 'express-async-errors';
 import * as usersRepository from '../data/auth.js';
 import { config } from '../configuration/config.js';
 import axios from 'axios';
-import { query } from 'express-validator';
-import { referrerPolicy } from 'helmet';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
@@ -145,7 +143,6 @@ export async function deleteAccount(req, res) {
   if (!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
-  res.clearCookie('refreshToken');
 
   const user = await usersRepository.findById(id);
   if (!user) {
@@ -156,5 +153,6 @@ export async function deleteAccount(req, res) {
     return res.sendStatus(403);
   }
   await usersRepository.removeUser(id);
+  res.clearCookie('refreshToken');
   res.sendStatus(204);
 }

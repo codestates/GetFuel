@@ -10,16 +10,16 @@
   height: 30vh;
 }
 
-.button_bundle{
-    margin-top: 7%;
-    width: 70%;
-    height: 8vh;
-    padding: 2%;
-    white-space: nowrap;
-    position: relative;
+.button_bundle {
+  margin-top: 7%;
+  width: 70%;
+  height: 8vh;
+  padding: 2%;
+  white-space: nowrap;
+  position: relative;
 }
 
-.button {
+.button1 {
   width: 53%;
   height: 50px;
 
@@ -29,6 +29,20 @@
   font-size: 23px;
   font-weight: bold;
   border-radius: 12px;
+  margin-right: 0.5em;
+}
+
+.button2 {
+  width: 53%;
+  height: 50px;
+
+  box-sizing: border-box;
+  background-color: #0b409c;
+  color: white;
+  font-size: 23px;
+  font-weight: bold;
+  border-radius: 12px;
+  margin-left: 0.5em;
 }
 
 .button:hover {
@@ -46,9 +60,8 @@
   padding: 1%;
   justify-content: center;
   align-items: center;
-  
 }
-.confirmform{
+.confirmform {
   white-space: nowrap;
 }
 
@@ -58,19 +71,18 @@
   font-size: 23px;
   font-weight: bold;
 }
-.userinfo{
-    margin-top: 1%;
-    display: inline-flex;
-    text-align: left;
-    padding: 1%;
-    width: 80%;
-    height: 40px;
-    border: none;
-    outline: none;
-    font-size: 22px;
-    color: #0b409c;
-    border-bottom: 3px solid #0b409c;
-    
+.userinfo {
+  margin-top: 1%;
+  display: inline-flex;
+  text-align: left;
+  padding: 1%;
+  width: 80%;
+  height: 40px;
+  border: none;
+  outline: none;
+  font-size: 22px;
+  color: #0b409c;
+  border-bottom: 3px solid #0b409c;
 }
 .nickname {
   margin-right: 100%;
@@ -91,8 +103,6 @@
   margin-top: 2%;
   font-size: 23px;
   font-weight: bold;
-
-  
 }
 
 .formbox {

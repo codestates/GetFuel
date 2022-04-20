@@ -1,33 +1,30 @@
 import React from 'react';
 import styles from './MapNav.module.css';
-import GetFuel from '../../newgetfuel.png';
-import { Link, useHistory } from 'react-router-dom';
+import GetFuel from '../../img/newgetfuel.png';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
+function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
   const history = useHistory();
   const handleLogout = async () => {
-    const loginType = userInfo.loginType;
     if (loginType === 'user') {
       await axiosInstance('/auth/signout');
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'kakao') {
-      await axios
-        .post(`http://localhost:8080/auth/oauth/signout`, {
-          data: {
-            kakaoAccessToken: userInfo.kakaoAccessToken,
-            loginType,
-          },
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        })
-        .then((res) => {
-          setIsLogin(false);
-          history.push('/');
-        });
+      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
+        data: {
+          kakaoAccessToken: userInfo.kakaoAccessToken,
+          loginType,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      });
+
+      setIsLogin(false);
+      history.push('/');
     } else if (loginType === 'google') {
       const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
       await axios.post(`http://localhost:8080/auth/oauth/signout`, {
@@ -58,7 +55,6 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
                         .disconnect()
                         .then(() => console.log('LOGOUT SUCCESSFUL'))
                     );
-                  console.log('작동?');
                   setIsLogin(false);
                   history.push('/');
                 }
@@ -73,7 +69,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
       <div className={styles.nav}>
         <img className={styles.logo} src={GetFuel} />
         <div className={styles.menu}>
-          {isLogin && localStorage.getItem('loginType') === 'user' ? (
+          {isLogin && loginType === 'user' ? (
             <button
               className={styles.btn}
               onClick={() => history.push('/edituser')}
@@ -89,11 +85,21 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo }) {
               Sign Out
             </button>
           ) : (
-            <Link to='signup'>
-              <button className={styles.btn}>Sign up</button>
-            </Link>
+            <>
+              <button
+                className={styles.btn}
+                onClick={() => history.push('/login')}
+              >
+                Sign In
+              </button>
+              <button
+                className={styles.btn}
+                onClick={() => history.push('/signup')}
+              >
+                Sign up
+              </button>
+            </>
           )}
-          {}
         </div>
       </div>
     </>
