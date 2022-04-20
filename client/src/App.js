@@ -23,8 +23,7 @@ export default function App({ opinet }) {
     loginHandler,
     issueAccessToken,
   });
-  console.log(isLogin);
-  console.log(userInfo, loginType);
+  
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
   useEffect(async () => {
     if (isLogin === false) {
