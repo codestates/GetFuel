@@ -5,35 +5,36 @@ import MapContainer from '../src/pages/map/MapContainer.js';
 import Review from './pages/review/Review.js';
 import SignUp from './pages/signup/SignUp.js';
 import EditUser from './pages/edituser/EditUser.js';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAxiosPrivate from './service/axiosLogin';
 import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
+import GoogleLogin from './pages/oauth/GoogleLogin.js';
+import KakaoLogin from './pages/oauth/KakaoLogin.js';
 
 axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [loginType, setLoginType] = useState(null);
   const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
   
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
-
   useEffect(async () => {
     if (isLogin === false) {
       return;
     }
 
     try {
-      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, 
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
       if (refresh.data.data === null) {
         setIsLogin(false);
       } else if (refresh.data.accessToken) {
@@ -56,24 +57,31 @@ export default function App({ opinet }) {
   }
 
   function issueAccessToken(data) {
-    setUserInfo({
-      accessToken: data.accessToken,
-      userId: data.userId,
-      loginType: data.loginType,
-      kakaoAccessToken: data.kakaoAccessToken,
-    });
+    if (data.kakaoAccessToken) {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+        kakaoAccessToken: data.kakaoAccessToken,
+      });
+    } else {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+      });
+    }
+    setLoginType(data.loginType);
   }
 
   return (
     <div>
       <div className={styles.App}>
-        <Route exact path='/'>
-          <Main loginHandler={loginHandler} />
+        <Route exact path="/">
+          <Main />
         </Route>
-        <Route path='/login'>
+        <Route path="/login">
           <Login loginHandler={loginHandler} />
         </Route>
-        <Route path='/map'>
+        <Route path="/map">
           <MapContainer
             opinet={opinet}
             axiosInstance={axiosInstance}
@@ -81,16 +89,29 @@ export default function App({ opinet }) {
             isLogin={isLogin}
             logoutHandler={logoutHandler}
             setIsLogin={setIsLogin}
+            loginType={loginType}
           />
         </Route>
         <Route path="/review">
-          <Review axiosInstance={axiosInstance} userInfo={userInfo} setIsLogin={setIsLogin} />
+          <Review
+            axiosInstance={axiosInstance}
+            userInfo={userInfo}
+            setIsLogin={setIsLogin}
+            isLogin={isLogin}
+            loginType={loginType}
+          />
         </Route>
-        <Route path='/signup' component={SignUp} />
-        <Route path='/edituser'>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/edituser">
           <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
-        <Route path='/deleteuser' component={DeleteUserModal} />
+        <Route path="/deleteuser" component={DeleteUserModal} />
+        <Route exact path="/googlelogin">
+          <GoogleLogin loginHandler={loginHandler} />
+        </Route>
+        <Route exact path="/kakaologin">
+          <KakaoLogin loginHandler={loginHandler} />
+        </Route>
       </div>
     </div>
   );

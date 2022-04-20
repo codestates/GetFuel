@@ -5,38 +5,37 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Reply from '../reply/Reply';
 
-
 function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
   const parseDate = new Date(post.createdAt).toLocaleDateString('ko-kr');
   const textareaRef = React.useRef();
   const inputRef = React.useRef();
   const [isOpenComment, setIsOpenComment] = useState(false);
-  
+
   // 댓글 보여주기
   const handleReplySubmit = async (e) => {
     e.preventDefault();
     const text = textareaRef.current.value;
     textareaRef.current.value = '';
-    
     await axiosInstance.post(`/posts/${post.id}/comment`, {
-        text,
+      text,
     });
     const stationComments = await axiosInstance.get('/posts', {
-        params: {code: `${clickedInfo.UNI_ID}`},
-    })
-    setPosts([...stationComments.data])
-}
-  // 게시물 삭제
-  const handleDelete = async () => {
-    if(window.confirm('게시물을 삭제 하시겠습니까?')){
-    await axiosInstance.delete(`/posts/${post.id}`);
-
-    const stationPosts = await axiosInstance.get('/posts', {
       params: { code: `${clickedInfo.UNI_ID}` },
     });
-    setPosts([...stationPosts.data]);
-    alert('삭제 완료 되었습니다.')
-  }
+    setPosts([...stationComments.data]);
+  };
+  
+  // 게시물 삭제
+  const handleDelete = async () => {
+    if (window.confirm('게시물을 삭제 하시겠습니까?')) {
+      await axiosInstance.delete(`/posts/${post.id}`);
+
+      const stationPosts = await axiosInstance.get('/posts', {
+        params: { code: `${clickedInfo.UNI_ID}` },
+      });
+      setPosts([...stationPosts.data]);
+      alert('삭제 완료 되었습니다.');
+    }
   };
 
   const handleOpenComment = () => {
@@ -44,25 +43,23 @@ function Comment({ post, axiosInstance, clickedInfo, setPosts, userInfo }) {
   };
   const handleCloseComment = () => {
     setIsOpenComment(false);
-  }
-  
+  };
+
   // 게시물 수정
   const handleUpdateComment = async () => {
     const text = inputRef.current.value;
     await axiosInstance.put(`/posts/${post.id}`, {
       text,
     });
-    
+
     const stationPosts = await axiosInstance.get('/posts', {
-      params: { code: `${clickedInfo.UNI_ID}`},
+      params: { code: `${clickedInfo.UNI_ID}` },
     });
     setPosts([...stationPosts.data]);
     setIsOpenComment(false);
-    alert('수정 완료 되었습니다.')
-  }
-    
-
-
+    alert('수정 완료 되었습니다.');
+  };
+  
   return (
     <div className={styles.review}>
       <div className={styles.content}>

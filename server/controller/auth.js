@@ -7,7 +7,6 @@ import axios from 'axios';
 
 export async function signup(req, res) {
   const { email, nickname, password } = req.body;
-  // console.log(email);
 
   const found = await usersRepository.findByEmail(email);
   if (found) {
@@ -28,8 +27,8 @@ export async function signup(req, res) {
 export async function signin(req, res) {
   const { email, password } = req.body;
   const user = await usersRepository.findByEmail(email);
-  // console.log(user);
   const loginType = user.type;
+
   if (!user) {
     return res
       .status(401)
@@ -63,19 +62,24 @@ export async function refresh(req, res) {
 
   try {
     const decoded = jwt.verify(refreshToken, config.jwt.refresh_secret);
+
     const found = await usersRepository.findById(decoded.id);
     if (!found) {
       return res.status(403).json({ message: ' Forbidden ' });
     }
+
     const accessToken = jwt.sign({ id: found.id }, config.jwt.access_secret, {
       expiresIn: config.jwt.access_expiresInSec,
     });
     res.json({
       accessToken,
       userId: found.id,
+      loginType: found.type,
+      kakaoAccessToken: found.kakaoAccessToken,
       message: ' complete access token issuance ',
     });
   } catch (error) {
+    console.log(error);
     if (
       error.name === 'TokenExpiredError' ||
       error.name === 'invalid signature' ||
@@ -141,7 +145,6 @@ export async function deleteAccount(req, res) {
   if (!refreshToken) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
-  res.clearCookie('refreshToken');
 
   const user = await usersRepository.findById(id);
   if (!user) {
@@ -152,5 +155,6 @@ export async function deleteAccount(req, res) {
     return res.sendStatus(403);
   }
   await usersRepository.removeUser(id);
+  res.clearCookie('refreshToken');
   res.sendStatus(204);
 }

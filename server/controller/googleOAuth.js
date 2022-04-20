@@ -58,9 +58,8 @@ export default async function googleOauthHandler(req, res) {
     const userId = findId.id;
     const loginType = findId.type;
 
-    // ! Generate Token
     const googleAccessToken = jwt.sign(
-      { userId },
+      { id: userId },
       process.env.JWT_ACCESS_SECRET,
       {
         expiresIn: process.env.JWT_ACCESS_EXPIRES,
@@ -68,7 +67,7 @@ export default async function googleOauthHandler(req, res) {
     );
 
     const googleRefreshToken = jwt.sign(
-      { userId },
+      { id: userId },
       process.env.JWT_REFRESH_SECRET,
       {
         expiresIn: process.env.JWT_REFRESH_EXPIRES,
@@ -81,8 +80,6 @@ export default async function googleOauthHandler(req, res) {
       sameSite: 'None',
     });
     res.status(200).json({ accessToken: googleAccessToken, userId, loginType });
-
-    res.redirect(process.env.MAPPAGE);
   } catch (err) {
     res.cookie('google_login', 'fail', { maxAge });
     res.redirect(process.env.MAINPAGE);

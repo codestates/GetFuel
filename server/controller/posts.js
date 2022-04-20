@@ -8,7 +8,6 @@ export async function getPosts(req, res) {
     const findByCode = await postsRepository.getByCode(code);
     return res.status(200).json(findByCode);
   }
-  //const allPosts = await postsRepository.getAllPosts();
   return res.status(404).json({ message: '게시물을 찾을 수 없습니다.' });
 }
 
