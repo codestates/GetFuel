@@ -3,7 +3,6 @@ import styles from './MapNav.module.css';
 import GetFuel from '../../img/newgetfuel.png';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-//import Cookies from 'universal-cookie';
 
 function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
   const history = useHistory();
@@ -13,30 +12,36 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'kakao') {
-      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
-        data: {
-          kakaoAccessToken: userInfo.kakaoAccessToken,
-          loginType,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_AWS_API_URL}/auth/oauth/signout`,
+        {
+          data: {
+            kakaoAccessToken: userInfo.kakaoAccessToken,
+            loginType,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
 
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'google') {
       const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
-        data: {
-          loginType,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_AWS_API_URL}/auth/oauth/signout`,
+        {
+          data: {
+            loginType,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
 
       if (!window.gapi.auth2) {
         window.gapi.load('auth2', function () {
@@ -103,6 +108,6 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
       </div>
     </>
   );
-}  
+}
 
 export default MapNav;

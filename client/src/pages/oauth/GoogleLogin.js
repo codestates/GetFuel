@@ -16,7 +16,7 @@ export default function GoogleLogin({ loginHandler }) {
     if (authorizationCode) {
       axios
         .get(
-          `http://localhost:8080/oauth/google/login`,
+          `${process.env.REACT_APP_AWS_API_URL}/oauth/google/login`,
           {
             params: { authorizationCode },
           },

@@ -45,7 +45,6 @@ function Review({ userInfo, axiosInstance, setIsLogin, isLogin, loginType }) {
     await axiosInstance('/auth/signout');
     history.push('/');
   };
-
   return (
     <>
       {userInfo && (
