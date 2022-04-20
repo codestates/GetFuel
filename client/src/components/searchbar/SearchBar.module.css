@@ -28,7 +28,6 @@
   font-size: 1.5rem;
   margin-right: 3px;
 }
-
 .menu_btn {
   border: none;
   outline: none;
@@ -139,10 +138,11 @@
 }
 
 .form {
+  transform: translate(15%, 0%);
   display: inline-block;
-  width: 21vw;
+  width: 16vw;
   align-items: center;
-  min-width: 235px;
+  min-width: 239px;
 }
 
 .input {
@@ -170,3 +170,4 @@
 .button:hover {
   opacity: 0.8;
 }
+

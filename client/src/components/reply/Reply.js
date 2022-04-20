@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import styles from './Reply.module.css'
-=======
 import React, { useEffect, useState } from 'react';
 import styles from './Reply.module.css';
->>>>>>> 7917447832a7cb762552415c33c066406937125d
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
