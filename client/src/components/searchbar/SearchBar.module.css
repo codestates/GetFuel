@@ -28,7 +28,6 @@
   font-size: 1.5rem;
   margin-right: 3px;
 }
-
 .menu_btn {
   border: none;
   outline: none;
@@ -46,7 +45,7 @@
 .section {
   background-color: #0b409c;
   color: #fff;
-  width: 280px;
+  width: 263px;
   margin-left: -16px;
   padding-top: 30px;
   position: absolute;
@@ -55,7 +54,7 @@
   opacity: 0;
   transition: 0.5s linear;
   z-index: 2;
-  height: 400px;
+  height: 202px;
   overflow-y: scroll;
 }
 
@@ -74,8 +73,7 @@
 .clickedSection {
   background-color: #0b409c;
   color: #fff;
-  width: 280px;
-  height: auto;
+  width: 263px;
   margin-left: -16px;
   padding-top: 30px;
   position: absolute;
@@ -84,7 +82,7 @@
   visibility: visible;
   opacity: 1;
   z-index: 2;
-  height: 400px;
+  height: 202px;
   overflow-y: scroll;
 }
 
@@ -101,7 +99,7 @@
 }
 .oil_btn {
   width: 70px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: #fff;
   cursor: pointer;
@@ -136,18 +134,19 @@
 .form_div {
   display: inline-block;
   text-align: center;
-  margin-left: 4em;
   margin-top: 10px;
 }
 
 .form {
+  transform: translate(15%, 0%);
   display: inline-block;
-  width: 450px;
+  width: 16vw;
   align-items: center;
+  min-width: 239px;
 }
 
 .input {
-  width: 90%;
+  width: 80%;
   border: 3px solid #0b409c;
   border-radius: 5px 0 0 5px;
   padding: 5px;

@@ -3,19 +3,20 @@
   display: flex;
   justify-content: space-between;
   background-color: #ffffff;
-  align-items: center;;
+  align-items: center;
 }
 
 .logo {
   width: 120px;
   margin-top: 30px;
   border-radius: 50%;
+  cursor: pointer;
 }
-.menu{
+.menu {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content:center;
+  justify-content: center;
   margin-top: 30px;
 }
 
@@ -24,29 +25,25 @@
   background: transparent;
   font-size: 23px;
   font-weight: bold;
-  font-weight: 700;
   height: 30px;
+  transform: translate(-50%, -8%);
 }
-.signup:hover{
+.signup:hover {
   background-color: #0d3f9c;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
 }
 
-
-
-
-
 .login {
   border: none;
   background: transparent;
   font-size: 23px;
   font-weight: bold;
-  font-weight: 700;
   height: 30px;
+  transform: translate(-33%, -5%);
 }
-.login:hover{
+.login:hover {
   background-color: #0d3f9c;
   color: #fff;
   border-radius: 4px;

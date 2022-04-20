@@ -10,10 +10,11 @@ function DeleteUserModal() {
   const location = useLocation();
   const userInfo = location.state.userInfo;
 
-  const handleDeleteUserInfo = () => {
+  const handleDeleteUserInfo = async () => {
     const authorization = userInfo.accessToken;
     const userId = userInfo.userId;
-    axios
+
+    await axios
       .delete(`http://localhost:8080/auth/deleteaccount/${userId}`, {
         headers: {
           Authorization: `Bearer ${authorization}`,
@@ -22,7 +23,7 @@ function DeleteUserModal() {
         withCredentials: true,
       })
       .then((res) => {
-        history.push('/');
+        window.location.replace('/');
       })
       .catch((err) => {
         console.log(err, 'Failed to Delete UserInfo');
@@ -30,22 +31,26 @@ function DeleteUserModal() {
   };
 
   return (
-    <div className='Delete_ModalContainer'>
-      <div className='Delete_ModalBackdrop'>
-        <div className='Delete_ModalView'>
-          <img className='logo' src={require('../../GetFuel1.png')} alt='' />
-          <div className='Delete_title'>정말 탈퇴 하시겠습니까?</div>
+    <div className="Delete_ModalContainer">
+      <div className="Delete_ModalBackdrop">
+        <div className="Delete_ModalView">
+          <img
+            className="logo"
+            src={require('../../img/GetFuel1.png')}
+            alt=""
+          />
+          <div className="Delete_title">정말 탈퇴 하시겠습니까?</div>
           <span>
-            <Link to='/login'>
+            <Link to="/login">
               <button
-                className='Delete_CloseBubtton yes_btn'
+                className="Delete_CloseBubtton yes_btn"
                 onClick={handleDeleteUserInfo}
               >
                 예
               </button>
             </Link>
-            <Link to='/map'>
-              <button className='Delete_CloseBubtton no_btn'>아니오</button>
+            <Link to="/map">
+              <button className="Delete_CloseBubtton no_btn">아니오</button>
             </Link>
           </span>
         </div>

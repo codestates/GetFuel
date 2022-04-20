@@ -1,21 +1,68 @@
-.reply {
+.replys {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.username {
+  margin-left: 2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.comment {
+  margin-left: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.delete {
+  margin-left: 10px;
+  background-color: white;
+  border: 0;
+}
+
+.modify {
+  background-color: white;
+  border: 0;
+}
+
+.modifyContent {
+  margin: 0.3rem;
   justify-content: space-between;
 }
 
-.replyContent {
+.modifyInput {
   border: 0;
-  width: 85%;
+  width: 100%;
   display: flex;
   margin-left: 1rem;
   outline: 0;
+  margin-top: 1rem;
 }
 
-.replyBtn {
+.modifyConfirm {
   background-color: #0b409c;
   color: white;
   border-width: 1px;
-  margin-bottom: 5px;
+  width: 4rem;
+  height: 1.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 00.3rem;
+  margin-right: -0.3rem;
+}
+
+.cancle {
+  background-color: #0b409c;
+  color: white;
+  border-width: 1px;
+  width: 3rem;
+  height: 1.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 00.3rem;
+  margin-right: 0.3rem;
+  margin-left: 1rem;
+  margin-top: 0.3rem;
 }
 
 .username {

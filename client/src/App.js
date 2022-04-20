@@ -10,19 +10,28 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAxiosPrivate from './service/axiosLogin';
 import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
+import GoogleLogin from './pages/oauth/GoogleLogin.js';
+import KakaoLogin from './pages/oauth/KakaoLogin.js';
+
+axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
 export default function App({ opinet }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [loginFunctions, setLoginFunctions] = useState({
+  const [loginType, setLoginType] = useState(null);
+  const [loginFunctions] = useState({
     loginHandler,
     issueAccessToken,
   });
-
   const axiosInstance = useAxiosPrivate(userInfo?.accessToken, loginFunctions); // custom axios 객체;
+  console.log(isLogin);
   useEffect(async () => {
+    if (isLogin === false) {
+      return;
+    }
+
     try {
-      const refresh = await axios.get('http://localhost:8080/auth/refresh', {
+      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -36,7 +45,7 @@ export default function App({ opinet }) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [isLogin]);
 
   function loginHandler(data) {
     setIsLogin(true);
@@ -48,8 +57,21 @@ export default function App({ opinet }) {
   }
 
   function issueAccessToken(data) {
-    setUserInfo({ accessToken: data.accessToken, userId: data.userId });
+    if (data.kakaoAccessToken) {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+        kakaoAccessToken: data.kakaoAccessToken,
+      });
+    } else {
+      setUserInfo({
+        accessToken: data.accessToken,
+        userId: data.userId,
+      });
+    }
+    setLoginType(data.loginType);
   }
+
   return (
     <div>
       <div className={styles.App}>
@@ -67,20 +89,29 @@ export default function App({ opinet }) {
             isLogin={isLogin}
             logoutHandler={logoutHandler}
             setIsLogin={setIsLogin}
+            loginType={loginType}
           />
         </Route>
         <Route path="/review">
           <Review
             axiosInstance={axiosInstance}
             userInfo={userInfo}
+            setIsLogin={setIsLogin}
+            isLogin={isLogin}
+            loginType={loginType}
           />
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/edituser">
-          <EditUser userInfo={userInfo} />
+          <EditUser userInfo={userInfo} axiosInstance={axiosInstance} />
         </Route>
-        {/* <Route path="/edituser" component={EditUser} /> */}
         <Route path="/deleteuser" component={DeleteUserModal} />
+        <Route exact path="/googlelogin">
+          <GoogleLogin loginHandler={loginHandler} />
+        </Route>
+        <Route exact path="/kakaologin">
+          <KakaoLogin loginHandler={loginHandler} />
+        </Route>
       </div>
     </div>
   );

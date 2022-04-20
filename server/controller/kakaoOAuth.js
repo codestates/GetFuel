@@ -1,70 +1,89 @@
-import axios from 'axios';
-import qs from 'qs';
 import dotenv from 'dotenv';
-import { signJwt } from '../utils/jwt.js';
-import { findAndUpdateUser } from '../data/auth.js';
 dotenv.config();
+import axios from 'axios';
+import User from '../data/auth.js';
+import jwt from 'jsonwebtoken';
+import { findByEmail } from '../data/auth.js';
+import { config } from '../configuration/config.js';
+axios.defaults.withCredentials = true;
 
 export default async function kakaoOauthHandler(req, res) {
-  const url = 'https://kauth.kakao.com/oauth/token';
-  const values = {
-    code: req.query.code,
-    client_id: process.env.KAKAO_CLIENT_ID,
-    client_secret: process.env.KAKAO_CLIENT_SECRET,
-    redirect_uri: process.env.KAKAO_OAUTH_REDIRECTURL,
-    grant_type: 'authorization_code',
-  };
+  const maxAge = 5000;
+  const code = req.query.authorizationCode;
+  const grant_type = 'authorization_code';
 
   try {
-    const header = { 'Content-Type': 'application/x-www-form-urlencoded' };
-    const response = await axios.post(url, qs.stringify(values), header);
-    const access_token = response.data.access_token;
-
-    const getuser = await axios.get('https://kapi.kakao.com/v2/user/me', {
+    const getToken = await axios({
+      method: 'POST',
+      url: `https://kauth.kakao.com/oauth/token?code=${code}&client_id=${config.oauth.kakaoClientId}&client_secret=${config.oauth.kakaoClientSecret}&redirect_uri=${config.oauth.kakaoRedirectURI}&grant_type=${grant_type}`,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        'Content-type': 'application/x-www-form-urlencoded',
       },
     });
-    // console.log(user);
-    const { nickname, profile_image, thumbnail_image } =
-      getuser.data.properties;
-    const { email } = getuser.data.kakao_account;
 
-    const user = await findAndUpdateUser(
-      { email: email },
-      { email: email },
-      { upsert: true }
-    );
-    const accessToken = signJwt(
-      { ...user.toJSON() },
-      { expiresIn: process.env.ACCESSTOKENEXPIRE }
-    );
-    const refreshToken = signJwt(
-      { ...user.toJSON() },
-      { expiresIn: process.env.REFRESHTOKENEXPIRE }
-    );
+    const { access_token } = getToken.data;
 
-    res.cookie('accessToken', accessToken, {
-      maxAge: 900000,
-      httpOnly: true,
-      domain: process.env.DOMAIN,
-      path: '/',
-      sameSite: 'none',
-      secure: false,
+    const data = await axios({
+      method: 'GET',
+      url: 'https://kapi.kakao.com/v2/user/me',
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
     });
 
-    res.cookie('refreshToken', refreshToken, {
-      maxAge: 3.154e10,
-      httpOnly: true,
-      domain: process.env.DOMAIN,
-      path: '/',
-      sameSite: 'none',
-      secure: false,
+    const { email } = data.data.kakao_account;
+    const { nickname } = data.data.properties;
+
+    User.findOne({ email }, async (err, isDB) => {
+      if (err) {
+        return res.status(400).send(err);
+      }
+
+      if (!isDB) {
+        await new User({
+          email,
+          nickname,
+          kakaoAccessToken: access_token,
+          type: 'kakao',
+        }).save();
+      }
     });
 
-    res.redirect(process.env.ORIGIN);
-  } catch (error) {
-    console.error(`Failed to fetch auth tokens`);
-    throw new Error(error.message);
+    const findId = await findByEmail(email);
+    const userId = findId.id;
+    const loginType = findId.type;
+
+    const kakaoAccessToken = jwt.sign(
+      { id: userId },
+      config.jwt.access_secret,
+      {
+        expiresIn: config.jwt.access_expiresInSec,
+      }
+    );
+
+    const kakaoRefreshToken = jwt.sign(
+      { id: userId },
+      config.jwt.refresh_secret,
+      {
+        expiresIn: config.jwt.refresh_expiresInSec,
+      }
+    );
+
+    res.cookie('refreshToken', kakaoRefreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+    });
+    res.status(200).json({
+      accessToken: kakaoAccessToken,
+      userId,
+      loginType,
+      kakaoAccessToken: access_token,
+    });
+  } catch (err) {
+    res.cookie('kakao_login', 'fail', { maxAge });
+    res.redirect(config.oauth.mainPageURL);
+    console.log(err);
   }
 }

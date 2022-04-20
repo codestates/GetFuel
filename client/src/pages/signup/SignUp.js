@@ -1,19 +1,19 @@
 import axios from 'axios';
 import React, { useState, useCallback } from 'react';
-import { Link  } from 'react-router-dom';
-import GetFuel from '../../GetFuel1.png';
+import { useHistory } from 'react-router-dom';
+import GetFuel from '../../img/GetFuel1.png';
 import styles from './SignUp.module.css';
 import SignuUpModal from './SignUpModal.js';
 import Nav from '../../components/nav/Nav';
 
-
 export default function SignUp() {
+  const history = useHistory();
+  const [isOpenSignUpModal, setIsOpenSignUpModal] = useState(false);
   // 정보확인
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-
 
   // 오류 메시지 상태를 저장
   const [nicknameMessage, setNicknameMessage] = useState('');
@@ -94,14 +94,13 @@ export default function SignUp() {
   );
 
   const [errorMessage, setErrorMessage] = useState('');
- 
 
   // Signup버튼 클릭시 post
   const handleSignup = () => {
     if (nickname && email && password) {
       axios
         .post(
-          'http://localhost:8080/auth/signup',
+          `http://localhost:8080/auth/signup`,
           { email, nickname, password },
           {
             headers: { 'Content-Type': 'application/json' },
@@ -119,8 +118,6 @@ export default function SignUp() {
     }
   };
 
-  const [isOpenSignUpModal, setIsOpenSignUpModal] = useState(false);
-
   const signUpModalHandler = () => {
     setIsOpenSignUpModal(!isOpenSignUpModal);
   };
@@ -134,15 +131,15 @@ export default function SignUp() {
       <div>
         <form className={styles.inputform} onSubmit={(e) => e.preventDefault()}>
           <div className={styles.emailform}>
-          <div className={styles.email}>Email</div>
-          <input
-            className={styles.userinfo}
-            id="email"
-            type="email"
-            placeholder="이메일을 입력하세요"
-            onChange={onChangeEmail}
-            autoComplete="on"
-          />
+            <div className={styles.email}>Email</div>
+            <input
+              className={styles.userinfo}
+              id="email"
+              type="email"
+              placeholder="이메일을 입력하세요"
+              onChange={onChangeEmail}
+              autoComplete="on"
+            />
           </div>
           <div className={styles.formbox}>
             {email.length > 0 && (
@@ -152,16 +149,16 @@ export default function SignUp() {
             )}
           </div>
           <div className={styles.nickanmeform}>
-          <div className={styles.nickname}>Nickname</div>
-          <input
-            className={styles.userinfo}
-            id="name"
-            type="text"
-            name="name"
-            placeholder="사용할 닉네임을 입력하세요"
-            autoComplete="on"
-            onChange={onChangeNickname}
-          />
+            <div className={styles.nickname}>Nickname</div>
+            <input
+              className={styles.userinfo}
+              id="name"
+              type="text"
+              name="name"
+              placeholder="사용할 닉네임을 입력하세요"
+              autoComplete="on"
+              onChange={onChangeNickname}
+            />
           </div>
           <div className={styles.formbox}>
             {nickname.length > 0 && (
@@ -170,17 +167,17 @@ export default function SignUp() {
               </span>
             )}
           </div>
-          
+
           <div className={styles.passwordform}>
-          <div className={styles.password}>Password</div>
-          <input
-            className={styles.userinfo}
-            type="password"
-            name="password"
-            placeholder="비밀번호를 입력하세요"
-            onChange={onChangePassword}
-            autoComplete="off"
-          />
+            <div className={styles.password}>Password</div>
+            <input
+              className={styles.userinfo}
+              type="password"
+              name="password"
+              placeholder="비밀번호를 입력하세요"
+              onChange={onChangePassword}
+              autoComplete="off"
+            />
           </div>
           <div className={styles.formbox}>
             {password.length > 0 && (
@@ -189,17 +186,17 @@ export default function SignUp() {
               </span>
             )}
           </div>
-          
+
           <div className={styles.confirmform}>
-          <div className={styles.confirmpassword}>Confirm password</div>
-          <input
-            className={styles.userinfo}
-            type="password"
-            name="passwordConfirm"
-            placeholder="비밀번호 확인"
-            onChange={onChangePasswordConfirm}
-            autoComplete="off"
-          />
+            <div className={styles.confirmpassword}>Confirm password</div>
+            <input
+              className={styles.userinfo}
+              type="password"
+              name="passwordConfirm"
+              placeholder="비밀번호 확인"
+              onChange={onChangePasswordConfirm}
+              autoComplete="off"
+            />
           </div>
           <div className={styles.formbox}>
             {passwordConfirm.length > 0 && (
@@ -214,13 +211,15 @@ export default function SignUp() {
           </div>
 
           <div className={styles.button_bundle}>
-            <button onClick={handleSignup} className={styles.button}>
+            <button onClick={handleSignup} className={styles.button1}>
               Sign Up
             </button>
-
-            <Link to="/">
-              <button className={styles.button}>Cancel</button>
-            </Link>
+            <button
+              className={styles.button2}
+              onClick={() => history.push('/')}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       </div>

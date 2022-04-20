@@ -7,10 +7,9 @@ import 'express-async-errors';
 import authRouter from './router/auth.js';
 import boardRouter from './router/posts.js';
 import opinetRouter from './router/opinet.js';
+import oauthRouter from './router/oauth.js';
 import { connectDB } from './database/database.js';
 import { config } from './configuration/config.js';
-import googleOauthHandler from './controller/googleOAuth.js';
-import kakaoOauthHandler from './controller/kakaoOAuth.js';
 
 const app = express();
 
@@ -19,10 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   cors({
-    origin: true,
+    origin: 'http://localhost:3000',
     credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   })
 );
 
@@ -33,8 +31,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/posts', boardRouter);
 app.use('/opinet', opinetRouter);
-app.get('/api/sessions/oauth/google', googleOauthHandler);
-app.get('/api/sessions/oauth/kakao', kakaoOauthHandler);
+app.use('/oauth', oauthRouter);
 
 app.use((error, req, res, next) => {
   if (error) {
