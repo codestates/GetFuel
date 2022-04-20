@@ -47,8 +47,8 @@ export default function GoogleLogin({ loginHandler }) {
   return (
     <div>
       <Nav />
-      <div className='container'>
-        <img src={googlelogin} className='oauth' />
+      <div className="container">
+        <img src={googlelogin} className="oauth" />
       </div>
       <div>{isLoading ? <Loading /> : null}</div>
     </div>

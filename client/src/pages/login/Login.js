@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styles from './Login.module.css';
-import GetFuel from '../../GetFuel_logo1.png';
+import GetFuel from '../../img/GetFuel_logo1.png';
 import Nav from '../../components/nav/Nav';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +27,7 @@ export default function Login({ loginHandler }) {
     if (email && password) {
       axios
         .post(
-          'http://localhost:8080/auth/signin',
+          `http://localhost:8080/auth/signin`,
           { email, password },
           {
             headers: { 'Content-Type': 'application/json' },
@@ -57,18 +57,18 @@ export default function Login({ loginHandler }) {
         <div className={styles.user}>Email</div>
         <input
           className={styles.userInfo}
-          type='text'
-          placeholder='이메일을 입력하세요'
+          type="text"
+          placeholder="이메일을 입력하세요"
           ref={emailRef}
-          autoComplete='on'
+          autoComplete="on"
         />
         <div className={styles.user}>Password</div>
         <input
           className={styles.userInfo}
-          type='password'
-          placeholder='비밀번호를 입력하세요'
+          type="password"
+          placeholder="비밀번호를 입력하세요"
           ref={passwordRef}
-          autoComplete='off'
+          autoComplete="off"
         />
         <div className={styles.alert}>{errorMessage}</div>
         <div>
