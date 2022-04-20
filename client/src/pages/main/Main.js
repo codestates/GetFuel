@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './Main.module.css';
 import Nav from '../../components/nav/Nav';
-import image2 from '../../cooltext.png';
-import logoabr from '../../logobar.png';
-import google from '../../google.png';
-import kakao from '../../kakao.png';
+import image2 from '../../img/cooltext.png';
+import logoabr from '../../img/logobar.png';
+import google from '../../img/google.png';
+import kakao from '../../img/kakao.png';
 import { useHistory } from 'react-router-dom';
 
 export default function Main() {

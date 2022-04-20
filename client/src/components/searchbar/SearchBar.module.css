@@ -46,7 +46,7 @@
 .section {
   background-color: #0b409c;
   color: #fff;
-  width: 255px;
+  width: 263px;
   margin-left: -16px;
   padding-top: 30px;
   position: absolute;
@@ -74,7 +74,7 @@
 .clickedSection {
   background-color: #0b409c;
   color: #fff;
-  width: 255px;
+  width: 263px;
   margin-left: -16px;
   padding-top: 30px;
   position: absolute;
@@ -140,7 +140,7 @@
 
 .form {
   display: inline-block;
-  width: 40vw;
+  width: 21vw;
   align-items: center;
   min-width: 235px;
 }

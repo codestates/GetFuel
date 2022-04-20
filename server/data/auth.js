@@ -36,8 +36,4 @@ export async function removeUser(id) {
   return User.findByIdAndDelete(id);
 }
 
-export async function findAndUpdateUser(filter, update, options) {
-  return User.findOneAndUpdate(filter, update, options);
-}
-
 export default User;

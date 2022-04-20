@@ -2,23 +2,22 @@ import React, { useEffect, useState } from 'react';
 import styles from './Review.module.css';
 import Comment from '../../components/comment/Comment';
 import { useLocation } from 'react-router';
-import GetFuel from '../../newgetfuel.png';
+import GetFuel from '../../img/newgetfuel.png';
 import { useHistory } from 'react-router-dom';
 
-function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
-
+function Review({ userInfo, axiosInstance, setIsLogin, isLogin, loginType }) {
   const history = useHistory();
   const [posts, setPosts] = useState([]);
   const textareaRef = React.useRef();
   const location = useLocation();
   const clickedInfo = location.state.clickedInfo; // click 된 주유소 정보
-    
+
   useEffect(async () => {
     if (!userInfo) {
-        return;
+      return;
     }
     const stationPosts = await axiosInstance.get('/posts', {
-        params: { code: `${clickedInfo.UNI_ID}` },
+      params: { code: `${clickedInfo.UNI_ID}` },
     });
     setPosts([...stationPosts.data]);
   }, [userInfo]);
@@ -29,10 +28,9 @@ function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
     const text = textareaRef.current.value;
     textareaRef.current.value = '';
 
-    await axiosInstance.post(`/posts/${clickedInfo.UNI_ID}`, {
-    });
+    await axiosInstance.post(`/posts/${clickedInfo.UNI_ID}`, { text });
     const stationPosts = await axiosInstance.get('/posts', {
-        params: { code: `${clickedInfo.UNI_ID}` },
+      params: { code: `${clickedInfo.UNI_ID}` },
     });
     setPosts([...stationPosts.data]);
   };
@@ -55,7 +53,7 @@ function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
           <div className={styles.nav}>
             <img className={styles.logo} src={GetFuel} onClick={handleGoBack} />
             <div className={styles.menu}>
-              {isLogin && localStorage.getItem('loginType') === 'user' ? (
+              {isLogin && loginType === 'user' ? (
                 <button
                   className={styles.btn}
                   onClick={() => history.push('/edituser')}
@@ -79,10 +77,9 @@ function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
             <form onSubmit={handleSubmit}>
               <textarea
                 className={styles.comment}
-                placeholder='게시글 추가..'
+                placeholder="게시글 추가.."
                 ref={textareaRef}
-              >
-              </textarea>
+              ></textarea>
               <button className={styles.submit}>submit</button>
             </form>
           </div>
