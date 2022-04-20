@@ -5,6 +5,7 @@ import qs from 'qs';
 import User from '../data/auth.js';
 import jwt from 'jsonwebtoken';
 import { findByEmail } from '../data/auth.js';
+import { config } from '../configuration/config.js';
 
 export default async function googleOauthHandler(req, res) {
   const maxAge = 5000;
@@ -14,9 +15,9 @@ export default async function googleOauthHandler(req, res) {
     const url = 'https://oauth2.googleapis.com/token';
     const values = {
       code,
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: process.env.GOOGLE_OAUTH_REDIRECTION,
+      client_id: config.oauth.googleClientId,
+      client_secret: config.oauth.googleClientSecret,
+      redirect_uri: config.oauth.googleOauthRedirect,
       grant_type: 'authorization_code',
     };
 
@@ -60,17 +61,17 @@ export default async function googleOauthHandler(req, res) {
 
     const googleAccessToken = jwt.sign(
       { id: userId },
-      process.env.JWT_ACCESS_SECRET,
+      config.jwt.access_secret,
       {
-        expiresIn: process.env.JWT_ACCESS_EXPIRES,
+        expiresIn: config.jwt.access_expiresInSec,
       }
     );
 
     const googleRefreshToken = jwt.sign(
       { id: userId },
-      process.env.JWT_REFRESH_SECRET,
+      config.jwt.refresh_secret,
       {
-        expiresIn: process.env.JWT_REFRESH_EXPIRES,
+        expiresIn: config.jwt.refresh_expiresInSec,
       }
     );
 
@@ -82,7 +83,7 @@ export default async function googleOauthHandler(req, res) {
     res.status(200).json({ accessToken: googleAccessToken, userId, loginType });
   } catch (err) {
     res.cookie('google_login', 'fail', { maxAge });
-    res.redirect(process.env.MAINPAGE);
+    res.redirect(config.oauth.mainPageURL);
     console.log(err);
   }
 }

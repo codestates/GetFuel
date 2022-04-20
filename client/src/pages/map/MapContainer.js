@@ -130,6 +130,7 @@ const MapContainer = ({
       coordiKatec[1]
     );
     console.log(stationsInfo);
+
     const coordiConvert = stationsInfo.map((station) => {
       const converted = coordiKATECtoWGS(
         station.GIS_X_COOR,
@@ -139,7 +140,8 @@ const MapContainer = ({
       station.GIS_Y_COOR = Number(parseFloat(converted[0]).toFixed(5));
       return station;
     });
-    // console.log(coordiConvert);
+
+    console.log(coordiConvert);
     setStations([...coordiConvert]);
   }, [coordiKatec]);
 
