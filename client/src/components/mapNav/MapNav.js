@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 
 function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
   const history = useHistory();
-
   const handleLogout = async () => {
     if (loginType === 'user') {
       await axiosInstance('/auth/signout');
@@ -28,12 +27,22 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
       setIsLogin(false);
       history.push('/');
     } else if (loginType === 'google') {
+      const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+      await axios.post(`http://localhost:8080/auth/oauth/signout`, {
+        data: {
+          loginType,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      });
+
       if (!window.gapi.auth2) {
         window.gapi.load('auth2', function () {
           window.gapi.auth2
             .init({
-              client_id:
-                '779018207520-qvftar8nin7c9bqo0q4ouk4mtj7gb6lc.apps.googleusercontent.com',
+              client_id: client_id,
               scope: 'email',
             })
             .then(() => {
@@ -80,7 +89,7 @@ function MapNav({ isLogin, setIsLogin, axiosInstance, userInfo, loginType }) {
                 className={styles.btn}
                 onClick={() => history.push('/login')}
               >
-                Sign In
+                Login
               </button>
               <button
                 className={styles.btn}

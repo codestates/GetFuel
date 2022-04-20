@@ -28,4 +28,13 @@ export const config = {
   opinet: {
     code: required('OPINET_API_CODE'),
   },
+  oauth: {
+    kakaoClientId: required('KAKAO_CLIENT_ID'),
+    kakaoRedirectURI: required('KAKAO_REDIRECT_URI'),
+    kakaoClientSecret: required('KAKAO_CLIENT_SECRET'),
+    googleClientId: required('GOOGLE_CLIENT_ID'),
+    googleOauthRedirect: required('GOOGLE_OAUTH_REDIRECTION'),
+    googleClientSecret: required('GOOGLE_CLIENT_SECRET'),
+    mainPageURL: required('MAINPAGE'),
+  },
 };
