@@ -6,18 +6,19 @@ import GetFuel from '../../newgetfuel.png';
 import { useHistory } from 'react-router-dom';
 
 function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
+
   const history = useHistory();
   const [posts, setPosts] = useState([]);
   const textareaRef = React.useRef();
   const location = useLocation();
   const clickedInfo = location.state.clickedInfo; // click 된 주유소 정보
-
+    
   useEffect(async () => {
     if (!userInfo) {
-      return;
+        return;
     }
     const stationPosts = await axiosInstance.get('/posts', {
-      params: { code: `${clickedInfo.UNI_ID}` },
+        params: { code: `${clickedInfo.UNI_ID}` },
     });
     setPosts([...stationPosts.data]);
   }, [userInfo]);
@@ -29,10 +30,9 @@ function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
     textareaRef.current.value = '';
 
     await axiosInstance.post(`/posts/${clickedInfo.UNI_ID}`, {
-      text,
     });
     const stationPosts = await axiosInstance.get('/posts', {
-      params: { code: `${clickedInfo.UNI_ID}` },
+        params: { code: `${clickedInfo.UNI_ID}` },
     });
     setPosts([...stationPosts.data]);
   };
@@ -81,7 +81,8 @@ function Review({ userInfo, axiosInstance, setIsLogin, isLogin }) {
                 className={styles.comment}
                 placeholder='게시글 추가..'
                 ref={textareaRef}
-              ></textarea>
+              >
+              </textarea>
               <button className={styles.submit}>submit</button>
             </form>
           </div>

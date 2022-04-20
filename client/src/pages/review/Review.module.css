@@ -68,10 +68,3 @@
   border: 3px double #0d3f9c;
   border-radius: 50%;
 }
-
-.btn:hover {
-  background-color: #0d3f9c;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
