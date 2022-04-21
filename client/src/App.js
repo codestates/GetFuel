@@ -1,17 +1,17 @@
-import styles from './App.module.css';
-import Login from './pages/login/Login.js';
-import Main from './pages/main/Main.js';
-import MapContainer from '../src/pages/map/MapContainer.js';
-import Review from './pages/review/Review.js';
-import SignUp from './pages/signup/SignUp.js';
-import EditUser from './pages/edituser/EditUser.js';
-import { Route } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import useAxiosPrivate from './service/axiosLogin';
-import DeleteUserModal from './pages/edituser/DeleteUserModal.js';
-import GoogleLogin from './pages/oauth/GoogleLogin.js';
-import KakaoLogin from './pages/oauth/KakaoLogin.js';
+import styles from "./App.module.css";
+import Login from "./pages/login/Login.js";
+import Main from "./pages/main/Main.js";
+import MapContainer from "../src/pages/map/MapContainer.js";
+import Review from "./pages/review/Review.js";
+import SignUp from "./pages/signup/SignUp.js";
+import EditUser from "./pages/edituser/EditUser.js";
+import { Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import useAxiosPrivate from "./service/axiosLogin";
+import DeleteUserModal from "./pages/edituser/DeleteUserModal.js";
+import GoogleLogin from "./pages/oauth/GoogleLogin.js";
+import KakaoLogin from "./pages/oauth/KakaoLogin.js";
 
 axios.defaults.withCredentials = true; // true로 설정해줘야 refreshtoken 주고 받을 수 있다
 
@@ -31,15 +31,14 @@ export default function App({ opinet }) {
     }
 
     try {
-      const refresh = await axios.get(`http://localhost:8080/auth/refresh`, {
-        headers: { 'Content-Type': 'application/json' },
+      const refresh = await axios.get(`${process.env.REACT_APP_AWS_API_URL}/auth/refresh`, {
+        headers: { "Content-Type": "application/json" },
       });
 
       if (refresh.data.data === null) {
         setIsLogin(false);
       } else if (refresh.data.accessToken) {
-        axios.defaults.headers.common['Authorization'] =
-          'Bearer ' + refresh.data.accessToken;
+        axios.defaults.headers.common["Authorization"] = "Bearer " + refresh.data.accessToken;
         loginHandler(refresh.data);
       }
     } catch (error) {
